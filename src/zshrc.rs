@@ -42,10 +42,9 @@ fn find_plugins_open(line: &str) -> Option<(usize, bool)> {
     let after_name = &trimmed_start["plugins".len()..];
     let (eq_part, is_append) = if let Some(rest) = after_name.strip_prefix("+=") {
         (rest, true)
-    } else if let Some(rest) = after_name.trim_start().strip_prefix('=') {
-        (rest, false)
     } else {
-        return None;
+        let rest = after_name.trim_start().strip_prefix('=')?;
+        (rest, false)
     };
     let after_eq = eq_part.trim_start();
     let paren = after_eq.strip_prefix('(')?;

@@ -179,7 +179,7 @@ mod tests {
     fn embedded_catalog_parses_and_covers_all_bundled() {
         let c = Catalog::load();
         assert!(c.len() >= 300, "词典条目不足: {}", c.len());
-        for (_, e) in c.map.iter() {
+        for e in c.map.values() {
             assert!(!e.summary.is_empty(), "summary 不能为空");
         }
     }
