@@ -1,0 +1,31 @@
+[package]
+name = "omz-pm"
+version = "0.3.0"
+edition = "2021"
+description = "Oh My Zsh plugin manager TUI with a built-in Chinese dictionary: browse, enable/disable plugins & themes, README reader, backup/restore, load-time benchmarks"
+license = "MIT"
+repository = "https://github.com/ccsert/omz-pm"
+homepage = "https://github.com/ccsert/omz-pm"
+readme = "README.md"
+keywords = ["oh-my-zsh", "zsh", "tui", "terminal", "plugin-manager"]
+categories = ["command-line-utilities", "development-tools"]
+rust-version = "1.81"
+exclude = ["tools/", "docs/", "*.svg"]
+
+[[bin]]
+name = "omz-pm"
+path = "src/main.rs"
+
+[dependencies]
+ratatui = "0.29"
+crossterm = "0.28"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+unicode-width = "0.2"
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[profile.release]
+lto = true
+strip = true

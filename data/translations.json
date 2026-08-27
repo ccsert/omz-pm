@@ -1,0 +1,1899 @@
+{
+ "1password": {
+  "cat": "补全增强",
+  "detail": "为 1Password 的命令行工具 op 提供命令与参数自动补全,需要先安装 1Password CLI。",
+  "summary": "1Password CLI 补全"
+ },
+ "alias-finder": {
+  "cat": "快捷键与效率",
+  "detail": "输入命令时自动在已定义的别名中查找等价别名并提示,帮你发现和记住现成的缩写。可通过 ALIAS_FINDER_PRE_EXCLUDE / ALIAS_FINDER_EXCLUDE 排除不想提示的别名。",
+  "summary": "查找已有别名"
+ },
+ "aliases": {
+  "cat": "快捷键与效率",
+  "detail": "提供 als 命令,按插件分组列出当前会话中所有可用的别名,方便速查。支持 als <插件名> 只看某个插件的别名。",
+  "summary": "列出可用别名"
+ },
+ "ansible": {
+  "cat": "容器与云运维",
+  "detail": "为自动化运维工具 Ansible 提供命令补全,并附带 ansible-playbook 等常用命令的别名(如 ap=ansible-playbook)。",
+  "summary": "Ansible 补全与别名"
+ },
+ "ant": {
+  "cat": "编程语言与框架",
+  "detail": "为 Java 构建工具 Apache Ant 提供命令与构建目标(target)的自动补全。",
+  "summary": "Apache Ant 补全"
+ },
+ "apache2-macports": {
+  "cat": "编程语言与框架",
+  "detail": "为通过 MacPorts 安装的 Apache2 提供 apache2ctl 启动/停止/重启等操作的简短别名。",
+  "summary": "Apache2 启停别名(macports)"
+ },
+ "arcanist": {
+  "cat": "补全增强",
+  "detail": "为 Phabricator 的命令行工具 arcanist(arc 命令)提供参数补全。",
+  "summary": "Arcanist 补全"
+ },
+ "archlinux": {
+  "cat": "包管理与环境",
+  "detail": "为 Arch Linux 的 pacman 包管理器提供大量简写别名,如 pacS=pacman -S 安装、pacSyu=系统更新。",
+  "summary": "Arch Linux 常用别名"
+ },
+ "arduino-cli": {
+  "cat": "补全增强",
+  "detail": "为 Arduino 命令行工具 arduino-cli 提供命令与参数自动补全。",
+  "summary": "Arduino CLI 补全"
+ },
+ "argocd": {
+  "cat": "容器与云运维",
+  "detail": "为 GitOps 持续交付工具 Argo CD 的 argocd 命令提供补全。",
+  "summary": "Argo CD 补全"
+ },
+ "asdf": {
+  "cat": "包管理与环境",
+  "detail": "为多语言版本管理器 asdf 提供命令补全。",
+  "summary": "asdf 版本管理补全"
+ },
+ "autoenv": {
+  "cat": "目录与跳转",
+  "detail": "进入含有 .env / .out 文件的目录时自动执行其中的环境变量设置,离开时自动还原。需单独安装 autoenv。",
+  "summary": "进入目录自动加载环境变量"
+ },
+ "autojump": {
+  "cat": "目录与跳转",
+  "detail": "记录你访问过的目录,之后用 j <关键词> 即可快速跳到最常匹配的目录,无需输入完整路径。需先安装 autojump。",
+  "summary": "目录智能跳转",
+  "usage": "需先安装 autojump。正常使用若干目录后:j <关键词> 直接跳到最匹配的历史目录;jo <关键词> 用文件管理器打开该目录;j --stat 查看权重统计。"
+ },
+ "autopep8": {
+  "cat": "编程语言与框架",
+  "detail": "为 Python 代码格式化工具 autopep8 提供简短别名。",
+  "summary": "autopep8 别名"
+ },
+ "aws": {
+  "cat": "容器与云运维",
+  "detail": "为亚马逊云 aws 命令提供补全,并包含 aws_change_access_key、aws_profiles 等实用辅助函数。",
+  "summary": "AWS CLI 补全",
+  "usage": "提供 aws 补全外,还有两个实用函数:aws_change_access_key 更新访问密钥;aws_profiles 列出 ~/.aws/config 里的全部 profile,ap <名> 切换 AWS_PROFILE。"
+ },
+ "azure": {
+  "cat": "容器与云运维",
+  "detail": "为微软云 Azure CLI(az 命令)提供常用别名与辅助函数。",
+  "summary": "Azure CLI 别名与补全"
+ },
+ "battery": {
+  "cat": "系统管理",
+  "detail": "在 macOS 上显示电池充电状态与剩余电量百分比。",
+  "summary": "macOS 电池状态"
+ },
+ "bazel": {
+  "cat": "编程语言与框架",
+  "detail": "为 Google 的构建工具 Bazel 提供命令与构建目标补全。",
+  "summary": "Bazel 补全"
+ },
+ "bbedit": {
+  "cat": "编辑器与终端",
+  "detail": "为 macOS 文本编辑器 BBEdit 提供 bbd / bburl 等命令,从终端打开文件或 URL。",
+  "summary": "BBEdit 命令行集成"
+ },
+ "bedtools": {
+  "cat": "补全增强",
+  "detail": "为生物信息学工具 bedtools(基因组区间运算)提供子命令补全。",
+  "summary": "bedtools 补全"
+ },
+ "bgnotify": {
+  "cat": "快捷键与效率",
+  "detail": "当一条运行超过指定秒数(默认 6 秒)的命令在后台完成时,弹出系统桌面通知,适合挂着编译/训练时摸鱼。",
+  "summary": "长命令完成桌面通知",
+  "usage": "挂着编译/训练切去别的窗口?命令结束且耗时超过阈值时,系统弹桌面通知(可带声音)。BGNOTIFY_THRESHOLD 设秒数。"
+ },
+ "bower": {
+  "cat": "包管理与环境",
+  "detail": "为前端包管理器 bower 提供补全和 bi=install、bu=update 等别名。",
+  "summary": "Bower 补全与别名"
+ },
+ "branch": {
+  "cat": "版本控制",
+  "detail": "提供 branch 命令,快速打印当前 Git 或 Mercurial 仓库的分支名(Mercurial 还会显示书签),适合放进提示符。",
+  "summary": "快速显示当前分支名"
+ },
+ "brew": {
+  "aliases": {
+   "bi": "brew install 安装",
+   "bl": "brew list 已安装列表",
+   "brm": "brew uninstall 卸载",
+   "bs": "brew search 搜索",
+   "bubu": "brew update && upgrade 全量升级"
+  },
+  "cat": "包管理与环境",
+  "detail": "为 macOS 的包管理器 brew 提供大量别名:brewu=更新、bubi=升级、bi=安装、bz=卸载等。",
+  "summary": "Homebrew 简写别名",
+  "usage": "bi 包名 = 安装;bu = 升级全部;bo = 只升级过期的;brm = 卸载;bl 列已装;bs 搜索;binfo 包名 看详情。全部别名只是 brew 子命令的缩写。"
+ },
+ "bridgetown": {
+  "cat": "编程语言与框架",
+  "detail": "为 Ruby 静态网站生成器 Bridgetown 提供命令补全。",
+  "summary": "Bridgetown 补全"
+ },
+ "buf": {
+  "cat": "补全增强",
+  "detail": "为 Protobuf 工具链 buf 提供命令与参数补全。",
+  "summary": "Buf 补全"
+ },
+ "bun": {
+  "cat": "编程语言与框架",
+  "detail": "为 JavaScript 运行时与包管理器 bun 提供 buni=安装、bunr=运行等简写别名。",
+  "summary": "Bun 运行时别名"
+ },
+ "bundler": {
+  "cat": "编程语言与框架",
+  "detail": "为 Ruby 依赖管理器 bundler 提供别名:bi=bundle install、be=bundle exec、bl=bundle list 等。",
+  "summary": "Ruby Bundler 别名"
+ },
+ "cabal": {
+  "cat": "编程语言与框架",
+  "detail": "为 Haskell 的包/构建工具 cabal 提供命令补全。",
+  "summary": "Cabal 补全"
+ },
+ "cake": {
+  "cat": "编程语言与框架",
+  "detail": "为 CakePHP 的 cake 命令行工具提供补全。",
+  "summary": "CakePHP 补全"
+ },
+ "cakephp3": {
+  "cat": "编程语言与框架",
+  "detail": "为 CakePHP 3 的 bin/cake 命令提供补全。",
+  "summary": "CakePHP 3 补全"
+ },
+ "capistrano": {
+  "cat": "容器与云运维",
+  "detail": "为 Ruby 部署工具 capistrano 提供补全,并附 cudp=部署、capg 等别名。",
+  "summary": "Capistrano 补全与别名"
+ },
+ "cask": {
+  "cat": "包管理与环境",
+  "detail": "为 Homebrew Cask(GUI 应用安装)提供 caski=安装、caskl=列表等别名。",
+  "summary": "Homebrew Cask 别名"
+ },
+ "catimg": {
+  "cat": "趣味与语录",
+  "detail": "用 catimg 命令把图片以彩色字符画形式直接显示在终端里,支持 jpg/png 等常见格式。",
+  "summary": "在终端显示图片"
+ },
+ "cdk": {
+  "cat": "补全增强",
+  "detail": "为 AWS 云开发工具包 cdk 命令提供补全。",
+  "summary": "AWS CDK 补全"
+ },
+ "celery": {
+  "cat": "编程语言与框架",
+  "detail": "为 Python 分布式任务队列 celery 提供命令补全。",
+  "summary": "Celery 补全"
+ },
+ "charm": {
+  "cat": "补全增强",
+  "detail": "为 Charm 生态(tools like glow、charm 等)的命令提供补全。",
+  "summary": "Charm 工具集补全"
+ },
+ "chezmoi": {
+  "cat": "补全增强",
+  "detail": "为 dotfiles 管理工具 chezmoi 提供命令补全。",
+  "summary": "chezmoi 补全"
+ },
+ "chruby": {
+  "cat": "包管理与环境",
+  "detail": "自动加载 chruby 并默认切换到指定的 Ruby 版本(通过 CHRUBY_DEFAULT 配置)。",
+  "summary": "chruby Ruby 版本切换"
+ },
+ "chucknorris": {
+  "cat": "趣味与语录",
+  "detail": "提供 chuck 命令,随机输出一条查克·诺里斯(Chuck Norris)风格的程序员笑话。",
+  "summary": "随机查克·诺里斯笑话"
+ },
+ "cloudfoundry": {
+  "cat": "容器与云运维",
+  "detail": "为 Cloud Foundry 的 cf 命令提供补全。",
+  "summary": "Cloud Foundry CLI 补全"
+ },
+ "codeclimate": {
+  "cat": "测试与质量",
+  "detail": "为代码质量分析工具 codeclimate 的 cc 命令提供补全。",
+  "summary": "Code Climate 补全"
+ },
+ "codex": {
+  "cat": "补全增强",
+  "detail": "为 OpenAI 的编程助手命令行工具 codex 提供补全。",
+  "summary": "OpenAI Codex CLI 补全"
+ },
+ "coffee": {
+  "cat": "编程语言与框架",
+  "detail": "为 CoffeeScript 提供 coffee/cake 命令补全与简短别名。",
+  "summary": "CoffeeScript 补全与别名"
+ },
+ "colemak": {
+  "cat": "快捷键与效率",
+  "detail": "为 Colemak 键盘布局用户把 hjkl 式导航映射到 Colemak 的 neiu 按键上(如向上=n、向下=e)。",
+  "summary": "Colemak 键位方向键映射"
+ },
+ "colored-man-pages": {
+  "cat": "提示符与外观",
+  "detail": "让 man 手册页自动带颜色显示,标题、参数、代码一目了然,大幅提升阅读体验。",
+  "summary": "man 手册页彩色高亮"
+ },
+ "colorize": {
+  "cat": "提示符与外观",
+  "detail": "提供 colorize / cc 命令,按扩展名自动选择语法高亮方式查看源码文件。需安装 highlight 或 pygments。",
+  "summary": "带语法高亮查看文件"
+ },
+ "command-not-found": {
+  "cat": "快捷键与效率",
+  "detail": "输入不存在的命令时,自动在系统包管理器中搜索哪个包提供该命令并提示安装方式。",
+  "summary": "未找到命令时给建议"
+ },
+ "common-aliases": {
+  "cat": "快捷键与效率",
+  "detail": "一组最常用的通用别名:ls 系列(l=ls -la)、目录导航(..、...)、grep 彩色、历史搜索 h=history 等。",
+  "summary": "通用简写别名大全"
+ },
+ "compleat": {
+  "cat": "编程语言与框架",
+  "detail": "集成 compleat 补全框架,用简单的配置文件为各种命令生成补全。需单独安装 compleat。",
+  "summary": "compleat 命令补全集成"
+ },
+ "composer": {
+  "cat": "编程语言与框架",
+  "detail": "为 PHP 依赖管理器 composer 提供补全和 ci=install、cup=self-update 等别名。",
+  "summary": "PHP Composer 别名与补全"
+ },
+ "conda": {
+  "cat": "编程语言与框架",
+  "detail": "为 Python 的 conda 包管理器提供补全,包括环境名补全。",
+  "summary": "Conda 环境补全"
+ },
+ "conda-env": {
+  "cat": "编程语言与框架",
+  "detail": "提供对应每个 conda 环境的同名函数,直接输入环境名即可激活,无需 conda activate。",
+  "summary": "conda 环境快速激活"
+ },
+ "copybuffer": {
+  "cat": "快捷键与效率",
+  "detail": "按 Ctrl+O 把当前正在输入、还没回车的命令整行复制到系统剪贴板,方便拿到别的窗口先跑。",
+  "summary": "Ctrl+O 复制当前输入行",
+  "usage": "命令行里正在输入一条很长的命令、却想先去别的窗口跑?按 Ctrl+O 把当前输入整行复制到系统剪贴板。"
+ },
+ "copyfile": {
+  "cat": "快捷键与效率",
+  "detail": "copyfile <文件> 把整个文件的文本内容复制到系统剪贴板。",
+  "summary": "复制文件内容到剪贴板",
+  "usage": "copyfile 文件.txt 把整个文件内容复制到剪贴板(等价 cat 文件 | clipcopy)。"
+ },
+ "copypath": {
+  "cat": "快捷键与效率",
+  "detail": "copypath 复制当前目录绝对路径,copypath <文件> 复制该文件的绝对路径,直接可粘贴使用。",
+  "summary": "复制路径到剪贴板",
+  "usage": "copypath 把当前目录绝对路径复制进剪贴板;copypath 某文件 复制该文件的绝对路径,粘到聊天里/别的终端直接可用。"
+ },
+ "cp": {
+  "cat": "文件与压缩",
+  "detail": "用 advcpmv 替代 cp/mv,复制大文件时显示进度条;并给 cpv 提供 rsync 进度版别名。",
+  "summary": "cp 进度条与安全复制"
+ },
+ "cpanm": {
+  "cat": "编程语言与框架",
+  "detail": "为 Perl 模块安装工具 cpanm 提供补全,支持模块名补全。",
+  "summary": "cpanminus 补全"
+ },
+ "dash": {
+  "cat": "快捷键与效率",
+  "detail": "为 macOS API 文档浏览器 Dash 提供 dash <关键字> 直接查询文档的别名。",
+  "summary": "Dash 文档查询别名"
+ },
+ "dbt": {
+  "cat": "数据库与数据",
+  "detail": "为数据分析转换工具 dbt 提供命令补全。",
+  "summary": "dbt 补全"
+ },
+ "debian": {
+  "cat": "包管理与环境",
+  "detail": "为 apt/aptdpkg 提供简写别名:agu=apt 更新、ai=安装、ap=清除等。",
+  "summary": "Debian/Ubuntu apt 别名"
+ },
+ "deno": {
+  "cat": "编程语言与框架",
+  "detail": "为 JavaScript/TypeScript 运行时 deno 提供补全和 dr=deno run、dgi=deno install 等别名。",
+  "summary": "Deno 补全与别名"
+ },
+ "dircycle": {
+  "cat": "目录与跳转",
+  "detail": "用 Ctrl+Shift+左/右 在最近访问的目录历史中向前/向后循环跳转。",
+  "summary": "目录历史循环跳转",
+  "usage": "用 Ctrl+Shift+← / Ctrl+Shift+→ 在最近访问过的目录栈里循环切换(等效 pushd/popd 但一键完成)。"
+ },
+ "direnv": {
+  "cat": "目录与跳转",
+  "detail": "为 direnv 提供钩子:进入项目目录自动 export 该项目的环境变量,离开自动卸载。需单独安装 direnv。",
+  "summary": "按目录自动加载环境"
+ },
+ "dirhistory": {
+  "cat": "目录与跳转",
+  "detail": "用 Alt+左/右 在目录历史中后退/前进,用 Alt+上/下 进入上级/子目录。",
+  "summary": "目录历史导航",
+  "usage": "纯键盘目录导航:\n· Alt+← / Alt+→ —— 目录历史后退 / 前进;\n· Alt+↑ —— 进入上级目录;\n· Alt+↓ —— 进入第一个子目录。"
+ },
+ "dirpersist": {
+  "cat": "目录与跳转",
+  "detail": "把访问过的目录历史保存到文件,新开的终端会话也能继续向上翻阅之前的目录栈。",
+  "summary": "跨会话保留目录历史"
+ },
+ "dnf": {
+  "cat": "包管理与环境",
+  "detail": "为 Fedora/RHEL 的 dnf 提供别名:duds=搜索、dnfs=安装、dnfu=升级等。",
+  "summary": "DNF 包管理别名"
+ },
+ "dnote": {
+  "cat": "文档与笔记",
+  "detail": "为程序员笔记工具 dnote 提供简短别名(n=new、t=list 等)。",
+  "summary": "Dnote 命令行笔记别名"
+ },
+ "docker": {
+  "aliases": {
+   "d": "docker 本体",
+   "dex": "进入容器内 shell(exec)",
+   "di": "docker images",
+   "dip": "查看容器 IP",
+   "dps": "列出运行中容器",
+   "dpsa": "列出全部容器(含已停止)",
+   "drmf": "删除全部已停止容器"
+  },
+  "cat": "容器与云运维",
+  "detail": "为 Docker 提供大量别名和补全:dps=容器列表、dpsa=含已停止容器、dbu/dbd=启动停止、drm=删除容器、d=docker 本身等。",
+  "summary": "Docker 别名与补全",
+  "usage": "d = docker;dps 一屏看容器(名称/镜像/端口);dcu=compose up、dcd=down(需配合 docker-compose 插件);dip 容器名 查它的 IP。"
+ },
+ "docker-compose": {
+  "cat": "容器与云运维",
+  "detail": "为 docker compose 提供别名:dc=docker compose、dcu=up、dcd=down、dcl=log、dcr=restart 等。",
+  "summary": "docker compose 别名"
+ },
+ "doctl": {
+  "cat": "容器与云运维",
+  "detail": "为 DigitalOcean 云平台的 doctl 命令提供补全。",
+  "summary": "DigitalOcean CLI 补全"
+ },
+ "dotenv": {
+  "cat": "目录与跳转",
+  "detail": "进入含 .env 文件的目录时自动 source 其中的环境变量,并可用 dotenv 命令手动加载任意 env 文件。",
+  "summary": "自动加载 .env 文件",
+  "usage": "项目目录里放 .env 文件,cd 进来自动加载其中环境变量(export 形式),离开自动卸载;敏感项目可用 source_if_not_found? 关闭提示。"
+ },
+ "dotnet": {
+  "cat": "补全增强",
+  "detail": "为 .NET 的 dotnet 命令提供补全。",
+  "summary": ".NET CLI 补全"
+ },
+ "droplr": {
+  "cat": "网络与远程",
+  "detail": "从命令行用 Droplr 上传文件并生成短链。需安装并登录 Droplr.app,仅 macOS。",
+  "summary": "Droplr 文件分享命令"
+ },
+ "drush": {
+  "cat": "编程语言与框架",
+  "detail": "为 Drupal 的命令行工具 drush 提供补全和 dr 等别名。",
+  "summary": "Drush 补全与别名"
+ },
+ "eecms": {
+  "cat": "编程语言与框架",
+  "detail": "为 ExpressionEngine CMS 的 eecms 控制台命令提供补全和自动查找当前项目的 eecms 文件。",
+  "summary": "ExpressionEngine CLI 补全"
+ },
+ "emacs": {
+  "cat": "编辑器与终端",
+  "detail": "为 emacsclient 提供一系列别名(当前窗口打开、新窗口打开、终端态打开等),配合 Emacs 守护进程秒开文件。",
+  "summary": "Emacs 客户端别名"
+ },
+ "ember-cli": {
+  "cat": "编程语言与框架",
+  "detail": "为 Ember.js 的 ember 命令提供补全和 serve/build/test 等常用子命令的缩写别名。",
+  "summary": "Ember CLI 别名与补全"
+ },
+ "emoji": {
+  "cat": "提示符与外观",
+  "detail": "提供各种 emoji 的变量(如 echo $emoji[smile]),以及 random_emoji 随机输出函数。",
+  "summary": "终端输出 emoji"
+ },
+ "emoji-clock": {
+  "cat": "提示符与外观",
+  "detail": "根据当前时间显示对应的 ⏰ emoji 钟面,可放进终端提示符。",
+  "summary": "显示 emoji 时钟"
+ },
+ "emotty": {
+  "cat": "提示符与外观",
+  "detail": "根据当前 TTY 编号为每个终端会话返回一个专属 emoji,可放进提示符区分不同终端窗口。",
+  "summary": "每个终端专属 emoji"
+ },
+ "encode64": {
+  "cat": "快捷键与效率",
+  "detail": "提供 encode64 / e64 和 decode64 / d64 命令,快速对字符串做 Base64 编码和解码。",
+  "summary": "Base64 编解码",
+  "usage": "echo -n 'hello' | e64 编码;d64 解码(反向);全称 encode64 / decode64。常用于 http Basic 认证等小场景。"
+ },
+ "extract": {
+  "cat": "文件与压缩",
+  "detail": "提供 extract 命令,自动识别压缩格式(tar.gz/zip/rar/7z 等几十种)并正确解压,再也不用记各种参数。",
+  "summary": "万能解压命令",
+  "usage": "一条命令解压一切:extract 压缩包.tar.gz、extract xxx.zip、extract xxx.rar…格式自动识别,参数不用记;加到 PATH 的 unar/7z 等越多支持的格式越全。"
+ },
+ "eza": {
+  "cat": "版本控制",
+  "detail": "把 ls 替换为现代化的 eza(原 exa),带图标、git 状态和彩色输出。需安装 eza。",
+  "summary": "eza 替代 ls"
+ },
+ "fabric": {
+  "cat": "容器与云运维",
+  "detail": "为 Python 部署工具 fabric 的 fab 命令提供补全。",
+  "summary": "Fabric 补全"
+ },
+ "fancy-ctrl-z": {
+  "cat": "快捷键与效率",
+  "detail": "改进 Ctrl+Z 行为:没有后台任务时正常挂起,有后台任务时再按直接切换回最近挂起的程序(vim 临时退出又回来的利器)。",
+  "summary": "Ctrl+Z 一键切回后台任务",
+  "usage": "在 vim/less 等程序里按 Ctrl+Z 挂起;回到 shell 干点别的事后,再按一次 Ctrl+Z 直接回到刚才挂起的程序,不用敲 fg。"
+ },
+ "fasd": {
+  "cat": "目录与跳转",
+  "detail": "记录文件和目录的使用频率(frecency),用 z<关键词> 跳目录、v/f<关键词> 用编辑器打开文件。需安装 fasd。",
+  "summary": "智能快速访问文件/目录",
+  "usage": "需先安装 fasd。它会统计文件/目录的访问频率:z conf 跳目录、f conf 选文件、v conf 用编辑器打开(需先设置 $EDITOR)。"
+ },
+ "fastfile": {
+  "cat": "目录与跳转",
+  "detail": "为常用文件设置短别名,如 ff vimrc 直接用 vim 打开 .vimrc、ffp 打印路径、ffd 查看所在目录。",
+  "summary": "快速打开常用文件"
+ },
+ "fbterm": {
+  "cat": "编辑器与终端",
+  "detail": "在真实终端(/dev/tty*)环境下自动启动帧缓冲终端 fbterm,获得更好的中文与字体支持。",
+  "summary": "TTY 自动启动 fbterm"
+ },
+ "firewalld": {
+  "cat": "系统管理",
+  "detail": "为 firewalld 防火墙的 firewall-cmd 提供简短别名。",
+  "summary": "firewalld 别名"
+ },
+ "flutter": {
+  "cat": "编程语言与框架",
+  "detail": "为 Flutter 提供 fltb=build、fltcln=clean 等别名和命令补全。",
+  "summary": "Flutter 补全与别名"
+ },
+ "fluxcd": {
+  "cat": "容器与云运维",
+  "detail": "为 GitOps 工具 Flux 的 flux 命令提供补全。",
+  "summary": "Flux CD 补全"
+ },
+ "fnm": {
+  "cat": "包管理与环境",
+  "detail": "为快速 Node.js 版本管理器 fnm 加载 shell 集成,自动切换项目 Node 版本。",
+  "summary": "fnm Node 版本管理"
+ },
+ "foot": {
+  "cat": "编辑器与终端",
+  "detail": "为 Wayland 终端模拟器 foot 提供 shell 集成,支持提示符通知等特性。",
+  "summary": "foot 终端集成"
+ },
+ "forklift": {
+  "cat": "编辑器与终端",
+  "detail": "为 macOS 文件传输应用 ForkLift 提供 fltl 打开当前目录等别名。",
+  "summary": "ForkLift 命令行集成"
+ },
+ "fossil": {
+  "cat": "版本控制",
+  "detail": "为版本控制系统 fossil 提供命令补全。",
+  "summary": "Fossil 补全"
+ },
+ "frontend-search": {
+  "cat": "历史与搜索",
+  "detail": "提供前端资源搜索别名:直接从终端搜索 npm、github、stackoverflow、MDN 等(js=jQuery、npms=npm 等)。",
+  "summary": "前端文档快速搜索",
+  "usage": "面向前端的全站搜索别名:npms redux 搜 npm、mdn fetch 搜 MDN、so css grid 搜 StackOverflow 等,浏览器直达结果页。"
+ },
+ "fzf": {
+  "cat": "历史与搜索",
+  "detail": "集成模糊搜索工具 fzf:Ctrl+R 模糊搜索历史、Ctrl+T 模糊插入文件路径、Alt+C 模糊跳转目录。需安装 fzf。",
+  "summary": "fzf 模糊搜索集成",
+  "usage": "装好后立刻可用三个快捷键:\n· Ctrl+R —— 模糊搜索历史命令,输入片段即筛选,回车执行;\n· Ctrl+T —— 模糊选择当前目录下的文件/目录,把路径插入到命令行光标处(如先敲 vim 再按 Ctrl+T);\n· Alt+C —— 模糊选择并 cd 进入某个子目录。\n可用 FZF_DEFAULT_OPTS 调外观,FZF_CTRL_T_OPTS 等变量定制各弹窗。"
+ },
+ "gas": {
+  "cat": "版本控制",
+  "detail": "为 gas(git author switcher)提供补全,方便多身份提交时切换 git 用户信息。",
+  "summary": "git 作者身份切换"
+ },
+ "gatsby": {
+  "cat": "编程语言与框架",
+  "detail": "为 Gatsby 静态站点生成器的 gatsby 命令提供补全。",
+  "summary": "Gatsby CLI 补全"
+ },
+ "gcloud": {
+  "cat": "容器与云运维",
+  "detail": "为谷歌云 gcloud 命令提供补全,并加载 gsutil/bq 等配套工具的补全。",
+  "summary": "Google Cloud SDK 补全"
+ },
+ "geeknote": {
+  "cat": "文档与笔记",
+  "detail": "为印象笔记命令行工具 Geeknote 提供补全和 gn 别名。",
+  "summary": "Geeknote 补全与别名"
+ },
+ "gem": {
+  "cat": "编程语言与框架",
+  "detail": "为 Ruby 的 gem 提供补全和 gemi=安装、geml=列表、gemu=更新等别名。",
+  "summary": "Ruby gem 别名与补全"
+ },
+ "genpass": {
+  "cat": "快捷键与效率",
+  "detail": "提供 genpass 命令生成指定长度的随机密码(大小写字母+数字),可选纯字母数字模式。",
+  "summary": "生成随机密码",
+  "usage": "genpass 32 生成 32 位随机密码(大小写+数字);genpass 32 -n 纯字母数字版(避免特殊字符转义问题),生成即复制到剪贴板。"
+ },
+ "gh": {
+  "cat": "版本控制",
+  "detail": "为 GitHub 官方 CLI gh 提供补全和 gco=pr checkout、gpv=pr view、gv=repo view 等常用别名。",
+  "summary": "GitHub CLI 别名与补全"
+ },
+ "git": {
+  "aliases": {
+   "ga": "加入暂存区(git add)",
+   "gaa": "全部加入暂存(含新文件)",
+   "gb": "列出本地分支",
+   "gba": "列出含远程的所有分支",
+   "gc!": "把上一次提交改为当前暂存(amend)",
+   "gcb": "新建并切换到分支",
+   "gcm": "提交到 main/master",
+   "gco": "切换分支(git checkout)",
+   "gd": "查看差异",
+   "gds": "差异 + 暂存区对比",
+   "gf": "拉取远程更新(fetch)",
+   "gfa": "拉取所有远程并清理已删分支",
+   "glg": "简洁提交历史(带改动统计)",
+   "gm": "合并分支(merge)",
+   "gpl": "拉取并合并(pull)",
+   "gps": "推送到远程(push)",
+   "grb": "变基(rebase)",
+   "gss": "简洁模式的状态(一行一个文件)",
+   "gst": "查看工作区状态",
+   "gup": "变基方式拉取(pull --rebase)"
+  },
+  "cat": "版本控制",
+  "detail": "最常用的插件:提供 100 多个 git 缩写别名(g=git、gst=status、gco=checkout、gb=branch、gpl=pull、gps=push 等)和当前分支等辅助函数。",
+  "summary": "Git 别名与辅助函数大全",
+  "usage": "启用后无需任何配置即可使用缩写别名。日常高频组合:gst 看状态 → ga/gaa 加暂存 → gc! 写提交 → gp 推送;gco - 切回上一分支;gd 看未暂存差异;glg 看简洁提交图。完整别名列表见下方「别名」区。"
+ },
+ "git-auto-fetch": {
+  "cat": "版本控制",
+  "detail": "每次回到终端提示符时自动在后台 fetch 远程仓库,保持远程分支状态最新(默认 60 秒内不重复)。",
+  "summary": "后台自动 git fetch"
+ },
+ "git-commit": {
+  "cat": "版本控制",
+  "detail": "提供 _git_commit 辅助,快速按 Conventional Commits 规范写 commit 类型(feat/fix/chore 等)。",
+  "summary": "Conventional Commits 快捷命令"
+ },
+ "git-escape-magic": {
+  "cat": "版本控制",
+  "detail": "在命令行输入类 URL 文本时自动为点和斜杠加转义,方便直接粘贴文件路径到 git 等命令。",
+  "summary": "自动转义 URL 特殊字符"
+ },
+ "git-extras": {
+  "cat": "版本控制",
+  "detail": "为 git-extras 扩展命令集(git-summary、git-effort 等)提供补全。",
+  "summary": "git-extras 补全"
+ },
+ "git-flow": {
+  "cat": "版本控制",
+  "detail": "为 git-flow 分支模型插件的命令提供补全(原版仓库)。",
+  "summary": "git-flow 补全(HV)"
+ },
+ "git-flow-avh": {
+  "cat": "版本控制",
+  "detail": "为广泛使用的 AVH 版 git-flow 提供补全(推荐用这个,比原版更活跃)。",
+  "summary": "git-flow (AVH) 补全"
+ },
+ "git-hubflow": {
+  "cat": "版本控制",
+  "detail": "为 GitHub Flow 工作流工具 git-hubflow 提供补全。",
+  "summary": "git-hubflow 补全"
+ },
+ "git-lfs": {
+  "cat": "版本控制",
+  "detail": "为大文件存储扩展 git lfs 提供命令补全。",
+  "summary": "Git LFS 补全"
+ },
+ "git-prompt": {
+  "cat": "版本控制",
+  "detail": "在 zsh 提示符中显示当前分支名和详细仓库状态(可显示 ahead/behind、暂存状态等),是 OMZ git 主题的基础。需 bash 的 __git_ps1 风格配置。",
+  "summary": "提示符显示 git 状态"
+ },
+ "gitfast": {
+  "cat": "版本控制",
+  "detail": "用优化过的缓存脚本提供 git 命令补全,在大仓库中比默认补全更快。",
+  "summary": "高性能 git 补全"
+ },
+ "github": {
+  "cat": "版本控制",
+  "detail": "提供 gh 的社区版别名:gho=打开仓库页面、ghpr=查看 PR 等(官方 gh 插件更常用)。",
+  "summary": "gh 命令别名(社区)"
+ },
+ "gitignore": {
+  "cat": "版本控制",
+  "detail": "提供 gi 命令,按模板组合生成 .gitignore:gi macos,python >> .gitignore 即可得两套模板合集,模板来自 gitignore.io 在线服务。",
+  "summary": "gitignore.io 模板生成 .gitignore"
+ },
+ "glassfish": {
+  "cat": "编程语言与框架",
+  "detail": "为 GlassFish 应用服务器的 asadmin 提供启停等别名。",
+  "summary": "GlassFish 别名"
+ },
+ "globalias": {
+  "cat": "快捷键与效率",
+  "detail": "输入全局别名列别名后按空格自动展开成完整命令,既省输入又能看到实际执行的命令。",
+  "summary": "空格展开全局别名"
+ },
+ "gnu-utils": {
+  "cat": "快捷键与效率",
+  "detail": "在 macOS 上把 PATH 前置 Homebrew 的 coreutils 等 GNU 工具,使 ls/cp 等保持 GNU 行为并去掉 g 前缀。",
+  "summary": "优先使用 GNU 工具"
+ },
+ "golang": {
+  "cat": "编程语言与框架",
+  "detail": "为 Go 提供 go 补全和 gol=go list、gom=go mod、got=go test 等别名,含 GOPATH 导航。",
+  "summary": "Go 开发别名与补全"
+ },
+ "gpg-agent": {
+  "cat": "安全与密码",
+  "detail": "在 shell 启动时确保 GPG 代理已启动并输出环境变量(ssh-agent 的 GPG 版)。",
+  "summary": "启动 gpg-agent"
+ },
+ "gradle": {
+  "cat": "编程语言与框架",
+  "detail": "为 Java/Kotlin 构建工具 gradle 提供任务名补全。",
+  "summary": "Gradle 补全"
+ },
+ "grails": {
+  "cat": "编程语言与框架",
+  "detail": "为 Groovy 框架 Grails 提供命令别名和补全。",
+  "summary": "Grails 别名与补全"
+ },
+ "grc": {
+  "cat": "提示符与外观",
+  "detail": "集成 generic colouriser,让 cat/curl/ping/mount 等命令自动带语法高亮配色。需安装 grc。",
+  "summary": "为命令套上彩色输出"
+ },
+ "grunt": {
+  "cat": "补全增强",
+  "detail": "为前端构建工具 grunt 提供任务名自动补全。",
+  "summary": "Grunt 任务补全"
+ },
+ "gulp": {
+  "cat": "补全增强",
+  "detail": "为流式构建工具 gulp 提供任务名自动补全。",
+  "summary": "Gulp 任务补全"
+ },
+ "hanami": {
+  "cat": "编程语言与框架",
+  "detail": "为 Ruby Web 框架 Hanami 的 hanami 命令提供补全。",
+  "summary": "Hanami 补全"
+ },
+ "hasura": {
+  "cat": "编程语言与框架",
+  "detail": "为 GraphQL 引擎 Hasura 的 hasura 命令提供补全。",
+  "summary": "Hasura CLI 补全"
+ },
+ "hcloud": {
+  "cat": "容器与云运维",
+  "detail": "为 Hetzner Cloud 的 hcloud 命令提供补全。",
+  "summary": "Hetzner Cloud 补全"
+ },
+ "helm": {
+  "cat": "容器与云运维",
+  "detail": "为 Kubernetes 包管理器 helm 提补全,含模板补全与常用简写。",
+  "summary": "Helm 补全与别名"
+ },
+ "heroku": {
+  "cat": "容器与云运维",
+  "detail": "为云平台 heroku 命令提供补全。",
+  "summary": "Heroku CLI 补全"
+ },
+ "heroku-alias": {
+  "cat": "容器与云运维",
+  "detail": "为 heroku 提供 hg=logs、hps=进程列表、hdeploys=发布历史等别名。",
+  "summary": "Heroku 别名"
+ },
+ "history": {
+  "cat": "历史与搜索",
+  "detail": "提供 h=history、hs=history | grep 搜索别名,快速查找和重用历史命令。",
+  "summary": "历史命令增强别名"
+ },
+ "history-substring-search": {
+  "cat": "历史与搜索",
+  "detail": "输入命令片段后按上/下箭头,在包含该子串的历史命令间跳转,比纯前缀搜索更灵活。",
+  "summary": "子串搜索历史命令",
+  "usage": "输入任意片段(不必是开头,如 status)后按 ↑/↓,在所有包含该片段的历史命令间上下翻找,回车执行。"
+ },
+ "hitchhiker": {
+  "cat": "趣味与语录",
+  "detail": "提供 hitchhiker 命令,随机输出一条《银河系漫游指南》(道格拉斯·亚当斯)的名言。",
+  "summary": "银河系漫游指南语录"
+ },
+ "hitokoto": {
+  "cat": "趣味与语录",
+  "detail": "每次打开终端或运行 hitokoto 时,从 hitokoto.cn 随机输出一句中文「一言」格言,可配置分类与缓冲。",
+  "summary": "随机一言"
+ },
+ "homestead": {
+  "cat": "编程语言与框架",
+  "detail": "为 Laravel Homestead 开发环境的 homestead 命令提供补全。",
+  "summary": "Laravel Homestead 补全"
+ },
+ "httpie": {
+  "cat": "网络与远程",
+  "detail": "为更人性化的 curl 替代品 http/https 命令提供补全。",
+  "summary": "HTTPie 补全"
+ },
+ "invoke": {
+  "cat": "编程语言与框架",
+  "detail": "为 Python 任务执行器 invoke 的 inv 命令提供补全。",
+  "summary": "PyInvoke 补全"
+ },
+ "ionic": {
+  "cat": "编程语言与框架",
+  "detail": "为 Ionic 混合应用框架的 ionic 命令提供补全。",
+  "summary": "Ionic CLI 补全"
+ },
+ "ipfs": {
+  "cat": "网络与远程",
+  "detail": "为去中心化文件系统 IPFS 的命令提供补全。",
+  "summary": "IPFS 补全"
+ },
+ "isodate": {
+  "cat": "快捷键与效率",
+  "detail": "提供 isodate / isotime 等命令,快速查看当前 Unix 时间戳和 ISO8601 时间,互相换算。",
+  "summary": "Unix 时间戳换算别名",
+  "usage": "isodate 显示当前 ISO8601 时间与 Unix 时间戳;isodate <秒数> 把时间戳翻译成人话。写日志/对表很方便。"
+ },
+ "istioctl": {
+  "cat": "容器与云运维",
+  "detail": "为服务网格 Istio 的 istioctl 命令提供补全。",
+  "summary": "istioctl 补全"
+ },
+ "iterm2": {
+  "cat": "编辑器与终端",
+  "detail": "为 macOS 终端 iTerm2 提供Shell 集成:命令状态提示、最近目录列表 iterm2_print_user_vars 等配套工具。",
+  "summary": "iTerm2 集成"
+ },
+ "jake-node": {
+  "cat": "编程语言与框架",
+  "detail": "为 Node.js 的 Jake 构建工具提供任务名补全。",
+  "summary": "Jake (Node) 任务补全"
+ },
+ "jenv": {
+  "cat": "包管理与环境",
+  "detail": "加载 Java 版本管理器 jenv 的 shell 集成,按目录自动切换 JDK。",
+  "summary": "jenv Java 环境集成"
+ },
+ "jfrog": {
+  "cat": "容器与云运维",
+  "detail": "为制品仓库工具 JFrog CLI(artifactory 等)提供补全。",
+  "summary": "JFrog CLI 补全"
+ },
+ "jhbuild": {
+  "cat": "补全增强",
+  "detail": "为 GNOME 模块构建系统 jhbuild 提供补全。",
+  "summary": "JHBuild 补全"
+ },
+ "jira": {
+  "cat": "版本控制",
+  "detail": "为 jira 命令提供补全,和打开当前分支对应 issue 的 jira 别名。",
+  "summary": "Jira CLI 集成"
+ },
+ "jj": {
+  "cat": "版本控制",
+  "detail": "为新一代分布式版本控制工具 jj(Jujutsu)提供命令补全。",
+  "summary": "Jujutsu 补全"
+ },
+ "jruby": {
+  "cat": "编程语言与框架",
+  "detail": "为 Java 实现的 Ruby(jruby)提供 jgem、jirb 等别名。",
+  "summary": "JRuby 别名"
+ },
+ "jsontools": {
+  "cat": "快捷键与效率",
+  "detail": "提供管道式 JSON 工具:isjson 校验、pp_json 美化、to_json、from_json(配合 yaml)等。",
+  "summary": "JSON 处理小工具",
+  "usage": "管道式 JSON 工具,搭配 curl 食用:curl .../api | pp_json 美化输出;echo '{\"a\":1}' | isjson 校验合法性;另有 urlencode 系列、to_json/from_json 等,接口调试不再裸看一行长 JSON。"
+ },
+ "juju": {
+  "cat": "补全增强",
+  "detail": "为 Canonical 的编排工具 juju 提供命令补全。",
+  "summary": "Juju 补全"
+ },
+ "jump": {
+  "cat": "目录与跳转",
+  "detail": "用 jump <书签名> 直接跳到预先标记的目录,支持 jump mark/add 标记、jump del 删除、jump list 列出。",
+  "summary": "目录书签跳转",
+  "usage": "类似 wd 的书签跳转:jump mark api 把当前目录标记为 api,之后 jump api 跳回;jump list 列出标记,jump del api 删除。"
+ },
+ "k9s": {
+  "cat": "容器与云运维",
+  "detail": "为 Kubernetes 终端 UI 工具 k9s 提供命令补全。",
+  "summary": "k9s 补全"
+ },
+ "kamal": {
+  "cat": "容器与云运维",
+  "detail": "为 Rails 团队的 Kamal 部署工具提供命令补全。",
+  "summary": "Kamal 部署补全"
+ },
+ "kate": {
+  "cat": "编辑器与终端",
+  "detail": "为 KDE 文本编辑器 Kate 提供别名:kt=kate、ktn= Kate -n 定位行号。",
+  "summary": "Kate 编辑器别名"
+ },
+ "keychain": {
+  "cat": "网络与远程",
+  "detail": "通过 keychain 工具管理 ssh-agent/gpg-agent,跨终端会话复用已解密的密钥,避免重复输密码。",
+  "summary": "ssh-agent 密钥链管理",
+  "usage": "需先安装 keychain。比 ssh-agent 更省心:跨会话复用已解密密钥,重启后也只需输一次口令;支持 gpg-agent 一并托管。"
+ },
+ "kind": {
+  "cat": "容器与云运维",
+  "detail": "为本地 Kubernetes 集群工具 kind(Kubernetes in Docker)提供补全。",
+  "summary": "kind 补全"
+ },
+ "kitchen": {
+  "cat": "测试与质量",
+  "detail": "为基础设施测试工具 Test Kitchen 的 kitchen 命令提供补全。",
+  "summary": "Test Kitchen 补全"
+ },
+ "kitty": {
+  "cat": "编辑器与终端",
+  "detail": "为 kitty 终端模拟器提供 shell 集成(自动重载配置、提示符通知等)。",
+  "summary": "kitty 终端集成"
+ },
+ "kn": {
+  "cat": "容器与云运维",
+  "detail": "为 Knative Serverless 的 kn 命令提供补全。",
+  "summary": "Knative 补全"
+ },
+ "knife": {
+  "cat": "容器与云运维",
+  "detail": "为 Chef 配置管理工具的 knife 命令提供补全。",
+  "summary": "Chef knife 补全"
+ },
+ "knife_ssh": {
+  "cat": "容器与云运维",
+  "detail": "把常用的 knife ssh 查询节点并登录的操作包装成简单命令,快速 SSH 到 Chef 管理的节点。",
+  "summary": "knife ssh 快捷包装"
+ },
+ "kompose": {
+  "cat": "容器与云运维",
+  "detail": "为 Docker Compose 转 Kubernetes 工具 kompose 提供补全。",
+  "summary": "Kompose 补全"
+ },
+ "kops": {
+  "cat": "容器与云运维",
+  "detail": "为 Kubernetes 集群运维工具 kops 提供补全。",
+  "summary": "kops 补全"
+ },
+ "kube-ps1": {
+  "cat": "容器与云运维",
+  "detail": "在提示符中显示当前 kubectl context 和 namespace,多集群切换时防止误操作。",
+  "summary": "提示符显示 k8s 上下文"
+ },
+ "kubectl": {
+  "aliases": {
+   "k": "kubectl 本体",
+   "kdel": "删除资源",
+   "kdp": "描述某个 Pod 详情",
+   "kgd": "列出 Deployment",
+   "kgp": "列出 Pod",
+   "kgs": "列出 Service",
+   "kl": "查看 Pod 日志"
+  },
+  "cat": "容器与云运维",
+  "detail": "为 Kubernetes 的 kubectl 提供补全和 k=kubectl、kg=kubectl get、kd=kubectl describe 等大量别名。",
+  "summary": "kubectl 补全与别名",
+  "usage": "k 等于 kubectl;k get 别名 kg 系列;kgp=查 pods、kgs=查 services、kdp=描述 pod、kdel=删除;上下文/命名空间切换建议搭配 kubectx 插件。"
+ },
+ "kubectx": {
+  "cat": "容器与云运维",
+  "detail": "为切换 k8s 集群上下文的 kubectx 和切换命名空间的 kubens 提供补全。",
+  "summary": "kubectx/kubens 补全"
+ },
+ "lando": {
+  "cat": "补全增强",
+  "detail": "为本地开发环境工具 Lando 的 lando 命令提供补全。",
+  "summary": "Lando 补全"
+ },
+ "laravel": {
+  "cat": "编程语言与框架",
+  "detail": "为 Laravel 的 artisan 提供补全和 pa=artisan、patis=serve、pat=测试等别名。",
+  "summary": "Laravel Artisan 别名与补全"
+ },
+ "laravel4": {
+  "cat": "编程语言与框架",
+  "detail": "为 Laravel 4 的 artisan 提供别名与补全(老项目用)。",
+  "summary": "Laravel 4 别名"
+ },
+ "laravel5": {
+  "cat": "编程语言与框架",
+  "detail": "为 Laravel 5+ 的 artisan 提供补全和 pa=php artisan、patis=serve 等别名。",
+  "summary": "Laravel 5 别名与补全"
+ },
+ "last-working-dir": {
+  "cat": "目录与跳转",
+  "detail": "新开终端时自动恢复上次退出时所在的目录,配合 chpwd 钩子保存。",
+  "summary": "记住上次所在目录",
+  "usage": "零配置:重开终端时自动回到上次关闭时的目录,不用每次 cd 半天。"
+ },
+ "lein": {
+  "cat": "编程语言与框架",
+  "detail": "为 Clojure 构建工具 lein 提供命令补全。",
+  "summary": "Leiningen 补全"
+ },
+ "lighthouse": {
+  "cat": "补全增强",
+  "detail": "为 Google Lighthouse 的 lhci / lighthouse 命令提供补全。",
+  "summary": "Lighthouse CLI 补全"
+ },
+ "localstack": {
+  "cat": "容器与云运维",
+  "detail": "为本地 AWS 云服务模拟器 LocalStack 的 awslocal 命令提供补全。",
+  "summary": "LocalStack 补全"
+ },
+ "lol": {
+  "cat": "趣味与语录",
+  "detail": "把常用命令换成「猫语」:lolcat 式的彩色输出和 catspeak 别名,纯属好玩。",
+  "summary": "猫语卖萌别名"
+ },
+ "lpass": {
+  "cat": "安全与密码",
+  "detail": "为密码管理器 LastPass 的 lpass 命令提供补全。",
+  "summary": "LastPass CLI 补全"
+ },
+ "lxd": {
+  "cat": "容器与云运维",
+  "detail": "为 Linux 容器管理器 LXD 的 lxc 命令提供别名。",
+  "summary": "LXD 容器别名"
+ },
+ "macos": {
+  "aliases": {
+   "cdf": "cd 到 Finder 当前目录",
+   "hidefiles": "Finder 隐藏隐藏文件",
+   "preview": "用「预览」打开文件",
+   "showfiles": "Finder 显示隐藏文件",
+   "spot": "用 Spotlight 搜索文件"
+  },
+  "cat": "系统管理",
+  "detail": "提供 macOS 常用操作别名:showfiles/hidefiles 显示隐藏文件、preview 用预览打开、btrestart 蓝牙重启、cdf 跳到 Finder 当前目录等。",
+  "summary": "macOS 系统工具别名",
+  "usage": "常用别名:showfiles / hidefiles 开关 Finder 隐藏文件;preview 文件 用「预览」打开;cdf 跳到 Finder 当前正打开的目录;music 系列控制音乐播放。"
+ },
+ "macports": {
+  "cat": "包管理与环境",
+  "detail": "为 MacPorts 包管理器提供简写别名:porti=安装、portsu=自更新、porto=过期包列表等。",
+  "summary": "MacPorts 别名"
+ },
+ "magic-enter": {
+  "cat": "快捷键与效率",
+  "detail": "在空行按回车时自动执行常用命令:git 仓库里显示 git status、目录里 ls、还可自定义 MAGIC_ENTER_OTHER_COMMAND。",
+  "summary": "回车键智能增强",
+  "usage": "空行按回车不再空转:git 仓库里自动显示 git status,普通目录自动 ls;可用 MAGIC_ENTER_GIT_COMMAND / MAGIC_ENTER_OTHER_COMMAND 自定义。"
+ },
+ "man": {
+  "cat": "历史与搜索",
+  "detail": "提供一个快速按关键词搜索并打开 man 手册页的包装函数。",
+  "summary": "man 手册搜索增强"
+ },
+ "marked2": {
+  "cat": "编辑器与终端",
+  "detail": "为 macOS Markdown 预览应用 Marked 2 提供命令,从终端打开 Markdown 预览。",
+  "summary": "Marked 2 集成"
+ },
+ "marktext": {
+  "cat": "编辑器与终端",
+  "detail": "为开源 Markdown 编辑器 MarkText 提供命令,从终端打开 Markdown 文件预览。",
+  "summary": "MarkText 集成"
+ },
+ "mercurial": {
+  "cat": "版本控制",
+  "detail": "为分布式版本控制 Mercurial 提供别名(hgst=status、hgo=outgoing 等)和补全。",
+  "summary": "hg(Mercurial)别名与补全"
+ },
+ "meteor": {
+  "cat": "编程语言与框架",
+  "detail": "为 Meteor 全栈框架的 meteor 命令提供补全。",
+  "summary": "Meteor 补全"
+ },
+ "microk8s": {
+  "cat": "容器与云运维",
+  "detail": "为轻量级 Kubernetes 发行版 MicroK8s 的 microk8s 命令提供补全。",
+  "summary": "MicroK8s 补全"
+ },
+ "minikube": {
+  "cat": "容器与云运维",
+  "detail": "为本地 Kubernetes 工具 minikube 提供补全和 mk=minikube、mkdash=dashboard 等别名。",
+  "summary": "Minikube 补全与别名"
+ },
+ "mise": {
+  "cat": "包管理与环境",
+  "detail": "为多语言版本/任务管理器 mise(原 rtx)加载 shell 集成,按项目自动切换工具版本。",
+  "summary": "mise 版本管理集成"
+ },
+ "mix": {
+  "cat": "编程语言与框架",
+  "detail": "为 Elixir 的构建工具 mix 提供命令补全。",
+  "summary": "Elixir mix 补全"
+ },
+ "mix-fast": {
+  "cat": "编程语言与框架",
+  "detail": "mix 补全的快速版本,缓存可用任务列表,大项目中补全更流畅。",
+  "summary": "mix 快速补全"
+ },
+ "molecule": {
+  "cat": "测试与质量",
+  "detail": "为 Ansible 角色测试框架 Molecule 提供补全。",
+  "summary": "Molecule 补全"
+ },
+ "mongo-atlas": {
+  "cat": "数据库与数据",
+  "detail": "为 MongoDB Atlas 云服务的 atlas 命令提供补全。",
+  "summary": "MongoDB Atlas CLI 补全"
+ },
+ "mongocli": {
+  "cat": "数据库与数据",
+  "detail": "为 MongoDB 云 CLI mongocli 提供补全。",
+  "summary": "mongocli 补全"
+ },
+ "mosh": {
+  "cat": "网络与远程",
+  "detail": "为稳健的移动 SSH 替代品 mosh 提供别名。",
+  "summary": "mosh 别名"
+ },
+ "multipass": {
+  "cat": "容器与云运维",
+  "detail": "为 Ubuntu 官方本地虚拟机工具 Multipass 的 multipass 命令提供补全。",
+  "summary": "Multipass 补全"
+ },
+ "mvn": {
+  "cat": "编程语言与框架",
+  "detail": "为 Java 构建工具 Maven 提供补全和 mvncv=编译、mvntv=测试等别名。",
+  "summary": "Maven 补全与别名"
+ },
+ "mysql-macports": {
+  "cat": "数据库与数据",
+  "detail": "为 MacPorts 安装的 MySQL 提供启停等管理别名。",
+  "summary": "MySQL(macports)别名"
+ },
+ "n98-magerun": {
+  "cat": "安全与密码",
+  "detail": "为 Magento 电商系统的命令行工具 n98-magerun(phar)提供命令与模块补全。",
+  "summary": "Magento CLI 补全"
+ },
+ "nanoc": {
+  "cat": "编程语言与框架",
+  "detail": "为 Ruby 静态网站生成器 nanoc 提供命令补全。",
+  "summary": "Nanoc 补全"
+ },
+ "nats": {
+  "cat": "补全增强",
+  "detail": "为云原生消息队列 NATS 的命令行工具提供补全。",
+  "summary": "NATS CLI 补全"
+ },
+ "nestjs": {
+  "cat": "编程语言与框架",
+  "detail": "为 Node 后端框架 NestJS 的 nest 命令提供补全。",
+  "summary": "NestJS CLI 补全"
+ },
+ "ng": {
+  "cat": "编程语言与框架",
+  "detail": "为 Angular 的 ng 命令提供补全和 ngser=serve、ngb=build 等简写别名。",
+  "summary": "Angular CLI 补全与别名"
+ },
+ "ngrok": {
+  "cat": "网络与远程",
+  "detail": "为内网穿透工具 ngrok 提供命令补全。",
+  "summary": "ngrok 补全"
+ },
+ "nmap": {
+  "cat": "网络与远程",
+  "detail": "为端口扫描工具 nmap 提供常用扫描场景的快捷别名(快速全端口、OS 探测等)。",
+  "summary": "nmap 扫描辅助"
+ },
+ "node": {
+  "cat": "编程语言与框架",
+  "detail": "为 node/npm/npx/yarn 等命令提供补全,并采用懒加载:首次按 Tab 才真正生成补全,显著加快 shell 启动。",
+  "summary": "Node 工具链补全(懒加载)"
+ },
+ "nodenv": {
+  "cat": "编程语言与框架",
+  "detail": "加载 Node 版本管理器 nodenv 的 shell 集成(自动填充 PATH 与补全)。",
+  "summary": "nodenv 集成"
+ },
+ "nomad": {
+  "cat": "容器与云运维",
+  "detail": "为 HashiCoder 工作负载编排工具 Nomad 提供命令补全。",
+  "summary": "Nomad 补全"
+ },
+ "npm": {
+  "cat": "编程语言与框架",
+  "detail": "为 npm 包管理器补充若干简单别名(查看全局包等)。",
+  "summary": "npm 补充别名"
+ },
+ "nvm": {
+  "cat": "包管理与环境",
+  "detail": "加载 Node 版本管理器 nvm,默认立即加载,可设置 NVM_LAZY_LOAD=true 改为首次用到才加载;支持 NVM_AUTOLOAD 切目录自动切版本。",
+  "summary": "nvm 加载与优化"
+ },
+ "oc": {
+  "cat": "容器与云运维",
+  "detail": "为红帽 OpenShift 的 oc 命令提供补全。",
+  "summary": "OpenShift CLI 补全"
+ },
+ "octozen": {
+  "cat": "趣味与语录",
+  "detail": "提供 octozen 命令,随机输出一条 GitHub 风格的禅意语录。",
+  "summary": "GitHub 禅语"
+ },
+ "opentofu": {
+  "cat": "容器与云运维",
+  "detail": "为 Terraform 的开源分支 OpenTofu(tofu 命令)提供补全。",
+  "summary": "OpenTofu 补全"
+ },
+ "operator-sdk": {
+  "cat": "容器与云运维",
+  "detail": "为编写 Kubernetes Operator 的 operator-sdk 工具提供补全。",
+  "summary": "Operator SDK 补全"
+ },
+ "otp": {
+  "cat": "安全与密码",
+  "detail": "基于 oathtool 生成 TOTP 一次性验证码,并可一键复制,方便双因素登录。",
+  "summary": "一次性验证码助手"
+ },
+ "pass": {
+  "cat": "安全与密码",
+  "detail": "为经典 GPG 密码管理器 pass 提供完整补全,包括密码条目名补全。",
+  "summary": "pass 补全"
+ },
+ "pass-cli": {
+  "cat": "安全与密码",
+  "detail": "为团队密码管理工具 Passbolt 的 pass-cli 提供补全。",
+  "summary": "Passbolt 补全"
+ },
+ "paver": {
+  "cat": "编程语言与框架",
+  "detail": "为 Python 构建工具 Paver 的 paver 命令提供补全。",
+  "summary": "Paver 补全"
+ },
+ "pep8": {
+  "cat": "编程语言与框架",
+  "detail": "为 Python PEP8 风格检查工具 pep8 提供简短别名。",
+  "summary": "pep8 检查别名"
+ },
+ "per-directory-history": {
+  "cat": "历史与搜索",
+  "detail": "为每个目录维护单独的命令历史,Ctrl+Z 切换全局/目录历史模式(切换后箭头键翻阅的历史随之改变),不同项目互不干扰。",
+  "summary": "每个目录独立的命令历史",
+  "usage": "默认仍用全局历史;按 Ctrl+G 切到「当前目录历史」模式(提示符会变色),此时 ↑↓ 只翻这个目录里执行过的命令。适合在同一个目录里重复某类操作。"
+ },
+ "percol": {
+  "cat": "历史与搜索",
+  "detail": "把 Ctrl+R 接管为交互式模糊选择工具 percol 来筛选历史命令。需安装 percol。",
+  "summary": "percol 历史选择器"
+ },
+ "perl": {
+  "cat": "编程语言与框架",
+  "detail": "为 Perl 提供一些日常使用的简写辅助。",
+  "summary": "Perl 便捷别名"
+ },
+ "perms": {
+  "cat": "快捷键与效率",
+  "detail": "提供 perms 等函数,以简洁语法快速查看与批量修改 Unix 文件系统权限。",
+  "summary": "文件权限快捷工具"
+ },
+ "phing": {
+  "cat": "编程语言与框架",
+  "detail": "为 PHP 构建工具 Phing 提供构建目标(task)补全。",
+  "summary": "Phing 任务补全"
+ },
+ "pip": {
+  "cat": "编程语言与框架",
+  "detail": "为 Python 包管理器 pip 提供别名:pipi=安装、pipu=升级、pipun=卸载、pipreq=导出 requirements.txt 等。",
+  "summary": "pip 别名与补全",
+  "usage": "pipi 包 = 安装;pipu = 升级;pipun = 卸载;pipreq 把当前环境依赖导出成 requirements.txt(配合虚拟环境最干净)。"
+ },
+ "pipenv": {
+  "cat": "编程语言与框架",
+  "detail": "为 Python 虚拟环境+依赖工具 pipenv 提供补全。",
+  "summary": "pipenv 补全"
+ },
+ "pj": {
+  "cat": "目录与跳转",
+  "detail": "先把项目根目录登记进 PROJECT_PATHS 数组,之后 pj <项目名> 直接跳转到对应项目文件夹,pja 添加、pjo 打开Finder。",
+  "summary": "项目目录快速跳转"
+ },
+ "please": {
+  "cat": "补全增强",
+  "detail": "为高性能跨语言构建工具 Please(plz)提供补全和常用别名。",
+  "summary": "please 构建工具别名与补全"
+ },
+ "pm2": {
+  "cat": "编程语言与框架",
+  "detail": "为 Node 进程守护工具 PM2 的 pm2 命令提供补全。",
+  "summary": "PM2 补全"
+ },
+ "pod": {
+  "cat": "编程语言与框架",
+  "detail": "为 iOS 依赖管理器 CocoaPods 的 pod 命令提供补全。",
+  "summary": "CocoaPods 补全"
+ },
+ "podman": {
+  "cat": "容器与云运维",
+  "detail": "为无守护进程容器引擎 Podman 提供补全和 pd/ppl/pdi 等简写别名。",
+  "summary": "Podman 补全与别名"
+ },
+ "poetry": {
+  "cat": "编程语言与框架",
+  "detail": "为 Python 依赖管理器 Poetry 的 poetry 命令提供补全。",
+  "summary": "Poetry 补全"
+ },
+ "poetry-env": {
+  "cat": "编程语言与框架",
+  "detail": "进入含 pyproject.toml 的项目时自动激活对应的 Poetry 虚拟环境,离开自动停用。",
+  "summary": "Poetry 环境自动激活"
+ },
+ "postgres": {
+  "cat": "数据库与数据",
+  "detail": "提供 pgctlstart/pgctlstop 等别名封装 pg_ctl,方便在开发机上手动管理 PostgreSQL 服务(Homebrew/Linux 均可用)。",
+  "summary": "PostgreSQL 服务管理"
+ },
+ "pow": {
+  "cat": "系统管理",
+  "detail": "为 Rack 本地预览服务器 pow 提供 start/restart/日志查看等管理函数。",
+  "summary": "Pow 管理函数"
+ },
+ "powder": {
+  "cat": "编程语言与框架",
+  "detail": "为管理 pow 应用的 Ruby 工具 powder 提供补全。",
+  "summary": "powder 补全"
+ },
+ "powify": {
+  "cat": "补全增强",
+  "detail": "为 Basecamp pow 的易用包装工具 powify 提供补全。",
+  "summary": "powify 补全"
+ },
+ "pre-commit": {
+  "cat": "测试与质量",
+  "detail": "为 Git 钩子管理框架 pre-commit 提供补全和常用别名(pra 运行全部检查等)。",
+  "summary": "pre-commit 别名与补全"
+ },
+ "procs": {
+  "cat": "编程语言与框架",
+  "detail": "为现代 ps 替代品 procs(Rust 编写、彩色输出)提供命令补全。",
+  "summary": "procs 补全"
+ },
+ "profiles": {
+  "cat": "系统管理",
+  "detail": "利用 macOS 的网络位置(Network Location)功能,提供快速列出行/切换网络配置的别名。",
+  "summary": "macOS 网络位置切换"
+ },
+ "pulumi": {
+  "cat": "容器与云运维",
+  "detail": "为基础设施即代码工具 Pulumi 的 pulumi 命令提供补全。",
+  "summary": "Pulumi 补全"
+ },
+ "pyenv": {
+  "cat": "包管理与环境",
+  "detail": "加载 Python 多版本管理器 pyenv(自动 init 设定 shell 环境,可用 PYENV_SHELL 定制),使全局/局部 Python 版本生效。",
+  "summary": "pyenv 集成"
+ },
+ "pylint": {
+  "cat": "编程语言与框架",
+  "detail": "提供 pylint_venv 函数,让项目虚拟环境里安装的 pylint 优先于全局版本。",
+  "summary": "pylint 虚拟环境感知"
+ },
+ "python": {
+  "cat": "编程语言与框架",
+  "detail": "提供 py=python3、ipy=ipython、pyfind=查找 .pyc、pyclean=清空 __pycache__、pyserver=临时 HTTP 服务器等别名。",
+  "summary": "Python 常用别名",
+  "usage": "py = python3;ipy = ipython;pyserver 在当前目录起一个 http.server,局域网共享文件秒变「本地网盘」;pyclean 清理 __pycache__ 与 .pyc。"
+ },
+ "qodana": {
+  "cat": "测试与质量",
+  "detail": "为 JetBrains 代码质量分析工具 Qodana 的 qodana 命令提供补全。",
+  "summary": "Qodana 补全"
+ },
+ "qrcode": {
+  "cat": "快捷键与效率",
+  "detail": "提供 qr/qrgen 命令,把文本或网址渲染成二维码图形直接打印到终端,方便手机扫码(依赖 qrencode)。",
+  "summary": "终端二维码生成",
+  "usage": "qrcode 'https://…' 直接在终端里打出二维码(ASCII 图形),手机扫码即开。依赖 qrencode(brew install qrencode)。"
+ },
+ "rails": {
+  "cat": "编程语言与框架",
+  "detail": "为 Ruby on Rails 提供大量别名:rr=rails、rc=console、rg=model、rd=db:migrate、rs=server 等。",
+  "summary": "Rails 别名大全"
+ },
+ "rake": {
+  "cat": "编程语言与框架",
+  "detail": "为 Ruby 构建工具 rake 提供任务名补全和 rrake 等别名。",
+  "summary": "rake 补全与别名"
+ },
+ "rake-fast": {
+  "cat": "编程语言与框架",
+  "detail": "对大型项目的 rake 任务做缓存,补全秒出(新增任务后可用 rake_refresh 重建缓存)。",
+  "summary": "rake 快速补全"
+ },
+ "rand-quote": {
+  "cat": "趣味与语录",
+  "detail": "提供 quote 命令,从网络接口随机获取并显示一条名人名言。",
+  "summary": "随机名人名言"
+ },
+ "rbenv": {
+  "cat": "编程语言与框架",
+  "detail": "加载 Ruby 多版本管理器 rbenv,自动 init 完成 PATH/补全(可用 RBENV_SHELL 指定目标 shell)。",
+  "summary": "rbenv 集成"
+ },
+ "rbw": {
+  "cat": "安全与密码",
+  "detail": "为 Bitwarden 密码库的非官方客户端 rbw 提供补全。",
+  "summary": "Bitwarden(rbw)补全"
+ },
+ "rclone": {
+  "cat": "补全增强",
+  "detail": "为网盘与对象存储同步工具 rclone 提供命令补全。",
+  "summary": "rclone 补全"
+ },
+ "react-native": {
+  "cat": "编程语言与框架",
+  "detail": "为 React Native CLI 提供补全和 rnAndroid=run-android、rniOS=run-ios、rniPods=pod install 等移动端常用别名。",
+  "summary": "React Native 别名与补全"
+ },
+ "rebar": {
+  "cat": "编程语言与框架",
+  "detail": "为 Erlang 构建工具 rebar3(rebar)提供补全。",
+  "summary": "rebar3 补全"
+ },
+ "redis-cli": {
+  "cat": "数据库与数据",
+  "detail": "为 Redis 命令行客户端 redis-cli 提供部分命令与服务控制辅助。",
+  "summary": "redis-cli 补全"
+ },
+ "repo": {
+  "cat": "版本控制",
+  "detail": "为 Android 源码树管理工具 repo 提供一批常用子命令的简写别名。",
+  "summary": "AOSP repo 别名"
+ },
+ "ros": {
+  "cat": "系统管理",
+  "detail": "为机器人操作系统 ROS/ROS2 提供环境配置与 roscd 等常用函数。",
+  "summary": "ROS 开发辅助"
+ },
+ "rsync": {
+  "cat": "网络与远程",
+  "detail": "提供 rsy=rsync -av --progress 等带进度的同步别名,大文件拷贝一目了然。",
+  "summary": "rsync 进度别名"
+ },
+ "ruby": {
+  "cat": "编程语言与框架",
+  "detail": "为 Ruby/gem/irb 等生态提供少量简写别名,方便日常开发。",
+  "summary": "Ruby 小别名集合"
+ },
+ "rust": {
+  "cat": "编程语言与框架",
+  "detail": "为 rustup/rustc/cargo 提供补全与少数简写别名,便于 Rust 开发。",
+  "summary": "Rust 工具链补全"
+ },
+ "rvm": {
+  "cat": "编程语言与框架",
+  "detail": "加载老牌 Ruby 版本管理器 RVM 的 shell 环境;提供 gemset 等辅助函数。",
+  "summary": "RVM 集成"
+ },
+ "safe-paste": {
+  "cat": "快捷键与效率",
+  "detail": "启用括号粘贴模式(bracketed paste),粘贴多行命令时只会完整填入编辑区而不会因换行符被立即执行,避免粘贴的脚本被意外跑起来。",
+  "summary": "粘贴内容不误执行",
+  "usage": "零学习成本:粘贴多行脚本时不会因回车符被立即执行,而是整段进入编辑区,检查无误后再回车。防呆神器。"
+ },
+ "salt": {
+  "cat": "容器与云运维",
+  "detail": "为 SaltStack 配置管理工具提供 salt/salt-call/salt-key/salt-run 四个命令的补全。",
+  "summary": "SaltStack 补全"
+ },
+ "samtools": {
+  "cat": "补全增强",
+  "detail": "为生物信息学中处理 SAM/BAM 测序数据的 samtools 提供子命令补全。",
+  "summary": "samtools 补全"
+ },
+ "sbt": {
+  "cat": "编程语言与框架",
+  "detail": "为 Scala 构建工具 sbt 提供 sbc=compile、scr=run、scc=clean 等别名和补全。",
+  "summary": "sbt 别名与补全"
+ },
+ "scala": {
+  "cat": "编程语言与框架",
+  "detail": "为 Scala 解释器交互会话提供命令补全。",
+  "summary": "Scala REPL 补全"
+ },
+ "scd": {
+  "cat": "目录与跳转",
+  "detail": "内置版智能跳目录:scd 记录访问过的路径,之后用 scd <片段> 模糊匹配跳转,支持多选菜单。需 Python。",
+  "summary": "scd 智能目录跳转"
+ },
+ "screen": {
+  "cat": "编辑器与终端",
+  "detail": "为终端复用工具 screen 提供别名:sl=列出、sr=重连、sn=新命名会话、sfq=分离当前会话。",
+  "summary": "GNU Screen 别名"
+ },
+ "scw": {
+  "cat": "容器与云运维",
+  "detail": "为 Scaleway 云平台的 scw 命令提供补全。",
+  "summary": "Scaleway CLI 补全"
+ },
+ "sdk": {
+  "cat": "包管理与环境",
+  "detail": "加载 SDKMAN!(统一管理 Java/Gradle/Kotlin 等 JVM 工具链版本),自动初始化环境和补全。",
+  "summary": "SDKMAN! 集成"
+ },
+ "sfdx": {
+  "cat": "容器与云运维",
+  "detail": "为 Salesforce 平台 CLI 工具 sfdx 提供补全。",
+  "summary": "Salesforce DX 补全"
+ },
+ "sfffe": {
+  "cat": "历史与搜索",
+  "detail": "Search files for Front-End:用 ack 快速搜索 jsx/html/css/scss 等前端文件的函数集合(依赖 ack)。",
+  "summary": "前端文件搜索函数"
+ },
+ "shell-proxy": {
+  "cat": "网络与远程",
+  "detail": "从 ~/.config/proxy 读取代理地址定义,proxy/unproxy 函数一键设置或清除 http_proxy/https_proxy 等环境变量。",
+  "summary": "代理一键开关"
+ },
+ "shrink-path": {
+  "cat": "提示符与外观",
+  "detail": "提供 shrink_path 函数把很长的当前路径压缩显示(保留末尾若干层或每段只留首字母),供主题在提示符中使用。",
+  "summary": "提示符路径缩短"
+ },
+ "sigstore": {
+  "cat": "安全与密码",
+  "detail": "为软件供应链签名方案 Sigstore 的 cosign/rekor 命令提供补全。",
+  "summary": "Sigstore CLI 补全"
+ },
+ "singlechar": {
+  "cat": "快捷键与效率",
+  "detail": "为常用命令提供单字符或双字符超短别名与组合(y=yarn、p=ping 等),输入飞快但需要记住含义。",
+  "summary": "单字符快捷别名"
+ },
+ "skaffold": {
+  "cat": "容器与云运维",
+  "detail": "为 Google 的 Kubernetes 开发流水线工具 Skaffold 提供补全。",
+  "summary": "Skaffold 补全"
+ },
+ "snap": {
+  "cat": "包管理与环境",
+  "detail": "为 Ubuntu Snap 包管理器提供简写别名:sin=安装、sinr=刷新升级、srem=卸载等。",
+  "summary": "Snap 别名"
+ },
+ "spackenv": {
+  "cat": "包管理与环境",
+  "detail": "为科学计算包管理器 Spack 提供补全,并按目录自动激活/停用 Spack 环境(目录含 spack.yaml 时)。",
+  "summary": "Spack 环境自动激活"
+ },
+ "spring": {
+  "cat": "编程语言与框架",
+  "detail": "为 Rails 预加载器 Spring 的 bin/rails/bin/rake 系列提供别名(res/rsake 等),可设 DISABLE_SPRING=true 关闭 Spring 加速。",
+  "summary": "Rails Spring 别名"
+ },
+ "sprunge": {
+  "cat": "快捷键与效率",
+  "detail": "管道一行即得分享链接:cat file | sprunge,可加语言参数高亮,把代码片段贴给他人非常方便。",
+  "summary": "粘贴分享到 sprunge.us"
+ },
+ "ssh": {
+  "cat": "网络与远程",
+  "detail": "让 ssh/scp/sftp 命令的主机名参数自动补全,候选来自 ~/.ssh/config 和 ~/.ssh/known_hosts。",
+  "summary": "SSH 主机名补全",
+  "usage": "启用后 ssh <Tab> 自动补全主机名,来源是 ~/.ssh/config 的 Host 条目与 known_hosts。配合 config 文件给服务器起别名,不用再记 IP。"
+ },
+ "ssh-agent": {
+  "cat": "网络与远程",
+  "detail": "启动 shell 时自动起一个 ssh-agent 并加入你的密钥(id_rsa 默认,可用 SSH_ADD_KEYS 自定义),跨窗口复用免重复输密码。",
+  "summary": "ssh-agent 自动加载密钥",
+  "usage": "开机后第一个 zsh 会自动拉起 ssh-agent 并加载你的密钥,之后所有终端窗口共享,不用每次输密钥口令。配置风格:zstyle ':omz:plugins:ssh-agent' identities id_ed25519。"
+ },
+ "stack": {
+  "cat": "补全增强",
+  "detail": "为 Haskell 构建工具 stack 提供补全。",
+  "summary": "Haskell Stack 补全"
+ },
+ "starship": {
+  "cat": "提示符与外观",
+  "detail": "加载跨语言提示符工具 Starship 的初始化脚本,享受快速美观的提示符(STARSHIP_CONFIG 自定义配置路径)。",
+  "summary": "Starship 提示符集成"
+ },
+ "stripe": {
+  "cat": "补全增强",
+  "detail": "为支付平台 Stripe 的官方 CLI 工具提供补全。",
+  "summary": "Stripe CLI 补全"
+ },
+ "sublime": {
+  "cat": "编辑器与终端",
+  "detail": "st 命令用 Sublime Text 打开文件或当前目录,stt 定位到指定行列。macOS 下也处理了应用内命令行位置问题。",
+  "summary": "Sublime Text 命令行"
+ },
+ "sublime-merge": {
+  "cat": "编辑器与终端",
+  "detail": "sm 命令用 Sublime Merge 打开仓库查看与 diff。",
+  "summary": "Sublime Merge 命令行"
+ },
+ "sudo": {
+  "cat": "快捷键与效率",
+  "detail": "刚敲完一条命令发现忘了 root?连按两次 Esc 自动在行首插入 sudo。",
+  "summary": "双击 Esc 自动加 sudo",
+  "usage": "敲完一条命令才发现要 root?在空命令行或刚敲完的行上连按两次 Esc,自动在行首补上 sudo。"
+ },
+ "supervisor": {
+  "cat": "系统管理",
+  "detail": "为进程管理工具 supervisord/supervisorctl 提供启动、停止、重启状态的封装别名。",
+  "summary": "Supervisor 启停封装"
+ },
+ "suse": {
+  "cat": "包管理与环境",
+  "detail": "为 openSUSE 的包管理器 zypper 提供大量缩写别名:zin=安装、zup=系统升级、zrm=卸载等。",
+  "summary": "openSUSE zypper 别名"
+ },
+ "svcat": {
+  "cat": "容器与云运维",
+  "detail": "为 Kubernetes Service Catalog 客户端 svcat 提供补全。",
+  "summary": "svcat 补全"
+ },
+ "svn": {
+  "cat": "版本控制",
+  "detail": "为版本控制工具 Subversion(svn)提供一批缩写别名和命令补全。",
+  "summary": "SVN 别名与补全"
+ },
+ "svn-fast-info": {
+  "cat": "版本控制",
+  "detail": "用一次轻量 svn info 解析出分支名/URL/修订号等字段并渲染供提示符使用,比反复调用 svn info 更快。",
+  "summary": "SVN 信息快速展示"
+ },
+ "swiftpm": {
+  "cat": "编程语言与框架",
+  "detail": "为 Swift Package Manager 提供别名:spi=resolve、spb=build、spt=test、spr=run。",
+  "summary": "SwiftPM 快捷别名"
+ },
+ "symfony": {
+  "cat": "编程语言与框架",
+  "detail": "自动探测 Symfony 项目的 console 脚本位置(php app/console 或 bin/console),提供命令补全和 sf 别名。",
+  "summary": "Symfony Console 补全"
+ },
+ "symfony2": {
+  "cat": "编程语言与框架",
+  "detail": "老项目专用:app/console 一系列常用命令的 sf* 简写别名(cache 清理等)。",
+  "summary": "Symfony2 别名"
+ },
+ "symfony6": {
+  "cat": "编程语言与框架",
+  "detail": "面向 Symfony 4+/6+ 的 bin/console 快捷别名集。",
+  "summary": "Symfony6 console 别名"
+ },
+ "systemadmin": {
+  "cat": "系统管理",
+  "detail": "收集系统管理员日常小工具:挂 tmpfs、建内存盘 ramdisk、CPU 温度查看、按内存排序的 top(tops)等。",
+  "summary": "运维常用小工具"
+ },
+ "systemd": {
+  "cat": "系统管理",
+  "detail": "为 systemd 服务管理提供 sc-start/sc-restart/sc-stop 等别名和补全。",
+  "summary": "systemctl 别名"
+ },
+ "tailscale": {
+  "cat": "网络与远程",
+  "detail": "为异地组网 VPN 工具 tailscale 的命令行提供补全。",
+  "summary": "Tailscale 补全"
+ },
+ "task": {
+  "cat": "补全增强",
+  "detail": "为现代化任务运行器 Task(Taskfile.yml 的 task 命令)提供补全。",
+  "summary": "go-task 补全"
+ },
+ "taskwarrior": {
+  "cat": "补全增强",
+  "detail": "为 GTD 待办任务管理工具 Taskwarrior(task)提供补全。",
+  "summary": "Taskwarrior 补全"
+ },
+ "term_tab": {
+  "cat": "系统管理",
+  "detail": "让所有打开的 zsh 会话共享同一个当前目录(cwd 同步)。仅支持 Solaris 和 Linux。",
+  "summary": "多终端同步目录"
+ },
+ "terminitor": {
+  "cat": "编辑器与终端",
+  "detail": "为开发环境自动化工具 Terminitor(自动开多个终端窗口跑常用服务)提供补全。",
+  "summary": "Terminitor 补全"
+ },
+ "terraform": {
+  "cat": "容器与云运维",
+  "detail": "为基础设施即代码工具 Terraform 提供补全和一系列 tf 系列缩写别名(init/plan/apply 等常用子命令)。",
+  "summary": "Terraform 别名与补全"
+ },
+ "textastic": {
+  "cat": "编辑器与终端",
+  "detail": "用 Mac 代码编辑器 Textastic 从终端打开文件或目录。需已安装 Textastic。",
+  "summary": "Textastic 集成"
+ },
+ "textmate": {
+  "cat": "编辑器与终端",
+  "detail": "tm/tmca 等别名用 TextMate 编辑器打开文件或当前目录。",
+  "summary": "TextMate 命令行"
+ },
+ "thefuck": {
+  "cat": "快捷键与效率",
+  "detail": "敲错命令后按 ESC ESC(或输入 fuck)自动给出修正建议并执行,例如把 apt-get 换成 brew。",
+  "summary": "自动修正上一条错误命令",
+  "usage": "需先安装 thefuck 包。敲错命令(如忘了 sudo、把 apt-get 用在 mac 上)后按 ESC ESC,自动给出修正命令并执行;也可手动输入 fuck。"
+ },
+ "themes": {
+  "cat": "提示符与外观",
+  "detail": "theme <名称> 一键切换 OMZ 主题并即时重载,theme -l 列出全部可用主题,方便快速试用不同外观。",
+  "summary": "主题预览切换",
+  "usage": "theme agnoster 立即切换主题看效果(可配合 themes 命令补全);theme -l 列出全部主题;满意后写进 ~/.zshrc 的 ZSH_THEME= 持久化。"
+ },
+ "thor": {
+  "cat": "编程语言与框架",
+  "detail": "为 Ruby 任务框架 Thor 的 thor 命令提供任务名补全。",
+  "summary": "Thor 任务补全"
+ },
+ "tig": {
+  "cat": "版本控制",
+  "detail": "为基于 ncurses 的 Git 文本界面浏览器 tig 提供简写别名(tigs=状态视图等)。",
+  "summary": "tig 浏览器别名"
+ },
+ "timer": {
+  "cat": "快捷键与效率",
+  "detail": "每条命令执行完,在提示符旁显示本次耗时(超过阈值才显示,阈值/精度/颜色均可通过 TIMER_* 变量调整)。",
+  "summary": "命令耗时显示",
+  "usage": "启用后每条命令跑完,提示符旁自动显示耗时(超阈值才显示);TIMER_THRESHOLD 控阈值秒数,TIMER_FORMAT 控样式。跑长构建时一眼看到卡在哪。"
+ },
+ "timoni": {
+  "cat": "容器与云运维",
+  "detail": "为基于 CUE 的 Kubernetes 应用包管理器 timoni 提供补全。",
+  "summary": "Timoni 补全"
+ },
+ "tldr": {
+  "cat": "历史与搜索",
+  "detail": "包装社区版 tldr(简化版 man 手册),tl 别名快速查询常用命令的实际例子;支持 TLDR_CLIENT 切换不同实现。",
+  "summary": "tldr 客户端包装"
+ },
+ "tmux": {
+  "cat": "编辑器与终端",
+  "detail": "提供 ta=attach、tls=list-sessions 等别名;设置 ZSH_TMUX_AUTOSTART=true 后每次打开终端自动进入 tmux 会话。",
+  "summary": "tmux 集成"
+ },
+ "tmux-cssh": {
+  "cat": "编辑器与终端",
+  "detail": "通过 tmux-cssh 脚本把多个 SSH 会话开在一个 tmux 窗口组里,输入一次同步发到所有机器。",
+  "summary": "多主机并行操作"
+ },
+ "tmuxinator": {
+  "cat": "编辑器与终端",
+  "detail": "为 tmux 多窗格布局定义工具 tmuxinator 提供补全。",
+  "summary": "tmuxinator 补全"
+ },
+ "toolbox": {
+  "cat": "容器与云运维",
+  "detail": "为容器化 CLI 环境工具 Toolbox(在干净的容器里跑开发工具)提供补全。",
+  "summary": "Toolbox 补全"
+ },
+ "torrent": {
+  "cat": "文件与压缩",
+  "detail": "根据 MagnetURI 磁力链接生成对应的 .torrent 种子文件(torrent_hash / torrent_name 可取哈希和名称)。",
+  "summary": "磁力链接转种子文件"
+ },
+ "transfer": {
+  "cat": "网络与远程",
+  "detail": "transfer <文件> 上传到 transfer.sh 并返回下载 URL,也支持目录打包和指定自建服务器。",
+  "summary": "上传分享到 transfer.sh"
+ },
+ "tt": {
+  "cat": "快捷键与效率",
+  "detail": "Unix 时间戳与日期文本互相转换:tt <时间戳> 显示对应日期,tt <日期> 反向解析为时间戳。",
+  "summary": "时间戳互转"
+ },
+ "tugboat": {
+  "cat": "容器与云运维",
+  "detail": "为 DigitalOcean 第三方 CLI 工具 Tugboat 提供补全。",
+  "summary": "Tugboat(DigitalOcean)补全"
+ },
+ "ubuntu": {
+  "cat": "包管理与环境",
+  "detail": "apt 全套缩写:au=更新索引、ag=升级、ai=安装、ar=卸载、aa=清理无依赖包等。",
+  "summary": "Ubuntu apt 别名"
+ },
+ "ufw": {
+  "cat": "系统管理",
+  "detail": "为 uncomplicated firewall(ufw)提供规则管理相关别名和补全。",
+  "summary": "ufw 防火墙别名与补全"
+ },
+ "universalarchive": {
+  "cat": "文件与压缩",
+  "detail": "ca <目标名.格式> <目录/文件> 一条命令压缩成任意格式(zip/tar.gz/xz/zstd 等),格式跟随后缀自动选择。",
+  "summary": "万能压缩命令",
+  "usage": "一条命令压缩:ca 输出名.tar.gz 目录/ 或 ca backup.zip 文件们…输出格式的后缀决定压缩算法(zip/tar.gz/tar.xz/zstd 等都支持)。"
+ },
+ "urltools": {
+  "cat": "快捷键与效率",
+  "detail": "urlencode/urldecode 函数对文本做百分号编码与解码,处理含中文/特殊字符的 URL 很顺手。",
+  "summary": "URL 编解码",
+  "usage": "urlencode '中文参数' 把文本转成 %XX 百分号编码;decodeurl 反向还原。拼带中文/空格/特殊字符的 URL 参数不再乱码。"
+ },
+ "uv": {
+  "cat": "编程语言与框架",
+  "detail": "为 Astral 出的高速 Python 包管理器 uv 提供补全和 uvw=sync、uvr=run 等常用别名,加速项目依赖工作流。",
+  "summary": "uv Python 包管理集成"
+ },
+ "vagrant": {
+  "cat": "容器与云运维",
+  "detail": "虚拟机管理全套别名:v/up/halt/ss(h)/sus(暂停)、vssh 连接、vhalt 关机等,配合补全快速操作 Vagrant 环境。",
+  "summary": "Vagrant 别名与补全"
+ },
+ "vagrant-prompt": {
+  "cat": "容器与云运维",
+  "detail": "在提示符中输出 vagrant_prompt_info,一眼看到当前项目 Vagrant 机的运行/挂起状态。",
+  "summary": "提示符显示 Vagrant 状态"
+ },
+ "vault": {
+  "cat": "容器与云运维",
+  "detail": "为 HashiCorp Vault 密钥管理提供补全和读/写/删除等常用操作的封装函数。",
+  "summary": "Vault 补全与封装"
+ },
+ "vi-mode": {
+  "cat": "快捷键与效率",
+  "detail": "命令行启用 vi 键位:ESC 进入 NORMAL 模式,hjkl 移动、dw/dd 删词删行、v 选择等,模式指示可通过 MODE_INDICATOR 自定义。",
+  "summary": "Vi 编辑模式",
+  "usage": "命令行变成 vi:默认插入态照常打字;按 ESC 进普通态——h/l 移动、w/b 跳词、dd 删整行、cw 改词、/ 搜历史,和 vim 手感一致。"
+ },
+ "vim-interaction": {
+  "cat": "编辑器与终端",
+  "detail": "与常驻的 Vim 服务端交互(--remote 系列参数包装),从其它进程直接把文件送进正在编辑的 Vim 打开。",
+  "summary": "Vim 远程会话联动"
+ },
+ "virtualenv": {
+  "cat": "编程语言与框架",
+  "detail": "当前 shell 处于某个 virtualenv 时,提示符中追加环境名(virtualenv_prompt_info)。",
+  "summary": "提示符显示 venv 名"
+ },
+ "virtualenvwrapper": {
+  "cat": "编程语言与框架",
+  "detail": "加载 mkvirtualenv/workon/deactivate 全家桶,并为 workon 提供环境名补全,管理多虚拟环境更轻松。",
+  "summary": "virtualenvwrapper 集成"
+ },
+ "volta": {
+  "cat": "编程语言与框架",
+  "detail": "加载 JavaScript 运行时/工具版本管理器 Volta 的环境变量(shim PATH),按项目固定 node/yarn 版本。",
+  "summary": "Volta 版本管理集成"
+ },
+ "vscode": {
+  "cat": "编辑器与终端",
+  "detail": "检测 code/codium/cursor 等可执行文件并提供统一别名,还有打开 settings.json 等配置文件的快捷命令。",
+  "summary": "VS Code 集成",
+  "usage": "code . 用 VS Code 打开当前目录(需先在 VS Code 里装 Shell Command);另有直接打开 settings.json、keybindings.json 等配置文件的快捷命令。"
+ },
+ "vundle": {
+  "cat": "编辑器与终端",
+  "detail": "ve=vim 配置、vi=PluginInstall!、vu=PluginUpdate 等,一条别名完成 vim 插件安装升级。",
+  "summary": "Vundle vim 插件管理别名"
+ },
+ "wakeonlan": {
+  "cat": "网络与远程",
+  "detail": "wol <MAC地址> 向局域网广播魔术包远程开机,WAKEONLAN_DEFAULT_MAC 等变量可设默认值。",
+  "summary": "局域网唤醒(WOL)"
+ },
+ "watson": {
+  "cat": "补全增强",
+  "detail": "为工作时段记录工具 watson(watson start/stop 项目计时)提供补全。",
+  "summary": "watson 时间追踪补全"
+ },
+ "wd": {
+  "cat": "目录与跳转",
+  "detail": "wd add <名字> 把当前目录存为书签,之后 wd <名字> 秒回该目录,支持 wd rm、wd list、wd show 查看路径。",
+  "summary": "wd 目录书签",
+  "usage": "目录书签三步走:\n1) 在某项目目录里执行 wd add myproj 登记书签;\n2) 任何位置执行 wd myproj 秒回该目录;\n3) wd rm myproj 删除,wd list 查看全部书签。"
+ },
+ "web-search": {
+  "cat": "历史与搜索",
+  "detail": "google/bing/ddg/github/wiki/youtube <关键词> 直接打开浏览器到对应站点搜索结果页,无需先开网页。",
+  "summary": "终端直达搜索引擎",
+  "usage": "google rust book、ddg zsh array、github omz、wiki 北京…回车即打开浏览器进入对应站点搜索页,省去开浏览器敲网址。"
+ },
+ "wp-cli": {
+  "cat": "补全增强",
+  "detail": "为 WordPress 站点管理工具 wp-cli(wp 命令)提供子命令补全。",
+  "summary": "WordPress CLI 补全"
+ },
+ "xcode": {
+  "cat": "编程语言与框架",
+  "detail": "为 xcodebuild 提供 xcb=build、xct=test 等快捷方式,并有 iOS 模拟器相关辅助函数。",
+  "summary": "Xcode 辅助别名"
+ },
+ "yarn": {
+  "cat": "编程语言与框架",
+  "detail": "y=yarn 本体,YARN flavors 附 yi=install、ya=add、yr=remove 等高频子命令缩写和自动补全。",
+  "summary": "yarn 别名与补全"
+ },
+ "yii": {
+  "cat": "编程语言与框架",
+  "detail": "为 Yii 框架的 yii 命令行提供补全和常用别名(yiit 运行测试等)。",
+  "summary": "Yii 补全与别名"
+ },
+ "yii2": {
+  "cat": "编程语言与框架",
+  "detail": "面向 Yii2 目录结构(yii 位于项目根)的命令补全和别名。",
+  "summary": "Yii2 补全与别名"
+ },
+ "yum": {
+  "cat": "包管理与环境",
+  "detail": "覆盖 CentOS/RHEL yum 常见操作的别名集:搜索、安装、更新、卸载、清理缓存等一应俱全。",
+  "summary": "yum 缩写别名"
+ },
+ "z": {
+  "cat": "目录与跳转",
+  "detail": "记录你 cd 过的目录并按「最近+最频繁」加权评分,z <关键词> 直接跳到最匹配的目录,少打一半路径。",
+  "summary": "z 目录智能跳转",
+  "usage": "无需配置。正常 cd 使用一段时间后(它记录访问记录),直接:z proj 跳到最常去的名字含 proj 的目录;z 不带参数列出权重表。匹配的是「 frecency 」频率×最近度,用得越多越准。"
+ },
+ "zbell": {
+  "cat": "编辑器与终端",
+  "detail": "对你指定的慢命令(编辑 ~/.zshrc 注册)设定阈值,ZBELL 时长超限的命令结束时发出终端响铃,切走窗口也不错过。",
+  "summary": "长命令结束铃声提醒"
+ },
+ "zeus": {
+  "cat": "编程语言与框架",
+  "detail": "为 Rails 预加载服务器 Zeus 提供 zeus 命令补全和 z* 系列别名。",
+  "summary": "Zeus 补全与别名"
+ },
+ "zoxide": {
+  "cat": "目录与跳转",
+  "detail": "加载 zoxide(Rust 写的 z 改进版):cd 自动被接管为智能匹配,z/- 快速回到上次目录。需安装 zoxide。",
+  "summary": "zoxide 智能跳目录",
+  "usage": "需先安装 zoxide(brew install zoxide)。启用后 cd 被智能接管:cd proj 等价于 zoxide 智能匹配;zi 可弹出交互选择列表。"
+ },
+ "zsh-interactive-cd": {
+  "cat": "目录与跳转",
+  "detail": "cd 之后按 Tab 时不再列出文字菜单,而是弹出 fzf 模糊搜索窗口逐级选择子目录,体验流畅。",
+  "summary": "Tab 交互式选目录"
+ },
+ "zsh-navigation-tools": {
+  "cat": "历史与搜索",
+  "detail": "附赠一组 ncurses 面板:n-history(Ctrl+R 增强历史搜索)、n-cd、n-env、n-aliases、n-functions、n-options、n-kill(选进程杀掉)等,F1-F4 直接唤起。",
+  "summary": "多面板导航工具集",
+  "usage": "Ctrl+R 打开全屏历史浏览器(可多选);另有 n-cd、n-aliases、n-env、n-kill(选进程杀)等面板工具,F1~F4 快捷唤起,方向键+回车操作。"
+ }
+}

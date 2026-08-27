@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="924" height="625" viewBox="0 0 924 625">
+<rect width="924" height="625" rx="10" fill="#161b22"/>
+<text x="18.0" y="50.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮</text>
+<text x="18.0" y="69.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│ </text>
+<text x="32.8" y="69.5" fill="#39c5cf" font-weight="600" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> omz-pm — Oh My Zsh 插件管理器 · 主题 </text>
+<text x="314.0" y="69.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> 已启用 </text>
+<text x="373.2" y="69.5" fill="#3fb950" font-weight="600" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">23</text>
+<text x="388.0" y="69.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> / 共 360   当前主题:</text>
+<text x="543.4" y="69.5" fill="#ab7df8" font-weight="600" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">(默认)</text>
+<text x="587.8" y="69.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">                                        │</text>
+<text x="18.0" y="88.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</text>
+<text x="18.0" y="107.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> </text>
+<text x="25.4" y="107.5" fill="#39c5cf" font-weight="600" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">全部</text>
+<text x="55.0" y="107.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> │ 已启用 │ 未启用                                                                                       搜索:</text>
+<text x="869.0" y="107.5" fill="#39c5cf" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">git</text>
+<text x="18.0" y="126.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">╭</text>
+<text x="25.4" y="126.5" fill="#4493f8" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> 主题(144) </text>
+<text x="106.8" y="126.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">────────────────────────────────╮╭</text>
+<text x="358.4" y="126.5" fill="#4493f8" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> 主题详情 </text>
+<text x="432.4" y="126.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">─────────────────────────────────────────────────────────────╮</text>
+<text x="18.0" y="145.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="145.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="145.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> 3den                                     ││</text>
+<text x="358.4" y="145.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○ 未启用</text>
+<text x="417.6" y="145.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">   </text>
+<text x="439.8" y="145.5" fill="#c9d1d9" font-weight="600" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">agnoster</text>
+<text x="499.0" y="145.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">  </text>
+<text x="513.8" y="145.5" fill="#ab7df8" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">内置</text>
+<text x="543.4" y="145.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">                                              │</text>
+<text x="18.0" y="164.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="164.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="164.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> Soliah                                   ││                                                                       │</text>
+<text x="18.0" y="183.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="183.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="183.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> adben                                    ││</text>
+<text x="358.4" y="183.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">按 i 试穿(进入临时 zsh 实际体验) · p 彩色快览 · Enter 启用</text>
+<text x="787.6" y="183.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">             │</text>
+<text x="18.0" y="202.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="202.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="202.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> af-magic                                 ││                                                                       │</text>
+<text x="18.0" y="221.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="221.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="221.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> afowler                                  ││</text>
+<text x="358.4" y="221.5" fill="#39c5cf" font-weight="600" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> 提示符模板预览</text>
+<text x="469.4" y="221.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> ─────────────────────────────────────────────────────</text>
+<text x="869.0" y="221.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">  │</text>
+<text x="18.0" y="240.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<rect x="25.4" y="224.0" width="7.4" height="19.0" fill="#6e7681" rx="2"/>
+<text x="25.4" y="240.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<rect x="32.8" y="224.0" width="310.8" height="19.0" fill="#6e7681" rx="2"/>
+<text x="32.8" y="240.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> agnoster                                 </text>
+<text x="343.6" y="240.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">││ccsert@duanyudeMacBook-Pro  ~/project/tool-project/omz-plugin-tui   │</text>
+<text x="18.0" y="259.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="259.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="259.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> alanpeabody                              ││main                                                                  │</text>
+<text x="18.0" y="278.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="278.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="278.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> amuse                                    ││                                                                       │</text>
+<text x="18.0" y="297.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="297.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="297.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> apple                                    ││</text>
+<text x="358.4" y="297.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">(以上为纯文本;按 p 查看带颜色的真实效果)</text>
+<text x="654.4" y="297.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">                               │</text>
+<text x="18.0" y="316.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="316.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="316.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> arrow                                    ││                                                                       │</text>
+<text x="18.0" y="335.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="335.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="335.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> aussiegeek                               ││                                                                       │</text>
+<text x="18.0" y="354.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="354.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="354.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> avit                                     ││                                                                       │</text>
+<text x="18.0" y="373.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="373.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="373.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> awesomepanda                             ││                                                                       │</text>
+<text x="18.0" y="392.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="392.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="392.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> bira                                     ││                                                                       │</text>
+<text x="18.0" y="411.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="411.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="411.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> blinks                                   ││                                                                       │</text>
+<text x="18.0" y="430.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="430.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="430.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> bureau                                   ││                                                                       │</text>
+<text x="18.0" y="449.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="449.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="449.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> candy                                    ││                                                                       │</text>
+<text x="18.0" y="468.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="468.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="468.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> candy-kingdom                            ││                                                                       │</text>
+<text x="18.0" y="487.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="487.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="487.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> clean                                    ││                                                                       │</text>
+<text x="18.0" y="506.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="506.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="506.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> cloud                                    ││                                                                       │</text>
+<text x="18.0" y="525.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="525.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="525.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> crcandy                                  ││                                                                       │</text>
+<text x="18.0" y="544.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="544.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="544.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> crunch                                   ││                                                                       │</text>
+<text x="18.0" y="563.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">│</text>
+<text x="25.4" y="563.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">○</text>
+<text x="32.8" y="563.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve"> cypher                                   ││                                                                       │</text>
+<text x="18.0" y="582.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">╰───────────────────────────────────────────╯╰───────────────────────────────────────────────────────────────────────╯</text>
+<text x="18.0" y="601.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">↑↓/jk 选择</text>
+<text x="92.0" y="601.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">  </text>
+<text x="106.8" y="601.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">i 试穿</text>
+<text x="151.2" y="601.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">  </text>
+<text x="166.0" y="601.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">p 彩色快览</text>
+<text x="240.0" y="601.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">  </text>
+<text x="254.8" y="601.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">Enter 启用(diff 确认)</text>
+<text x="410.2" y="601.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">  </text>
+<text x="425.0" y="601.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">T 插件视图</text>
+<text x="499.0" y="601.5" fill="#c9d1d9" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">  </text>
+<text x="513.8" y="601.5" fill="#6e7681" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.5" xml:space="preserve">q 退出</text>
+</svg>
