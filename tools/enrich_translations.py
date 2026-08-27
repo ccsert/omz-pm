@@ -41,6 +41,7 @@ for cat, names in CATS.items():
 MANUAL.pop("kate", None)          # kate 是编辑器
 MANUAL["kate"] = "编辑器与终端"
 MANUAL["rsync"] = "网络与远程"     # 传输优先于文件
+MANUAL["n98-magerun"] = "补全增强"  # Magento CLI 补全,非安全类
 MANUAL["transfer"] = "网络与远程"
 MANUAL["sprunge"] = "快捷键与效率"
 
@@ -282,6 +283,173 @@ USAGE = {
     "ssh": {
         "usage": "启用后 ssh <Tab> 自动补全主机名,来源是 ~/.ssh/config 的 Host 条目与 known_hosts。配合 config 文件给服务器起别名,不用再记 IP。",
     },
+    # ────── 文件与压缩(#17)──────
+    "cp": {
+        "usage": "提供 cpv 函数:cpv 源文件 目标,内部走 rsync 并自动带上安全参数 —— 保留权限/属主/属组,目标已存在时先做备份而不是直接覆盖。日常覆盖式拷贝建议用它替代裸 cp。",
+        "aliases": {"cpv": "带安全参数的 rsync 拷贝(保留权限/属主/属组,覆盖前备份)"},
+    },
+    "torrent": {
+        "usage": "把磁力链接转成本地 .torrent 种子文件:magnet_to_torrent 'magnet:?xt=urn:btih:…'(参数加引号防 & 截断)。依赖 python3 与本机可用的 BT 工具链。",
+        "aliases": {"magnet_to_torrent": "磁力链接 → .torrent 种子文件"},
+    },
+    # ────── 文档与笔记(#18)──────
+    "dnote": {
+        "usage": "为命令行笔记工具 Dnote 提供全量补全:输入 dnote 后按 Tab 可补全子命令、书名与笔记名(如 dnote a<Tab> 补全 add)。需先安装 dnote CLI。",
+    },
+    "geeknote": {
+        "usage": "为 Evernote 命令行客户端 Geeknote 提供补全,并定义 gn 别名替代冗长的 geeknote 命令(gn login、gn create --title …)。",
+        "aliases": {"gn": "geeknote 本体"},
+    },
+    # ────── 测试与质量(#16)──────
+    "codeclimate": {
+        "usage": "为代码质量平台 Code Climate 的 CLI 提供子命令补全(codeclimate engines list 等)。需安装 codeclimate CLI。",
+    },
+    "kitchen": {
+        "usage": "为基础设施测试框架 Test Kitchen 提供补全:kitchen<Tab> 可补全 list/create/converge/verify/destroy/login 等子命令与套件名。需安装 kitchen。",
+    },
+    "molecule": {
+        "usage": "为 Ansible 角色测试框架 Molecule 提供别名与补全。典型循环:mol 建实例 → mcon 跑配置 → mvf 跑测试,mls 随时看实例状态。",
+        "aliases": {
+            "mol": "molecule 本体",
+            "mcr": "create:用 provisioner 启动测试实例",
+            "mcon": "converge:对实例执行配置",
+            "mls": "list:查看实例状态",
+            "mvf": "verify:对实例运行自动化测试",
+        },
+    },
+    "qodana": {
+        "usage": "为 JetBrains Qodana 代码质量 CLI 提供补全;补全脚本带缓存并在插件加载时自动更新,终端启动无明显开销。需安装 qodana CLI。",
+    },
+    "pre-commit": {
+        "usage": "pre-commit 钩子框架的常用别名。日常:git add 后跑 prcra 做全文件检查;装了 prek(Rust 版 pre-commit)时会自动用它替代,速度更快。",
+        "aliases": {
+            "prc": "pre-commit 本体(有 prek 时自动切 prek)",
+            "prcau": "autoupdate:更新钩子版本",
+            "prcr": "run:运行钩子",
+            "prcra": "run --all-files:全仓库检查",
+            "prcrf": "run --files <文件>:只检查指定文件",
+        },
+    },
+    # ────── 数据库与数据(#15)──────
+    "dbt": {
+        "usage": "数据分析工具 dbt 的别名集,围绕「只处理改动过的模型」:dbtrtm 一条命令跑完 改动模型+测试;dbtfrt 全量重建;dbtcds 生成并本地预览文档站点。",
+        "aliases": {
+            "dbtlm": "列出改动过的模型",
+            "dbtrm": "只运行改动过的模型",
+            "dbttm": "只测试改动过的模型",
+            "dbtrtm": "运行并测试改动过的模型",
+            "dbtrs": "clean+deps+seed 重新灌种子数据",
+            "dbtfrt": "全量刷新运行并测试",
+            "dbtcds": "生成并启动文档站点",
+        },
+    },
+    "mongo-atlas": {
+        "usage": "为 MongoDB Atlas 官方 CLI(atlas 命令)提供子命令与参数补全:atlas <Tab>。需安装 atlas CLI。",
+    },
+    "mongocli": {
+        "usage": "MongoDB 运维 CLI 的快捷前缀:ma 进 Atlas、mcm 进 Cloud Manager、mom 进 Ops Manager、miam 进 IAM 子命令,后接 Tab 补全。",
+        "aliases": {
+            "ma": "mongocli atlas",
+            "mcm": "mongocli cloud-manager",
+            "mom": "mongocli ops-manager",
+            "miam": "mongocli iam",
+        },
+    },
+    "mysql-macports": {
+        "usage": "MacPorts 安装的 MySQL 服务管理四件套:mysqlstart / mysqlstop / mysqlrestart / mysqlstatus(status 会提示输 root 密码)。仅适合 MacPorts 安装方式。",
+        "aliases": {
+            "mysqlstart": "启动 MySQL 服务",
+            "mysqlstop": "停止 MySQL 服务",
+            "mysqlrestart": "重启 MySQL 服务",
+            "mysqlstatus": "ping 检查服务是否存活",
+        },
+    },
+    "postgres": {
+        "usage": "Homebrew 版 PostgreSQL 的服务管理别名:startpost/stoppost/restartpost/reloadpost/statuspost。注意数据目录硬编码为 /usr/local/var/postgres(仅适合 Intel Mac 的 Homebrew 路径,Apple Silicon 为 /opt/homebrew,不匹配时勿用)。",
+        "aliases": {
+            "startpost": "启动 postgres 并写日志",
+            "stoppost": "快速停止 postgres",
+            "restartpost": "重启 postgres",
+            "reloadpost": "重载配置(部分配置需重启才生效)",
+            "statuspost": "查看运行状态",
+        },
+    },
+    "redis-cli": {
+        "usage": "为 redis-cli 提供命令与参数补全(基于 Homebrew 补全改造)。需本机安装 redis。",
+    },
+    # ────── 趣味与语录(#14)──────
+    "catimg": {
+        "usage": "catimg 图片.png 直接在终端里把图片渲染成彩色字符画(可加第二参数调分辨率)。依赖 ImageMagick 的 magick/convert。",
+        "aliases": {"catimg": "终端显示图片"},
+    },
+    "chucknorris": {
+        "usage": "chuck 随机来一条查克·诺里斯式程序员笑话;chuck_cow 让笑话装进 cowthink 的奶牛气泡里。依赖系统 fortune/strfile(缺 strfile 时首次会报提示),适合当 MOTD。",
+        "aliases": {
+            "chuck": "随机查克·诺里斯笑话",
+            "chuck_cow": "笑话装进奶牛气泡",
+        },
+    },
+    "hitchhiker": {
+        "usage": "hitchhiker 随机输出《银河系漫游指南》语录;hitchhiker_cow 同样配奶牛气泡。依赖 fortune。",
+        "aliases": {
+            "hitchhiker": "随机语录",
+            "hitchhiker_cow": "语录 + cowthink 气泡",
+        },
+    },
+    "hitokoto": {
+        "usage": "hitokoto 从 hitokoto.cn 随机拉一句中文「一言」(需联网)。可以塞进 .zshrc 末尾,让每次开终端都有新句子。",
+        "aliases": {"hitokoto": "随机一言(联网)"},
+    },
+    "lol": {
+        "usage": "猫语别名包,纯属好玩:wtf 看内核日志、nomnom 杀进程、icanhas 建目录、rtfm 打开手册、moar 翻页、visible/invisible 是 echo/cat。装上后同事看你屏幕会困惑。",
+        "aliases": {
+            "wtf": "dmesg 内核日志",
+            "nomnom": "killall 杀进程",
+            "icanhas": "mkdir",
+            "rtfm": "man",
+            "moar": "more",
+            "tldr": "less",
+        },
+    },
+    "octozen": {
+        "usage": "display_octozen 从 GitHub 拉一条 Octocat 禅语显示在终端(需联网,2 秒超时不阻塞)。可加进 .zshrc 当开机禅语。",
+        "aliases": {"display_octozen": "显示 GitHub 禅语(联网)"},
+    },
+    "rand-quote": {
+        "usage": "quote 从 quotationspage.com 随机拉一条英文名人名言(需联网),适合随手放在提示信息里。",
+        "aliases": {"quote": "随机英文名言(联网)"},
+    },
+    # ────── 安全与密码(#13)──────
+    "gpg-agent": {
+        "usage": "零配置启用。修复 GPG 常见翻车点:每次命令执行前刷新 GPG_TTY(否则 pinentry 弹不出密码框);若 gpg-agent 开了 enable-ssh-support,自动把 SSH_AUTH_SOCK 指到 gpg 的 ssh 套接字(让 ssh 用 GPG 密钥)。做 git 签名提交必配。",
+    },
+    "otp": {
+        "usage": "把双因素验证器搬进终端(依赖 oathtool 与 GPG):otp_add_device 登记一个新 MFA 密钥(密钥用你的 GPG 公钥加密后存到 ~/.otp);之后 ot <名字> 生成一次性验证码并自动进剪贴板,粘贴即用。",
+        "aliases": {
+            "otp_add_device": "登记新的 GPG 加密 MFA 密钥",
+            "ot": "生成验证码并复制到剪贴板",
+        },
+    },
+    "pass": {
+        "usage": "为标准 Unix 密码管理器 pass 提供完整补全(含密码条目名 Tab 补全)。多密码库场景可按 README 配 compdef + zstyle prefix + 包装函数,让 workpass 等私有库各自补全。",
+    },
+    "pass-cli": {
+        "usage": "为 Proton Pass 官方 CLI 提供补全(pass <Tab>)。需安装 Proton Pass CLI。",
+    },
+    "rbw": {
+        "usage": "为 Bitwarden 第三方客户端 rbw 提供补全;亮点是 rbwpw <服务名>:把对应密码复制进剪贴板并在 20 秒后自动清空,免去看明文的尴尬。需先 rbw login/unlock。",
+        "aliases": {"rbwpw": "取密码进剪贴板,20 秒后自动清空"},
+    },
+    "sigstore": {
+        "usage": "为软件供应链签名三件套提供补全:cosign(镜像签名/验签)、sget(带验签的拉取)、rekor(透明日志查询)。",
+    },
+    "lpass": {
+        "usage": "为 LastPass 密码管理器 CLI 提供补全:lpass <Tab> 补全 show/generate/login 等子命令与条目名。需安装 lastpass-cli 并已登录。",
+    },
+    "vault": {
+        "usage": "为 HashiCorp Vault 密钥管理 CLI 提供子命令与路径补全(vault kv get secret/foo <Tab>)。需安装 vault。",
+    },
+
     "colored-man-pages": {},
     "command-not-found": {},
 }
