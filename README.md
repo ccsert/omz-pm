@@ -15,7 +15,7 @@ hand-editing `~/.zshrc`.
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-<img src="docs/screenshots/plugins.svg" alt="omz-pm plugin view" width="100%">
+<img src="docs/screenshots/plugins.png" alt="omz-pm plugin view" width="100%">
 
 </div>
 
@@ -69,11 +69,11 @@ so you can see exactly what's slowing your startup down.
 
 | Themes (live preview) | Save with diff preview |
 | --- | --- |
-| <img src="docs/screenshots/themes.svg" width="100%"> | <img src="docs/screenshots/diff.svg" width="100%"> |
+| <img src="docs/screenshots/themes.png" width="100%"> | <img src="docs/screenshots/diff.png" width="100%"> |
 
 | README reader (localized) | — |
 | --- | --- |
-| <img src="docs/screenshots/readme.svg" width="100%"> | |
+| <img src="docs/screenshots/readme.png" width="100%"> | |
 
 ## Install
 

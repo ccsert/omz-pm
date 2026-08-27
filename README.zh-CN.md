@@ -14,7 +14,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-<img src="docs/screenshots/plugins.svg" alt="omz-pm 插件视图" width="100%">
+<img src="docs/screenshots/plugins.png" alt="omz-pm 插件视图" width="100%">
 
 </div>
 
@@ -64,11 +64,11 @@ omz-pm 把这些全部搬进终端界面:
 
 | 主题视图(实时预览) | diff 保存预览 |
 | --- | --- |
-| <img src="docs/screenshots/themes.svg" width="100%"> | <img src="docs/screenshots/diff.svg" width="100%"> |
+| <img src="docs/screenshots/themes.png" width="100%"> | <img src="docs/screenshots/diff.png" width="100%"> |
 
 | README 阅读器(标题汉化) | — |
 | --- | --- |
-| <img src="docs/screenshots/readme.svg" width="100%"> | |
+| <img src="docs/screenshots/readme.png" width="100%"> | |
 
 ## 安装
 
