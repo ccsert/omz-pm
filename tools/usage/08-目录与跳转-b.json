@@ -1,0 +1,29 @@
+{
+  "autoenv": {
+    "usage": "需先安装 autoenv(如 brew install autoenv),插件会自动在多个常见路径中定位并加载它。\n启用后 cd 进入含 .env 文件的目录时自动执行该文件,常用来一进项目就激活虚拟环境、导出环境变量。\n另提供 use_env <名称> 函数:在项目 .env 里写一行 use_env myenv,进入目录即激活同名 Python virtualenv,不存在会询问后创建(依赖 virtualenvwrapper 的 workon/mkvirtualenv)。",
+    "aliases": {
+      "use_env": "函数:在 .env 中激活/创建指定名称的 Python virtualenv,已是当前环境则不动作"
+    }
+  },
+  "direnv": {
+    "usage": "需先安装 direnv(brew install direnv)。插件把 direnv 挂进 zsh 的 precmd/chpwd 钩子,cd 进出目录时环境自动加载/卸载。\n在项目里执行 direnv edit . 用 $EDITOR 创建 .envrc 写入环境变量,首次进入会提示 blocked,执行 direnv allow 放行后,以后每次 cd 进该目录变量自动生效、离开自动还原。"
+  },
+  "dirpersist": {
+    "usage": "全自动,无需操作:每次 cd 都把最近 20 个不重复目录持久化到 ~/.zdirs,新开终端自动还原 dirstack。\n效果:刚登录 shell 也能 cd - 回到上次所在目录,cd -<n> 直接回到第 n 个最近访问的目录,cd - 后按 Tab 还能列出候选。"
+  },
+  "fastfile": {
+    "usage": "ff <名字> [路径] 为当前目录(或指定路径)建快捷方式,之后在任意位置 cd §<名字> 直接跳转、§<名字> 可当路径用在任何命令里(§ 前缀可用 fastfile_var_prefix 变量改,如 '@')。\nffls 列出全部快捷方式;ffrm <名字> 删除;ffp <名字> 打印「§名字 -> 路径」;ffsync 为所有快捷方式重建全局别名。"
+  },
+  "pj": {
+    "usage": "先在 ~/.zshrc 设 PROJECT_PATHS=(~/src ~/work),之后 pj <项目名> 直接 cd 到这些目录下的同名项目,支持 Tab 补全项目名;多个重名时取 PROJECT_PATHS 中靠前的目录。\npjo <项目名> 用 $EDITOR 打开项目目录而不切换过去。"
+  },
+  "scd": {
+    "usage": "首次 scd -ar ~/Documents 递归建立目录索引,之后每次 cd 会自动记录访问历史。\nscd doc 只凭路径片段跳到最常去且最近的匹配目录,多个结果弹菜单选择;scd -v 在菜单里显示排名;scd --alias=xray 给当前目录建永久别名,以后 scd xray 直达。\n还支持 scd \"ts$\" 匹配路径结尾、scd ./ 只在当前目录的子目录里找。",
+    "aliases": {
+      "scd": "函数:按历史索引智能跳目录,支持片段匹配、选择菜单和 --alias 目录别名"
+    }
+  },
+  "zsh-interactive-cd": {
+    "usage": "需先安装 fzf。启用后在 cd 命令后按 Tab 不再是普通补全,而是弹出 fzf 交互菜单实时过滤子目录,Tab 下移、Shift+Tab 上移、退格删除字符,回车把选中项补进命令行。\n仅当行首命令为 cd 时生效;在 zshrc 设 zic_case_insensitive=true 可不区分大小写,设 zic_custom_binding 可改触发键(默认 ^I 即 Tab)。"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "colorize": {
+    "usage": "需先安装 pygments(提供 pygmentize)或 chroma 任一工具。\ncat 的高亮替代:ccat app.py 按扩展名自动选语法上色,认不出扩展名就猜文件内容,再不行退化为普通 cat;支持管道,如 curl -s https://example.com/x.json | ccat 直接给标准输入上色。\ncless src.rs 用 less 翻页查看带高亮的文件,同样支持管道输入。\n默认优先用 pygmentize 引擎、emacs 样式(源码设定):ZSH_COLORIZE_TOOL=chroma 强制换引擎,ZSH_COLORIZE_STYLE=\"colorful\" 换配色;chroma 引擎还可设 ZSH_COLORIZE_CHROMA_FORMATTER=terminal256 开 256 色。",
+    "aliases": {
+      "ccat": "带语法高亮地输出文件内容,相当于 cat 的彩色版,无参数时对标准输入上色",
+      "cless": "带语法高亮用 less 翻页查看文件"
+    }
+  },
+  "emoji": {
+    "usage": "启用后按名字引用 emoji:echo $emoji[penguin] 输出🐧,echo $emoji_flags[China] 输出国旗(国旗映射按国家名或 ISO 两位代码索引,如 Japan、United_States)。\nrandom_emoji 随机抽一个,random_emoji faces/animals/fruits 在指定分组内抽;echo ${(k)emoji_groups} 列出全部分组,源码共 7 组:fruits、vehicles、hands、people、animals、faces、flags。\ndisplay_emoji faces 打印该组全部 emoji 及对应名称,用来查名字。\n也可嵌进提示符:PROMPT=\"$emoji[penguin] > \" 直接把🐧放进提示符。",
+    "aliases": {
+      "random_emoji": "随机打印一个 emoji,可传分组名(如 fruits、faces、flags)在组内抽取",
+      "display_emoji": "列出某个分组(不带参数则全部)的 emoji 及其名称"
+    }
+  },
+  "emoji-clock": {
+    "usage": "零配置:启用后运行 emoji-clock,当前时间变成时钟 emoji,精确到半小时——8:10 显示🕗,8:20 就显示🕣(内部先给分钟数加 15 再归到半点,即四舍五入到最近的半点)。\n典型玩法是嵌进提示符:setopt prompt_subst 后写 PS1=\"$(emoji-clock) %~ %# \",每次刷新提示符时间图标跟着走。",
+    "aliases": {
+      "emoji-clock": "把当前时间显示为时钟 emoji,精确到半小时"
+    }
+  },
+  "emotty": {
+    "usage": "依赖 emoji 插件,两者需一起启用。\nemotty 按当前终端 $TTY 编号从字符集返回一个 emoji,用来给不同终端窗口的提示符配不同图标:setopt prompt_subst 后写 PROMPT='$(emotty) %~$ ',每开一个新窗口图标就换。\nexport emotty_set=nature 切换字符集,源码内置 6 套:emoji(默认)、floral、love、nature、stellar、zodiac。\ndisplay_emotty zodiac 先预览整套字符再决定用哪套。",
+    "aliases": {
+      "emotty": "按当前终端 $TTY 编号从所选字符集返回一个 emoji,常用于提示符",
+      "display_emotty": "列出指定字符集(默认当前 emotty_set)里的全部 emoji 及名称"
+    }
+  },
+  "grc": {
+    "usage": "需先安装 grc(brew install grc 或 apt install grc)。\n启用后插件自动在 /etc/grc.zsh、/opt/homebrew/etc/grc.zsh(Apple Silicon Homebrew)、/usr/share/grc/grc.zsh 等标准路径中查找并加载 grc 自带的别名配置,让 ps、ping、dig、netstat 等常用命令输出自动上色。\n具体包装了哪些命令由所装 grc 版本决定,以对应 grc.zsh 文件内容为准,插件本身只负责按顺序找到第一个可读的配置并加载。"
+  },
+  "shrink-path": {
+    "usage": "核心命令 shrink_path /home/me/foo/bar/quux 输出 /h/m/f/b/q:每段截到不产生歧义的最短前缀。\n最常用 -f(fish 风格,等同 -l -s -t:家目录变 ~、末级目录保留全名):setopt prompt_subst 后把 PS1='%n@%m $(shrink_path -f)>' 写进 zshrc,提示符即显示短路径。\n-g 给缩写段加 * 使缩短路径可直接 glob;-3 每段至少保留 3 字符;-e '$' 自定义截断后缀符号;-x 还原完整路径。\n偏好可持久化:zstyle :prompt:shrink_path fish yes;再配合 zle widget + bindkey(如绑到 ALT+SHIFT+S)可随时一键切换缩短/展开。",
+    "aliases": {
+      "shrink_path": "缩短目录路径显示(如 /home/me/foo/bar/quux → /h/m/f/b/q),支持 -f/-g/-t/-x 等选项,常嵌入提示符"
+    }
+  },
+  "starship": {
+    "usage": "需先安装 starship(curl -sS https://starship.rs/install.sh | sh,或 brew install starship)。\n启用即生效:插件检测到 starship 命令后自动执行 starship init zsh 初始化跨 shell 提示符,并 unset ZSH_THEME 屏蔽 oh-my-zsh 主题;未安装时启动会提示 starship not found 并保留原主题。\n外观定制不写 zshrc:改 ~/.config/starship.toml,或用 starship preset 一键套预设(如 starship preset pastel-powerline)。"
+  }
+}
