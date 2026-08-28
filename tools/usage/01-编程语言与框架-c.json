@@ -1,0 +1,215 @@
+{
+ "hasura": {
+  "usage": "为 Hasura CLI 补全子命令与参数(需已安装 hasura 命令,否则插件直接不生效)。\n首次启用时同步生成补全脚本并缓存到 $ZSH_CACHE_DIR/completions/_hasura,之后开新终端直接读缓存,同时在后台静默重新生成,保证补全与 CLI 版本同步。\n例:hasura migrate <Tab>、hasura console <Tab>。"
+ },
+ "homestead": {
+  "usage": "为 Laravel Homestead 的 homestead 命令补全子命令(需先安装 Homestead 并保证 homestead 在 PATH 中)。\n补全列表通过解析 homestead --no-ansi 的输出动态获得,始终与当前版本可用命令一致。\n例:homestead <Tab> 直接列出 ssh、up、destroy 等全部子命令。"
+ },
+ "invoke": {
+  "usage": "为 Python 任务执行工具 invoke 补全任务名与选项,需先 pip install invoke。\n启用后自动加载 invoke --print-completion-script=zsh 生成的补全脚本。\n例:在含 tasks.py 的项目里输入 invoke <Tab> 列出全部任务名。"
+ },
+ "ionic": {
+  "usage": "Ionic CLI 别名集(需全局安装 Ionic CLI 后生效)。\nis = ionic serve 起本地开发服务器热重载调试;ist = ionic start 新建项目;ii/iv/ih 查环境信息/版本/帮助。\nCordova 一族:icra/icri 在已连接的 Android/iOS 设备上运行,icba/icbi 构建对应平台包,icpaa 添加 Android 平台。\n另有 icrsa/icrsi 自动生成图标与启动屏、icpra/icpri 移除平台。",
+  "aliases": {
+   "is": "ionic serve 启动本地开发服务器",
+   "ist": "创建新的 Ionic 项目",
+   "iv": "查看 Ionic CLI 版本",
+   "ii": "打印系统与环境信息",
+   "icba": "构建 Android 平台包",
+   "icbi": "构建 iOS 平台包",
+   "icra": "在已连接的 Android 设备上运行",
+   "icri": "在已连接的 iOS 设备上运行"
+  }
+ },
+ "jake-node": {
+  "usage": "为 JS 构建工具 Jake 补全任务名(需 npm install -g jake)。\n仅当当前目录存在 Jakefile/jakefile(含 .js 后缀写法)时生效,通过解析 jake -T 的输出得到任务列表。\n例:jake <Tab> 列出 Jakefile 中定义的全部任务。"
+ },
+ "jruby": {
+  "usage": "JRuby 专用别名(需已安装 jruby 并在 PATH 中)。\njexec = jruby -S,用 JRuby 运行 gem 提供的命令,如 jexec rake test;jrspec 带 --debug 运行 JRuby 版 rspec;jprofile 用 --profile.api 对 rspec 做性能剖析,快速定位慢代码。",
+  "aliases": {
+   "jexec": "以 jruby -S 运行 gem 提供的命令",
+   "jrspec": "带 --debug 运行 JRuby 版 rspec",
+   "jprofile": "对 rspec 做 API 级性能剖析"
+  }
+ },
+ "laravel": {
+  "usage": "Laravel Artisan 别名大合集(50+ 个)并自带 artisan 命令补全。\nartisan = php artisan;pas 起开发服务器,pam 数据库迁移,pamf 重建全部表(pamfs 再灌种子数据),pamm/pamc 生成模型/控制器,paqw 消费队列。\n清缓存一族:pacac 清应用缓存、pacoc 清配置、pavic 清视图、paroc 清路由,一键全清用 paopc。",
+  "aliases": {
+   "artisan": "php artisan 主命令(带补全)",
+   "pas": "php artisan serve 启动开发服务器",
+   "pam": "执行数据库迁移",
+   "pamf": "migrate:fresh 重建全部表",
+   "pamm": "生成 Eloquent 模型",
+   "pamc": "生成控制器",
+   "pacac": "清空应用缓存",
+   "paqw": "queue:work 消费队列"
+  }
+ },
+ "laravel4": {
+  "usage": "为老项目 Laravel 4 的 artisan 命令提供补全与别名。\n在含 artisan 文件的项目里,artisan 或 la4 <Tab> 会解析 php artisan --no-ansi 的输出,动态列出全部可用命令。\n别名:la4 = php artisan;la4dump 重载自动加载;la4cache 清应用缓存;la4routes 列出全部路由。",
+  "aliases": {
+   "la4": "php artisan 主命令",
+   "la4dump": "dump-autoload 重建自动加载文件",
+   "la4cache": "清空应用缓存",
+   "la4routes": "列出所有已注册路由"
+  }
+ },
+ "laravel5": {
+  "usage": "Laravel 5 的 artisan 补全与别名。\n在含 artisan 文件的项目里,artisan 或 la5 <Tab> 通过 php artisan --raw --no-ansi list 动态补全全部命令。\n别名:la5 = php artisan;la5cache 清应用缓存;la5routes 列路由;la5vendor 发布 vendor 包中的可发布资源。",
+  "aliases": {
+   "la5": "php artisan 主命令",
+   "la5cache": "清空应用缓存",
+   "la5routes": "route:list 列出全部路由",
+   "la5vendor": "vendor:publish 发布包资源"
+  }
+ },
+ "lein": {
+  "usage": "为 Clojure 构建工具 Leiningen 的 lein 命令补全(需先安装 lein)。\n补全涵盖 new、deps、run、test、uberjar、repl 等常用任务及其选项。\n例:lein <Tab> 直接列出全部任务。"
+ },
+ "meteor": {
+  "usage": "Meteor 全家桶:31 个别名加命令与包名补全。\nm = meteor run 本地开发模式运行;mc 新建项目;ma/mr 添加/移除包,ml 列出项目包,mu 升级依赖。\nmsh 进服务端 Node REPL 调试;mde 部署到 Meteor;mm 直连站点 Mongo;mw 查当前登录账号。",
+  "aliases": {
+   "m": "meteor run 本地开发模式运行项目",
+   "mc": "创建新的 Meteor 项目",
+   "ma": "向项目添加包",
+   "mr": "从项目移除包",
+   "ml": "列出项目使用的包",
+   "mu": "升级项目依赖",
+   "msh": "进入服务端 Node REPL",
+   "mde": "部署项目到 Meteor"
+  }
+ },
+ "mix": {
+  "usage": "为 Elixir 的 Mix 构建工具补全任务名:内置静态任务表,覆盖 Elixir、Phoenix(v1.2 与 v1.3+)、Ecto、Hex、Nerves 及 mix_test_watch。\n无需生成缓存、开箱即用,代价是任务列表固定,自定义 mix 任务不会出现在补全里(要动态就换 mix-fast)。\n例:mix <Tab> 列出 compile、deps.get、ecto.migrate 等任务。"
+ },
+ "mix-fast": {
+  "usage": "mix 补全的提速版:首次补全时用 mix help 生成任务缓存文件 .mix_tasks,之后直接读缓存,大项目里明显更快。\n新增自定义任务补全不出来时,执行 mix_refresh 强制重建缓存。\n建议把 .mix_tasks 加进全局 gitignore,免得污染仓库。",
+  "aliases": {
+   "mix_refresh": "删除并重新生成 .mix_tasks 任务缓存"
+  }
+ },
+ "mvn": {
+  "usage": "Maven 别名大礼包(30+)加强力补全,需已安装 mvn。\nmvn 别名实际指向 mvn-or-mvnw:从当前目录逐级向上找 mvnw(Maven Wrapper),找到就用它,否则退回系统 mvn,多模块仓库不用再手动切 wrapper。\n常用:mvnci = clean install;mvncist 跳测试安装;mvncp 打包;mvndt 看依赖树;mvnboot 起 Spring Boot;mvnqdev 起 Quarkus 开发模式。\nmvn! 对 git 仓库根目录的 pom.xml 执行命令;mvn-color 给输出上色(已知会吞交互输入);补全能列出 settings.xml 中的 profile(-P)与全部子模块。",
+  "aliases": {
+   "mvn!": "对 git 仓库根目录的 pom.xml 执行 mvn",
+   "mvnci": "clean install 清理并装进本地仓库",
+   "mvncist": "clean install 并跳过测试",
+   "mvncp": "clean package 清理并打包",
+   "mvndt": "dependency:tree 查看依赖树",
+   "mvnboot": "spring-boot:run 启动 Spring Boot 应用",
+   "mvnqdev": "quarkus:dev 启动 Quarkus 开发模式",
+   "mvn-updates": "检查依赖可更新的版本"
+  }
+ },
+ "nanoc": {
+  "usage": "静态站点生成器 Nanoc 的别名与补全(需 gem install nanoc)。\nn = nanoc 主命令;nco 编译站点;nv 起本地预览服务器(默认 3000 端口);ncs 新建站点。\nnd 把编译产物部署到 --target 指定的目标;np 清理输出目录中不受 Nanoc 管理的文件。",
+  "aliases": {
+   "n": "nanoc 主命令",
+   "nco": "编译当前站点",
+   "ncs": "创建新站点",
+   "nd": "部署已编译的站点",
+   "np": "清理输出目录中的多余文件",
+   "nv": "启动本地预览服务器"
+  }
+ },
+ "nestjs": {
+  "usage": "NestJS CLI 别名集,需先 npm install -g @nestjs/cli。\nnnew 创建项目;ns 起服务,nsw 带 watch 热重载,nsdbg 调试模式,nb 构建。\n代码生成:ngm 模块、ngc 控制器、ngs 服务、ngg 守卫、ngp 管道,一条 ngres 直接生成整套 CRUD 资源。\n注意插件把 ng 定义为 nest generate 的别名,会盖住 Angular CLI 的 ng 命令,两个别同开要留意。",
+  "aliases": {
+   "nnew": "创建新的 NestJS 项目",
+   "ns": "启动应用",
+   "nsw": "以 watch 模式启动应用",
+   "nb": "构建应用",
+   "ngm": "生成模块",
+   "ngc": "生成控制器",
+   "ngs": "生成服务",
+   "ngres": "生成整套 CRUD 资源"
+  }
+ },
+ "ng": {
+  "usage": "为 Angular CLI 的 ng 命令补全(纯补全,无别名)。\n特色是动态解析:一级补全从 ng help 实时解析子命令(含别名),二级补全对应命令的全部 flags。\n例:ng generate <Tab>、ng build --<Tab>。"
+ },
+ "node": {
+  "usage": "仅提供一个 node-docs 函数:node-docs fs 用浏览器打开与本机 node 版本一致的 API 文档 fs 章节,不带参数打开 all 总览。\nURL 由 node --version 实时拼出,多版本环境也不会看错文档。"
+ },
+ "nodenv": {
+  "usage": "把 nodenv 接入 shell:PATH 里找不到 nodenv 时,自动搜索 ~/.nodenv、/usr/local/nodenv、/opt/nodenv,再不行问 brew --prefix nodenv,找到后执行 nodenv init 完成初始化。\n提供 nodenv_prompt_info 函数供主题调用:RPROMPT='$(nodenv_prompt_info)' 即可在提示符显示当前 Node 版本;没装 nodenv 时回退显示系统 node 版本。"
+ },
+ "npm": {
+  "usage": "npm 补全(基于 npm completion 实时生成)加约 20 个别名。\nnpmg 包 全局安装;npmS/npmD 安装并写入 dependencies/devDependencies;npmO 查过时包,npmU 统一升级,npmL0 只列顶层包,npmst/npmt = start/test。\n彩蛋:连按两次 F2,可把当前(或最近两条历史)命令在 npm install 与 npm uninstall 之间来回切换,装错马上反悔。",
+  "aliases": {
+   "npmg": "全局安装依赖",
+   "npmS": "安装并写入 dependencies",
+   "npmD": "安装并写入 devDependencies",
+   "npmO": "检查哪些包已过时",
+   "npmU": "把包更新到最新版本",
+   "npmL0": "只列出顶层已安装包",
+   "npmst": "运行 npm start",
+   "npmt": "运行 npm test"
+  }
+ },
+ "paver": {
+  "usage": "为 Python 构建工具 Paver 补全任务名(需已安装 paver)。\n仅当目录里有 pavement.py 时生效:解析 paver --help 生成任务缓存到 .paver_targets,缓存比 pavement.py 旧时自动重建。\n例:paver <Tab> 列出 pavement.py 中定义的任务。"
+ },
+ "pep8": {
+  "usage": "为 Python 风格检查工具 pep8 补全命令行选项(需已安装 pep8)。\n覆盖 --exclude/--ignore/--select/--max-line-length/--format 等全部参数。\n例:pep8 -<Tab> 列出 -h/-v/-q 等选项。"
+ },
+ "perl": {
+  "usage": "Perl 一站式别名与函数,并自动激活 perlbrew(在 zshrc 里设 ZSH_PERLBREW_ACTIVATE=false 可关掉)。\n版本管理:pbi 5.40 装指定版本 perl,pbl 列已装版本,pbs/pbu 切换/临时使用,pbo 回到系统 perl。\n一行流:ple = perl -wlne,像 awk/sed 一样逐行处理;latest-perl 查最新稳定版号。\n函数:newpl 生成带 strict/warnings 骨架的脚本并用 $EDITOR 打开;pgs 文件内全局替换;prep 是 Perl 版 grep,管道、文件都能吃。",
+  "aliases": {
+   "pbi": "perlbrew 安装指定版本 perl",
+   "pbl": "列出已安装的 perl 版本",
+   "pbo": "回到系统 perl",
+   "pbs": "切换默认 perl 版本",
+   "pbu": "临时使用指定版本 perl",
+   "pd": "打开 perldoc 文档",
+   "ple": "perl -wlne 逐行处理,当 awk/sed 用",
+   "latest-perl": "查询 Perl 最新稳定版本号"
+  }
+ },
+ "phing": {
+  "usage": "为 PHP 构建工具 Phing 补全 target 名(需已安装 phing)。\n仅当当前目录存在 build.xml 时生效,解析 phing -l 的输出并过滤 property 行等噪音。\n例:phing <Tab> 列出 build.xml 中定义的全部 target。"
+ },
+ "pipenv": {
+  "usage": "Pipenv 增强包(需已安装 pipenv):补全 + 15 个别名 + 自动激活虚拟环境。\npi 装依赖,pidev 装开发依赖,pl 锁定,psh 进虚拟环境 shell,pu 卸载,pgr 看依赖图,pvenv 查虚拟环境路径。\n自动 shell:cd 进含 Pipfile 的目录自动 source 虚拟环境,离开自动 deactivate;不想要就 zstyle ':omz:plugins:pipenv' auto-shell no。\n补全按版本自适应:pipenv ≥ 2026.5.0 走 argcomplete(需安装 argcomplete),旧版把 Click 补全脚本缓存到 $ZSH_CACHE_DIR/completions/_pipenv;版本号本身也缓存,不拖慢启动。",
+  "aliases": {
+   "pi": "安装依赖",
+   "pidev": "安装开发依赖",
+   "psh": "进入虚拟环境 shell",
+   "pu": "卸载依赖",
+   "pl": "锁定依赖生成锁文件",
+   "pgr": "查看依赖关系图",
+   "prun": "在虚拟环境中执行命令",
+   "pvenv": "显示虚拟环境路径"
+  }
+ },
+ "pm2": {
+  "usage": "pm2 进程管理器的常用别名(共 6 个)与补全。\np2s 起进程,p2o 停止,p2r 重启,p2d 删除,p2i 列出全部进程,p2l 看日志。\n例:p2s app.js 起服务后,p2l 直接跟踪日志。",
+  "aliases": {
+   "p2s": "启动进程",
+   "p2o": "停止进程",
+   "p2d": "删除进程",
+   "p2r": "重启进程",
+   "p2i": "列出全部进程",
+   "p2l": "查看日志"
+  }
+ },
+ "pod": {
+  "usage": "为 CocoaPods 补全子命令与选项(Swift/Objective-C 项目的依赖管理器,需已安装 pod)。\n补全覆盖 install、update、search、push、repo 等子命令及各自的 flag。\n例:pod <Tab> 列出全部子命令。"
+ },
+ "poetry": {
+  "usage": "自动安装并保持 Poetry 补全最新(缓存到 $ZSH_CACHE_DIR/completions/_poetry,后台刷新),另附 27 个别名。\npnew 建项目,pad 加依赖,pinst 按锁文件安装,psh 进虚拟环境 shell,prun 在环境里跑命令。\nptree 依赖树一览,pexp 把锁文件导出成 requirements.txt,pup 升级依赖,pvoff 关闭自动创建虚拟环境。",
+  "aliases": {
+   "pnew": "创建新的 Poetry 项目骨架",
+   "pad": "添加依赖并写入 pyproject.toml",
+   "pinst": "解析并安装全部依赖",
+   "psh": "进入虚拟环境 shell",
+   "prun": "在项目虚拟环境中执行命令",
+   "ptree": "以树状结构查看依赖",
+   "pexp": "导出锁文件为 requirements.txt",
+   "pup": "升级依赖并更新锁文件"
+  }
+ },
+ "poetry-env": {
+  "usage": "cd 进同时含 pyproject.toml 与 poetry.lock 的目录时,自动激活对应的 Poetry 虚拟环境;离开或进入另一个 Poetry 项目时自动 deactivate。\n需已安装 poetry 且环境已存在:激活前用 poetry env info --path 找环境路径,也支持 .venv 内建目录。\n注意本插件无任何别名,纯粹是自动切换钩子;与 poetry 插件的 psh 手动进 shell 混用时留意别套娃。"
+ }
+}

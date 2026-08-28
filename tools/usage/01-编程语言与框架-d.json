@@ -1,0 +1,206 @@
+{
+ "powder": {
+  "usage": "为 powder 命令(Ruby Pow 零配置本地应用服务器的管理 CLI)提供子命令补全:powder <Tab> 时执行 powder help 解析出全部子命令供补全,如 powder link、powder shell。\n需先安装 powder(gem install powder);无别名、无函数。"
+ },
+ "procs": {
+  "usage": "为 procs(Rust 编写的现代化 ps 替代品)自动生成 zsh 补全:每次 shell 启动时在后台执行 procs --gen-completion-out zsh(0.14 以下旧版用 --completion-out)并缓存到插件补全目录,补全始终与已装版本同步。\n需自行安装 procs(brew install procs 或 cargo install procs),未安装时插件直接跳过;装好后 procs --<Tab> 即可补全选项。\n无别名、无函数。"
+ },
+ "pylint": {
+  "usage": "pylint-quick = pylint --reports=n:快速检查 Python 代码风格与错误,只输出逐条检查结果、不生成多份详细报告,如 pylint-quick app.py。\n需自行安装 Pylint(pip install pylint)。",
+  "aliases": {
+   "pylint-quick": "运行 pylint --reports=n,只显示检查结果、不输出多份详细报告"
+  }
+ },
+ "rails": {
+  "usage": "rails 与 rake 命令被包装过:优先使用项目里的 bin/stubs/rails、bin/rails(rake 同理走 binstub,有 Gemfile 时自动 bundle exec),所有别名都基于这个包装。\nrc 进控制台,rcs 沙盒控制台(退出自动回滚数据);rdm 跑迁移、rdr 回滚一步、rdms 看迁移状态;rgen/rgm 生成代码/迁移;rr 查全部路由(rrg 按关键字过滤)、rs 起开发服务器、rt 跑测试。\ndevlog/prodlog/testlog 分别 tail 开发/生产/测试日志;全局别名 RED/REP/RET 设置 RAILS_ENV,可与任意命令组合,如 REP rake db:migrate 对生产库执行迁移。",
+  "aliases": {
+   "rc": "rails console,进入 Rails 控制台",
+   "rcs": "rails console --sandbox,沙盒模式控制台,退出即回滚数据变更",
+   "rdm": "rails db:migrate,执行待处理的数据库迁移",
+   "rdr": "rails db:rollback,回滚最近一次迁移",
+   "rgm": "rails generate migration,生成一次数据库迁移",
+   "rr": "rails routes,列出全部已定义路由",
+   "rs": "rails server,启动开发服务器",
+   "rt": "rails test,运行 Rails 测试"
+  }
+ },
+ "rake": {
+  "usage": "核心改动是把 rake 重新别名成 noglob rake:调用带参数的任务时方括号不再需要转义,直接写 rake namespace:task['arg'] 即可。\nbrake 走 bundle exec rake;srake/sbrake 以 sudo 执行;bin/rake 使用项目 binstub;另有 jimweirich 别名(等于 rake),致敬 Rake 作者 Jim Weirich。",
+  "aliases": {
+   "rake": "noglob rake,任务参数的方括号无需转义",
+   "brake": "noglob bundle exec rake,通过 Bundler 执行",
+   "srake": "noglob sudo rake,以 sudo 执行",
+   "sbrake": "noglob sudo bundle exec rake,sudo 与 Bundler 同时使用",
+   "bin/rake": "noglob bin/rake,使用项目 rake binstub",
+   "jimweirich": "等于 rake,致敬 Rake 作者 Jim Weirich"
+  }
+ },
+ "rake-fast": {
+  "usage": "rake 任务补全提速版:在含 Rakefile 的目录里输入 rake <Tab>,首次会把任务列表缓存到 .rake_tasks 文件,之后直接读缓存,远快于每次现场执行 rake --tasks。\nRakefile 有改动时自动重新生成;Rails 项目还会额外检测 lib/tasks 下文件的修改时间。\n缓存异常时执行 rake_refresh 强制重建;建议把 .rake_tasks 加进全局 .gitignore。"
+ },
+ "rbenv": {
+  "usage": "启用后自动把 rbenv 加入 PATH 并执行 rbenv init --no-rehash 完成 shell 初始化。\nrubies 列出已安装的 Ruby 版本;gems 彩色列出当前版本的 gem;gemsets 列出 gemset(需要 rbenv-gemset 插件支持)。\n把 rbenv_prompt_info 加入主题即可在提示符显示 ruby@gemset;未安装 rbenv 时这些函数会降级显示系统 ruby 信息。需自行安装 rbenv(brew install rbenv)。",
+  "aliases": {
+   "rubies": "rbenv versions,列出已安装的 Ruby 版本",
+   "gemsets": "rbenv gemset list,列出现有 gemset(需 rbenv-gemset 插件)"
+  }
+ },
+ "react-native": {
+  "usage": "rn = react-native;rns 启动 Metro 打包服务器,rnlink 链接原生依赖,rnand/rnios 分别构建并运行 Android/iOS 应用,rnland/rnlios 查看对应平台日志。\n另有数十个模拟器快捷别名直接指定机型运行,如 rnios15 用 iPhone 15 模拟器跑 iOS、rnipad11 用 iPad Pro (11-inch)。\n需已安装 react-native CLI(npm i -g react-native-cli 或项目内自带)。",
+  "aliases": {
+   "rn": "react-native 命令本体",
+   "rns": "react-native start,启动 Metro 开发服务器",
+   "rnand": "react-native run-android,构建并运行 Android 应用",
+   "rnios": "react-native run-ios,构建并运行 iOS 应用",
+   "rnios15": "用 iPhone 15 模拟器运行 iOS 应用",
+   "rnland": "react-native log-android,查看 Android 日志",
+   "rnlios": "react-native log-ios,查看 iOS 日志",
+   "rnlink": "react-native link,链接原生依赖库"
+  }
+ },
+ "rebar": {
+  "usage": "为 Erlang 构建工具 rebar 提供命令与选项补全:输入 rebar <Tab> 可补全子命令(compile、eunit、ct 等)以及 --help、--commands 等全局选项。\nrebar 需自行安装;无别名、无函数。"
+ },
+ "ruby": {
+  "usage": "rb = ruby;sgem = sudo gem(操作 macOS 系统自带 ruby 时用);gein/geun 安装/卸载 gem,geli 列出已装 gem,gei 查看 gem 信息,geo 直接在默认编辑器打开 gem 源码。\nrrun \"puts 'hi'\" 一行式执行 Ruby;rserver 用 ruby -run -e httpd . -p 8080 把当前目录变成 WEBrick 文件服务器(需 webrick);rfind 在当前目录的 .rb 文件中 grep 关键字。",
+  "aliases": {
+   "rb": "ruby 命令",
+   "sgem": "sudo gem,对系统自带 ruby 执行 gem 操作",
+   "gein": "gem install,安装 gem",
+   "geun": "gem uninstall,卸载 gem",
+   "geli": "gem list,列出已安装的 gem",
+   "geo": "gem open,用默认编辑器打开 gem 源码",
+   "rrun": "ruby -e,直接执行一段 Ruby 代码",
+   "rserver": "ruby -run -e httpd . -p 8080,起本地目录文件服务器(需 webrick)"
+  }
+ },
+ "rust": {
+  "usage": "为 Rust 工具链提供补全:插件检测到 rustup 与 cargo 命令时才启用,随后在后台生成 rustup 补全并把 cargo 补全接到 rustup 当前工具链的 sysroot 下,缓存到插件补全目录。\n需先安装 Rust(官方 rustup);装好后 cargo <Tab>、rustup <Tab> 即可补全子命令与选项。\n无别名、无函数。"
+ },
+ "rvm": {
+  "usage": "加载 rvm 及其官方 zsh 补全,并自动生成 rb18~rb32 一组快捷函数:如 rb30 切到 ruby-3.0,后跟 gemset 名可一并切换(rb31 mygems),按 Tab 还能补全该版本可用的 gemset。\nrubies 列出已装 Ruby 版本,gemsets 列出现有 gemset,gems 彩色列出当前环境的 gem,rvm-update 把 rvm 自身更新到 head。\n需已安装 rvm。",
+  "aliases": {
+   "rubies": "rvm list rubies,列出已安装的 Ruby 版本",
+   "rvms": "rvm gemset,操作 gemset",
+   "gemsets": "rvms list,列出现有 gemset"
+  }
+ },
+ "sbt": {
+  "usage": "为 sbt(Scala 交互式构建工具)提供补全;别名前缀统一为 sb:sbc 编译,sbcc 清理后编译,sbr 运行主类,sbrm 运行指定主类,sbx 跑全部测试,sbco 带依赖启动 Scala 控制台。\n打包发布用 sbp 发布到仓库、sbpl 发布到本地 Ivy 仓库、sba 打 fat JAR(需 sbt-assembly 插件)、sbd 生成 API 文档、sbu 拉取依赖、sbgi 生成 IDEA 项目文件。需自行安装 sbt。",
+  "aliases": {
+   "sbc": "sbt compile,编译主要源码",
+   "sbcc": "sbt clean compile,清理后重新编译",
+   "sbr": "sbt run,运行项目主类",
+   "sbrm": "sbt runMain,运行指定主类",
+   "sbx": "sbt test,编译并运行所有测试",
+   "sbco": "sbt console,带依赖启动 Scala 控制台",
+   "sbpl": "sbt publishLocal,发布构件到本地 Ivy 仓库",
+   "sba": "sbt assembly,打包含全部依赖的 fat JAR(需 sbt-assembly 插件)"
+  }
+ },
+ "scala": {
+  "usage": "为 scala 与 scalac 两个命令提供选项补全:scala <Tab> 补全解释器选项,scalac <Tab> 补全编译器选项。\nScala 环境需自行安装;插件本身无别名、无函数(日常构建建议配合 sbt 插件使用)。"
+ },
+ "spring": {
+  "usage": "为 Spring Boot CLI 的 spring 命令提供智能补全:补全候选由 spring hint 实时生成,能按已输入内容给出子命令与选项,还支持文件名补全。\n需自行安装 Spring Boot CLI(如 sdk install springboot);无别名,纯补全。"
+ },
+ "swiftpm": {
+  "usage": "Swift Package Manager 快捷别名:spi 初始化新包(spi = swift package init),spf/spu 拉取/更新依赖,sps 打印已解析的依赖关系图,spd 把 Package.swift 导出为 JSON。\nspx 生成 Xcode 工程(swift package generate-xcodeproj,旧版 SwiftPM 的功能,新版已移除该子命令时不可用)。\n需 Swift 工具链(Xcode 或 swift 命令)。",
+  "aliases": {
+   "spi": "swift package init,初始化一个新包",
+   "spf": "swift package fetch,拉取包依赖",
+   "spu": "swift package update,更新包依赖",
+   "spx": "swift package generate-xcodeproj,生成 Xcode 工程(旧版功能)",
+   "sps": "swift package show-dependencies,打印依赖关系图",
+   "spd": "swift package dump-package,把 Package.swift 导出为 JSON"
+  }
+ },
+ "symfony": {
+  "usage": "面向老版 Symfony(1.x 时代)的补全:项目根目录需存在 symfony 文件,输入 symfony <Tab> 时插件执行 php symfony,解析输出中的 Available tasks 列出全部任务名供补全。\n无别名;Symfony 2/3 项目请用 symfony2 插件,Symfony 6.2+ 用 symfony6 插件,三者命令世代不同,不要混用。"
+ },
+ "symfony2": {
+  "usage": "sf 会自动在项目里定位 console 文件(向下找两层,兼容 app/console 与 bin/console)并以 php 执行,补全也基于它:sfcl 清缓存,sfsr 以 -vvv 起开发服务器,sfroute 看路由,sfcontainer 列出服务容器中的服务。\n代码生成:sfgb/sfgc/sfgcom 生成 bundle/controller/command,sfge 生成 Doctrine entity;sfdc 建库、sfsu 更新 schema;sfdev/sfprod 追加 --env=dev/prod 切换环境。",
+  "aliases": {
+   "sf": "执行项目的 app/console 或 bin/console(自动定位并以 php 运行)",
+   "sfcl": "sf cache:clear,清除缓存",
+   "sfsr": "sf server:run -vvv,以详细日志启动开发服务器",
+   "sfroute": "sf debug:router,显示路由",
+   "sfcontainer": "sf debug:container,列出服务容器中的服务",
+   "sfgb": "sf generate:bundle,生成一个 bundle",
+   "sfdev": "sf --env=dev,以 dev 环境执行命令",
+   "sfprod": "sf --env=prod,以 prod 环境执行命令"
+  }
+ },
+ "symfony6": {
+  "usage": "Symfony 6.2+ 原生补全:把 console 命令(即项目里的 bin/console)绑定为补全目标,按 Tab 时调用 Symfony 内置的 _complete 后端,能带描述补全命令、选项及参数值。\n直接 bin/console <Tab> 即可体验;老项目(Symfony 2/3)请改用 symfony2 插件。无别名。"
+ },
+ "thor": {
+  "usage": "为 Thor(Ruby 的 CLI 构建工具包)提供任务补全:输入 thor <Tab> 时执行 thor list 解析并列出全部任务供补全。\n需已安装 thor gem;无别名、无函数。"
+ },
+ "uv": {
+  "usage": "启用后 uv 被加上 noglob(参数里的方括号不再被 glob 干扰),并自动生成、随版本刷新 uv 与 uvx 的 zsh 补全。\nuvv 建虚拟环境,uvi 初始化新项目,uva/uvrm 添加/移除依赖,uvs 同步锁文件(uvsr 忽略缓存强制同步),uvr 在项目环境中跑命令,如 uvr python main.py。\nPython 管理:uvpl 列出已装版本,uvpi 安装指定版本,uvpp 固定项目 Python 版本;uvexp 把锁文件导出为 requirements.txt;uvup 自更新 uv。需自行安装 uv(brew install uv 或 pip install uv)。",
+  "aliases": {
+   "uva": "uv add,向项目添加依赖",
+   "uvs": "uv sync,把环境与锁文件同步",
+   "uvr": "uv run,在项目环境中运行命令",
+   "uvi": "uv init,初始化新项目",
+   "uvv": "uv venv,创建/管理虚拟环境",
+   "uvpp": "uv python pin,固定项目使用的 Python 版本",
+   "uvpl": "uv python list,列出已安装的 Python 版本",
+   "uvexp": "把锁文件导出为 requirements.txt"
+  }
+ },
+ "virtualenv": {
+  "usage": "提供主题用的 virtualenv_prompt_info 函数:显示当前 $VIRTUAL_ENV 的目录名,前后缀可用 ZSH_THEME_VIRTUALENV_PREFIX/SUFFIX 定制(默认 [、])。\n同时导出 VIRTUAL_ENV_DISABLE_PROMPT=1,避免 activate 脚本自行改提示符造成重复显示。\n无别名、无补全,属主题增强件。"
+ },
+ "virtualenvwrapper": {
+  "usage": "加载 virtualenvwrapper(需先 pip install virtualenvwrapper):workon、mkvirtualenv、rmvirtualenv 等命令照常可用,WORKON_HOME 默认 ~/.virtualenvs。\n特色是 cd 自动切换环境:进入含 .git 的项目目录自动激活同名虚拟环境,离开自动停用;在目录里放一个内容为环境名的 .venv 文件可指定其他环境。\n不想自动激活,在 source oh-my-zsh 之前设 DISABLE_VENV_CD=1;找不到 virtualenvwrapper.sh 时启动会明确报错提示安装。无别名。"
+ },
+ "volta": {
+  "usage": "为 Volta(JavaScript 工具链管理器)提供补全:检测到 volta 命令后,后台执行 volta completions zsh 生成补全并缓存到插件补全目录。\n需自行安装 volta(官方安装脚本或 brew install volta);装好后 volta <Tab> 补全子命令与选项。\n无别名、无函数。"
+ },
+ "xcode": {
+  "usage": "xcb = xcodebuild 命令行构建;xc 在 Xcode 中打开当前目录的 .xcworkspace/.xcodeproj/Package.swift(可传目录参数),函数 xx 打开指定文件,simulator 从命令行拉起 iOS 模拟器;xcdd 清空 DerivedData,构建抽风时一招见效。\n多版本管理:xcp 查看当前开发者目录,xcsel 按路径切换 Xcode,xcselv 按版本名切换,如 xcselv 15.2、xcselv default 回正式版、xcselv -l 列出全部已装版本(版本化 Xcode 需命名为 Xcode-<版本>.app 风格)。\n需已安装 Xcode。",
+  "aliases": {
+   "xcb": "xcodebuild,命令行构建 Xcode 项目/工作区",
+   "xcdd": "清空 Xcode DerivedData 临时构建数据",
+   "xcp": "xcode-select --print-path,显示当前 Xcode 开发者目录",
+   "xcsel": "sudo xcode-select --switch,切换 Xcode 开发者目录"
+  }
+ },
+ "yarn": {
+  "usage": "y = yarn;ya/yad/yap 分别把包装进 dependencies/devDependencies/peerDependencies,yin 安装依赖,yii 装依赖但 lockfile 会被改动时立即中止(CI 必备),yrm 移除包。\n脚本类别名直接跑 package.json 里的 scripts:yd/yb/yt/yst/yln 对应 dev/build/test/start/lint,ytc 跑测试并统计覆盖率,yui 交互式升级过期依赖,yy 查某包被谁依赖。\n插件还会把 yarn 全局 bin 目录(通常 ~/.yarn/bin)加入 PATH,用 zstyle ':omz:plugins:yarn' global-path no 关闭;Yarn Berry 用户设 zstyle ':omz:plugins:yarn' berry yes,相关别名自动切到 --immutable 语义并解锁 ydlx/yn。",
+  "aliases": {
+   "y": "yarn 命令",
+   "ya": "yarn add,安装包到 dependencies",
+   "yad": "yarn add --dev,安装包到 devDependencies",
+   "yin": "yarn install,按 package.json 安装依赖",
+   "yii": "yarn install --frozen-lockfile(berry 下为 --immutable),lockfile 将被改动时中止安装",
+   "yt": "yarn test,运行测试脚本",
+   "yrm": "yarn remove,移除已安装的包",
+   "yui": "yarn upgrade-interactive,交互式选择要升级的过期依赖"
+  }
+ },
+ "yii": {
+  "usage": "Yii 1.x 补全:在含 protected/yiic 的项目里,yiic <Tab> 解析 yiic 输出并列出全部命令供补全;别名 yiic = protected/yiic,免敲相对路径。\n仅适用于 Yii 1 的目录结构;Yii 2 项目请用 yii2 插件。",
+  "aliases": {
+   "yiic": "执行 protected/yiic,Yii 1.x 命令行入口"
+  }
+ },
+ "yii2": {
+  "usage": "Yii2 补全:在 yii 入口脚本所在目录执行 yii <Tab>,插件通过 ./yii help 实时解析并列出全部可用命令供补全。\n补全依赖当前目录下的 yii 文件,换目录即失效;无别名。"
+ },
+ "zeus": {
+  "usage": "为 zeus(Rails 环境预加载器,把 rails/rake 启动压到秒级,需 gem install zeus)提供补全与全套别名:zi 初始化项目,zs 启动预加载守护进程,zc 秒开控制台,zsr 秒起开发服务器,zg 生成代码,zrn 跑 runner。\nzr(=noglob zeus rake)跑 rake 任务免转义方括号,zspec 跑 rspec,zt 跑测试,zu/zf 分别跑 unit/functional 测试;zeus 卡死时 zsw 删 .zeus.sock 重置,zdbr 一键重建开发与测试库。",
+  "aliases": {
+   "zi": "zeus init,初始化项目 zeus 配置",
+   "zs": "zeus start,启动预加载守护进程",
+   "zc": "zeus console,秒开 Rails 控制台",
+   "zsr": "zeus server,秒起开发服务器",
+   "zg": "zeus generate,生成代码",
+   "zr": "noglob zeus rake,执行 rake 任务(方括号免转义)",
+   "zspec": "zeus rspec,运行 rspec 测试",
+   "zsw": "rm .zeus.sock,清理 socket 文件解决 zeus 卡死"
+  }
+ }
+}

@@ -1,0 +1,216 @@
+{
+ "ant": {
+  "usage": "纯补全:在含 build.xml 的目录里 ant 后按 Tab 列出全部 target,首次补全跑 `ant -p` 把结果缓存到目录下 .ant_targets,build.xml 更新时自动重建(建议把它加进 .gitignore)。\n另外导出 ANT_ARGS='-logger org.apache.tools.ant.listener.AnsiColorLogger',让 ant 构建输出自带 ANSI 颜色。"
+ },
+ "apache2-macports": {
+  "usage": "管理 MacPorts 装的本地 Apache2:apache2start 启动、apache2stop 停止、apache2restart 重启守护进程,均带 sudo。\n实质是调 /opt/local/etc/LaunchDaemons/org.macports.apache2/apache2.wrapper,需先用 MacPorts 安装 apache2,Brew 安装的路径不同用不了。",
+  "aliases": {
+   "apache2start": "sudo 启动 MacPorts 版 Apache2 守护进程",
+   "apache2stop": "sudo 停止 MacPorts 版 Apache2 守护进程",
+   "apache2restart": "sudo 重启 MacPorts 版 Apache2 守护进程"
+  }
+ },
+ "autopep8": {
+  "usage": "纯补全:为 autopep8(Python 代码自动格式化成 PEP 8 风格)补全选项,如 --in-place/--diff/--recursive/-a 等都能 Tab 选出,典型用法 `autopep8 --in-place --recursive foo/`。\n需自行安装本体:pip install autopep8。"
+ },
+ "bazel": {
+  "usage": "bzb = bazel build、bzt = bazel test、bzr = bazel run、bzq = bazel query,如 `bzq '//...'` 快速查依赖图。\nsri-hash 文件 生成 bzlmod MODULE.bazel 用的 sha256-xxx SRI 哈希。\n插件内置 bazel 官方补全脚本,子命令与 flag 可 Tab。",
+  "aliases": {
+   "bzb": "bazel build:构建目标",
+   "bzt": "bazel test:跑测试",
+   "bzr": "bazel run:构建并运行目标",
+   "bzq": "bazel query:查询构建依赖图"
+  }
+ },
+ "bridgetown": {
+  "usage": "br = bridgetown;brn my-site 新建站点。\n项目里 brs 走 bin/bridgetown start 起开发服务器,brb 构建、brc 进控制台、brclean 清缓存、brd 部署、brdoc 体检、bra 执行 apply 脚本;brp/brpl 管理并列出插件。",
+  "aliases": {
+   "br": "bridgetown:命令简写",
+   "brn": "bridgetown new:新建站点",
+   "brs": "bin/bridgetown start:启动开发服务器",
+   "brb": "bin/bridgetown build:构建站点",
+   "brc": "bin/bridgetown console:进交互控制台",
+   "brclean": "bin/bridgetown clean:清理构建缓存",
+   "brd": "bin/bridgetown deploy:部署站点",
+   "brpl": "bridgetown plugins list:列出插件"
+  }
+ },
+ "bun": {
+  "usage": "纯补全:为 bun 提供 zsh 补全,插件加载时后台执行 `bun completions` 生成补全脚本并缓存到 $ZSH_CACHE_DIR/completions/_bun,下次启动新终端即生效并随版本自动更新。\n需已安装 bun,否则插件不做任何事。"
+ },
+ "bundler": {
+  "usage": "bi = bundle install、be = bundle exec、bu = bundle update、bua 全量更新;bo 包名 直接打开 gem 源码、bout 查过期 gem、bck 校验依赖是否满足、bcn 清理无用 gem。\n在含 Gemfile 的项目里,rake/rspec/sidekiq/puma 等常用命令被自动包上 wrapper:优先执行 ./bin/ 下的 binstub,否则自动加 bundle exec,项目外则原样执行。\n在 zshrc 的 plugins 之前用 BUNDLED_COMMANDS=(xxx) 增加被包裹命令、UNBUNDLED_COMMANDS=(xxx) 排除(按可执行文件名)。",
+  "aliases": {
+   "be": "bundle exec:在 bundle 环境中执行命令",
+   "bi": "bundle install:安装 Gemfile 依赖",
+   "bu": "bundle update:更新 gem 到最新版本",
+   "bua": "bundle update --all:全量更新所有 gem",
+   "ba": "bundle add:添加 gem 并安装",
+   "bo": "bundle open:打开 gem 源码目录",
+   "bout": "bundle outdated:列出有新版的 gem",
+   "bcn": "bundle clean:清理未使用的 gem"
+  }
+ },
+ "cabal": {
+  "usage": "为 Haskell 构建工具 cabal 补全子命令(build/install/repl/sandbox/test 等),装了 cab 的话也一并补全。\ncabal_sandbox_info 函数:在含 *.cabal 的目录打印绿色 sandboxed 或红色 not sandboxed,可放进主题提示符。"
+ },
+ "cake": {
+  "usage": "纯补全(注意是 Cakefile 构建工具,不是 CakePHP):在含 Cakefile 的目录输 `cake ` 后 Tab 列出全部任务。\n任务列表缓存在当前目录 .cake_task_cache,Cakefile 更新时自动重建,建议加进 .gitignore。"
+ },
+ "cakephp3": {
+  "usage": "c3 = bin/cake,如 `c3 bake controller Users`;c3migrate 执行数据库迁移;c3cache 清 schema 缓存。\n在 bin/cake 存在时自动补全:命令→子命令→部分命令的第三参数逐级 Tab。\n注意:源码中 c3cache 对应 `bin/cake schema_cache clear`,与旧文档写的 orm_cache clear 不同。",
+  "aliases": {
+   "c3": "bin/cake:CakePHP 3 命令简写",
+   "c3migrate": "bin/cake migrations migrate:执行数据库迁移",
+   "c3cache": "bin/cake schema_cache clear:清除 schema 缓存"
+  }
+ },
+ "celery": {
+  "usage": "纯补全:为 celery 补全 worker/beat/inspect/control/call/status 等子命令,及 -A/--app、--pool(processes/gevent/eventlet 等)、--loglevel 带候选值的选项。\n需已安装 celery(通常 pip install celery)。"
+ },
+ "coffee": {
+  "usage": "cf 'if a then b else c' 把 CoffeeScript 片段编译成 JS 直接打印预览;cfc 编译并复制到剪贴板。\ncfp 编译当前剪贴板内容,cfpc 剪贴板 CoffeeScript 进、JS 出,直接贴进浏览器控制台用。\n依赖 coffee 命令;剪贴板走 OMZ 的 clipcopy/clippaste(macOS 用 pbcopy/pbpaste)。",
+  "aliases": {
+   "cfp": "cf \"$(clippaste)\":编译剪贴板里的 CoffeeScript 并打印",
+   "cfpc": "编译剪贴板内容再把 JS 复制回剪贴板"
+  }
+ },
+ "compleat": {
+  "usage": "纯加载器:检测到 compleat 命令后,自动 source 其 compleat_setup(compleat 安装目录下 share/compleat-1.0/),启用 compleat 基于语法的上下文补全。\n需先安装 compleat(github.com/mbrubeck/compleat),没装则插件无任何效果。"
+ },
+ "composer": {
+  "usage": "c = composer;ci 装依赖、cu 更新、cr 包名 加包、crm 删包、cs 查包、cod 看哪些直接依赖过期。\ncgr/cgrm/cgu 管理全局包,csu 自升级 composer,cdo = dump-autoload -o 优化自动加载(生产部署常用),cget 一条 curl|php 安装 composer。\n自动把 composer global 的 bin-dir 加入 PATH(结果缓存,全局装的工具直接敲);补全在 zsh≥5.7 用系统自带,旧版由插件提供。",
+  "aliases": {
+   "c": "composer:命令简写",
+   "ci": "composer install:按 lock 安装依赖",
+   "cu": "composer update:更新依赖并写 lock",
+   "cr": "composer require:新增依赖包",
+   "crm": "composer remove:移除依赖包",
+   "cgr": "composer global require:全局安装包",
+   "csu": "composer self-update:升级 composer 本体",
+   "cdo": "composer dump-autoload -o:优化自动加载"
+  }
+ },
+ "conda": {
+  "usage": "cna 环境名 激活、cnde 退出、cnab 一键回 base;cncn 名 新建环境、cnel 列出全部环境。\ncni/cniy 装包、cnl 列当前环境已装包、cnsr 搜包、cnu/cnua 升级;cnry -y 删包、cnrn 名 -y 删整个环境;cnles 把环境导出成 spec-file.txt 便于复现。\n需已安装 conda(Anaconda/Miniconda)。",
+  "aliases": {
+   "cna": "conda activate:激活指定环境",
+   "cnab": "conda activate base:激活 base 环境",
+   "cnde": "conda deactivate:退出当前环境",
+   "cncn": "conda create -y -n:按名称新建环境",
+   "cnel": "conda env list:列出所有环境",
+   "cni": "conda install:安装软件包",
+   "cnl": "conda list:列出当前环境已装包",
+   "cnua": "conda update --all:升级全部包"
+  }
+ },
+ "conda-env": {
+  "usage": "纯提示符增强:提供 conda_prompt_info 函数,在主题里写 RPROMPT='$(conda_prompt_info)' 即可显示当前 $CONDA_DEFAULT_ENV 环境名。\n前后缀可用 ZSH_THEME_CONDA_PREFIX / ZSH_THEME_CONDA_SUFFIX 定制(默认 [ ]);\n并自动设 CONDA_CHANGEPS1=false 防止 conda 自己改写提示符(想还原在 zshrc 末尾 unset CONDA_CHANGEPS1)。无别名。"
+ },
+ "cpanm": {
+  "usage": "纯补全:为 cpanm(App::cpanminus)补全选项,如 -l/--local-lib 指定安装目录、-n 跳过测试、-S 自动 sudo、--scandeps 输出依赖树、--reinstall 等。\n需已安装 cpanm。"
+ },
+ "deno": {
+  "usage": "drA 脚本 = deno run -A 全权限运行,drw 带 --watch 改完即重跑;drn 是不带权限的 run。\ndca 预编译缓存、dck 类型检查、dfmt 格式化、dli lint、dts 跑测试、dsv 起服务、dc 编译成独立可执行文件、dup 升级 deno。\n补全脚本由 `deno completions zsh` 生成并缓存到 $ZSH_CACHE_DIR/completions/,启动新终端自动更新;需已安装 deno。",
+  "aliases": {
+   "drA": "deno run -A:授予全部权限运行",
+   "drw": "deno run --watch:监视文件变更自动重启",
+   "dca": "deno cache:预编译并缓存依赖",
+   "dck": "deno check:类型检查",
+   "dfmt": "deno fmt:格式化代码",
+   "dli": "deno lint:静态检查",
+   "dts": "deno test:运行测试",
+   "dup": "deno upgrade:升级 deno 本体"
+  }
+ },
+ "drush": {
+  "usage": "dr = drush;drst 看站点状态、drup 跑数据库更新(updatedb)、druli 生成 admin 一次性登录链接、drdmp 备库到 dump.sql。\ndrcim/drcex 导入/导出配置、drcr 跑 cron、drif 清全部图片派生、drwst 实时跟踪 watchdog 日志。\n函数:dren devel -y 一键装模块、dris 禁用、drpu 卸载、drnew 交互式新建 Drupal 站点(自动下载/装库/开浏览器);drush 命令与参数可 Tab 补全。",
+  "aliases": {
+   "dr": "drush:命令简写",
+   "drst": "drush core-status:查看站点状态",
+   "drup": "drush updatedb:执行数据库更新",
+   "druli": "drush user:login:生成一次性登录链接",
+   "drdmp": "drush sql-dump:备份数据库到 dump.sql",
+   "drcim": "drush config:import -y:导入配置",
+   "drcex": "drush config:export -y:导出配置",
+   "drwst": "drush watchdog:tail:实时跟踪日志"
+  }
+ },
+ "eecms": {
+  "usage": "为 ExpressionEngine 的 eecms console 提供补全:在项目目录自动向上查找 eecms 文件(最深 3 层)并补全其命令。\n别名 eecms 等价于 `php <找到的 eecms 文件>`,免敲完整路径。",
+  "aliases": {
+   "eecms": "自动定位 eecms 文件并用 php 运行"
+  }
+ },
+ "ember-cli": {
+  "usage": "es = ember serve 起开发服务器,eb 构建,eg 生成资源(如 eg component foo),ed 销毁对应的生成物。\net 跑测试、ets 边跑测试边 serve、ei 安装 addon、eu 更新、ein 初始化新项目、ea 创建 addon;ember 子命令与参数可 Tab。",
+  "aliases": {
+   "es": "ember serve:启动开发服务器",
+   "eb": "ember build:构建项目",
+   "eg": "ember generate:生成组件/路由等",
+   "ed": "ember destroy:销毁生成的资源",
+   "et": "ember test:运行测试",
+   "ets": "ember test --serve:启动并持续跑测试",
+   "ei": "ember install:安装 addon",
+   "eu": "ember update:更新依赖"
+  }
+ },
+ "flutter": {
+  "usage": "flr 运行应用(flrd/flrp/flrr 分别对应 debug/profile/release),flget 装依赖、flpu 升级依赖。\nfldoc = flutter doctor 体检、fldvcs 列已连设备、fll 看日志、flt 跑测试、flc 清理、fla 静态分析、flb 构建、flupgrd 升级 SDK、flchnl 切频道。\n补全脚本由 `flutter zsh-completion` 生成并缓存到 $ZSH_CACHE_DIR/completions/,需已安装 flutter。",
+  "aliases": {
+   "fl": "flutter:命令简写",
+   "flr": "flutter run:运行应用",
+   "flget": "flutter pub get:安装依赖",
+   "flt": "flutter test:运行测试",
+   "fldoc": "flutter doctor:环境体检",
+   "fldvcs": "flutter devices:列出已连接设备",
+   "flc": "flutter clean:清理构建产物",
+   "flb": "flutter build:构建应用"
+  }
+ },
+ "gatsby": {
+  "usage": "纯补全:为 gatsby 补全子命令 develop/build/serve/clean/new/repl/info/telemetry,如 `gatsby ` 后 Tab 选 develop 起热更新开发服务器。\n需已安装 gatsby 且在 PATH 中。"
+ },
+ "gem": {
+  "usage": "gemb 按当前目录的 *.gemspec 构建 gem,gemp 推送到 RubyGems。\ngemy 包名 0.0.1 = gem yank 包名 -v 0.0.1,撤回已发布的指定版本。\n补全覆盖常用子命令;zsh≥5.5 直接用系统自带补全,旧版用插件内置副本。",
+  "aliases": {
+   "gemb": "gem build *.gemspec:从 gemspec 构建 gem",
+   "gemp": "gem push *.gem:推送 gem 到服务器"
+  }
+ },
+ "glassfish": {
+  "usage": "纯补全:为 GlassFish 管理命令 asadmin 补全子命令,create-domain/start-domain/deploy/list-applications 等上百个命令 Tab 可选。\n插件文件本体为空,只提供 _asadmin 补全;需已安装 GlassFish。"
+ },
+ "golang": {
+  "usage": "gob 构建、gor 直接运行(如 gor main.go)、got/gota 跑测试(gota 递归 ./...)。\ngof/gofa 格式化(fa 递归全部包)、gomt 整理 go.mod、gov 静态检查、gove 看版本、gom 走模块操作、gow 工作区。\ngopa/gopb/gops 一键 cd 到 $GOPATH、$GOPATH/bin、$GOPATH/src(需已设置 GOPATH);*.go 文件参数也为 gofmt/gccgo 做了文件名补全。",
+  "aliases": {
+   "gob": "go build:编译包",
+   "gor": "go run:编译并直接运行",
+   "got": "go test:运行测试",
+   "gota": "go test ./...:递归测试所有包",
+   "gofa": "go fmt ./...:递归格式化所有包",
+   "gomt": "go mod tidy:整理 go.mod 依赖",
+   "gov": "go vet:静态检查可疑代码",
+   "gops": "cd $GOPATH/src:跳转到源码目录"
+  }
+ },
+ "gradle": {
+  "usage": "把 gradle 别名到 gradle-or-gradlew 函数:在当前或任意父目录找到 gradlew 就自动改执行它(会打印 executing gradlew instead of gradle),否则用系统 gradle,项目子目录里也能识别根。\n直接 gradle build、gradle test 照常用,不用关心该用哪个;补全来自 Gradle 官方脚本,任务名可 Tab。无独立短别名。"
+ },
+ "grails": {
+  "usage": "纯补全:为 Grails 2 CLI 补全脚本名——从 $GRAILS_HOME/scripts、~/.grails/scripts、./scripts、./plugins/*/scripts 枚举非下划线开头的 *.groovy,转成 kebab-case 供 Tab 选择。\n只针对 Grails 2,无别名无函数。"
+ },
+ "hanami": {
+  "usage": "hc 进应用控制台、hs 起服务器(hsp 指定端口)、hr 列路由,hrg 管道 grep 过滤路由。\nhg 生成资源、hgm 生成迁移、hd 销毁;hdc/hdd 建库删库、hdp 迁移、hdrs 删库重建、hdv 看库版本;HED/HEP/HET 是环境前缀,放命令开头用,如 `HET hdp` 等价 HANAMI_ENV=test hanami db prepare。\n风格仿 Rails 插件,需已安装 hanami gem。",
+  "aliases": {
+   "hc": "hanami console:进应用控制台",
+   "hs": "hanami server:启动开发服务器",
+   "hg": "hanami generate:生成资源",
+   "hgm": "hanami generate migration:生成迁移文件",
+   "hr": "hanami routes:列出路由",
+   "hdd": "hanami db drop:删除数据库",
+   "hdrs": "hdd && hdp:删库并重建",
+   "HET": "前缀:HANAMI_ENV=test 切到测试环境"
+  }
+ }
+}

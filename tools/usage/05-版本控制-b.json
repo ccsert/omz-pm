@@ -1,155 +1,158 @@
 {
-  "branch": {
-    "usage": "无命令无别名,只提供一个速度极快的 branch_prompt_info 函数:直接读 .git/HEAD 或 .hg/branch 文件显示当前分支,不调用 git/hg 进程,比 hg branch 快一个数量级。git 仓库显示「± 分支名」,hg 仓库显示「☿ 分支/书签」。\n用法:把主题复制到 $ZSH_CUSTOM/themes/,将 PROMPT 中的 $(git_prompt_info) 换成 $(branch_prompt_info),即可同时兼容 git 与 mercurial 仓库。"
+ "branch": {
+  "usage": "无命令无别名,只提供一个速度极快的 branch_prompt_info 函数:直接读 .git/HEAD 或 .hg/branch 文件显示当前分支,不调用 git/hg 进程,比 hg branch 快一个数量级。git 仓库显示「± 分支名」,hg 仓库显示「☿ 分支/书签」。\n用法:把主题复制到 $ZSH_CUSTOM/themes/,将 PROMPT 中的 $(git_prompt_info) 换成 $(branch_prompt_info),即可同时兼容 git 与 mercurial 仓库。"
+ },
+ "eza": {
+  "aliases": {
+   "lD": "仅列出目录(不含点目录)的长列表",
+   "lS": "长列表并按大小排序",
+   "lT": "长列表并按时间排序(最新在后)",
+   "la": "长列表列出所有文件(不含 . 和 ..)",
+   "ldot": "仅列出点文件(目录作为条目显示)",
+   "ll": "长列表列出文件",
+   "ls": "直接调用 eza 代替原 ls",
+   "lsd": "网格列出指定文件,目录作为条目显示"
   },
-  "eza": {
-    "aliases": {
-      "la": "长列表列出所有文件(不含 . 和 ..)",
-      "ldot": "仅列出点文件(目录作为条目显示)",
-      "lD": "仅列出目录(不含点目录)的长列表",
-      "ll": "长列表列出文件",
-      "ls": "直接调用 eza 代替原 ls",
-      "lsd": "网格列出指定文件,目录作为条目显示",
-      "lS": "长列表并按大小排序",
-      "lT": "长列表并按时间排序(最新在后)"
-    },
-    "usage": "需先安装 eza(brew install eza),否则插件启动即报错退出。启用后常用列表命令全部换成 eza:ll 长列表、la 含隐藏文件、ldot 只看点文件、lS 按大小排、lT 按时间排。\n可在加载 OMZ 之前用 zstyle 统一定制所有别名,如:zstyle ':omz:plugins:eza' 'icons' yes 加图标、'git-status' yes 附带 git 状态列、'dirs-first' yes 目录排前、'header' yes 显示表头。"
+  "usage": "需先安装 eza(brew install eza),否则插件启动即报错退出。启用后常用列表命令全部换成 eza:ll 长列表、la 含隐藏文件、ldot 只看点文件、lS 按大小排、lT 按时间排。\n可在加载 OMZ 之前用 zstyle 统一定制所有别名,如:zstyle ':omz:plugins:eza' 'icons' yes 加图标、'git-status' yes 附带 git 状态列、'dirs-first' yes 目录排前、'header' yes 显示表头。"
+ },
+ "fossil": {
+  "usage": "需安装 fossil。提供 fossil 子命令补全和 fossil_prompt_info 提示符函数:显示当前分支及工作区状态(✔ 干净 / ✖ 有改动)。\n加载后会通过 precmd 钩子自动把 $(fossil_prompt_info) 追加到 PROMPT 或 RPROMPT(主题 PROMPT 含 git 信息时挂 PROMPT,否则挂 RPROMPT),无需手改主题;可用 ZSH_THEME_FOSSIL_PROMPT_PREFIX/SUFFIX/DIRTY/CLEAN 变量定制外观。"
+ },
+ "gas": {
+  "usage": "需安装 gas(Ruby 编写的 Git 作者切换工具)。启用后为 gas 命令提供 zsh 补全:Tab 可列出全部子命令——add(添加作者)、list(列出作者)、use(切换作者,如 gas use <名字>)、delete、import、ssh、show、version,子命令参数同样可补全。"
+ },
+ "gh": {
+  "usage": "需安装 GitHub CLI(gh),未安装时插件静默跳过。启用后获得 gh 命令的完整 zsh 补全:gh pr/issue/repo/run 等子命令、flag 与参数均可 Tab 补全。\n补全脚本缓存在 $ZSH_CACHE_DIR/completions/_gh,每次加载插件(通常是新开终端)时在后台跑 gh completion --shell zsh 自动更新;插件不添加任何别名。"
+ },
+ "git-auto-fetch": {
+  "usage": "启用后在 git 仓库里每次显示提示符时自动后台执行 git fetch --all --recurse-submodules=yes,默认 60 秒内只跑一次,可用 GIT_AUTO_FETCH_INTERVAL=1200 调整间隔(单位秒);抓取日志写入 .git/FETCH_LOG。\n在仓库里运行 git-auto-fetch 可切换该目录的自动抓取开关(输出 enabled/disabled,靠 .git/NO_AUTO_FETCH 标记文件实现),流量敏感场景按仓库禁用。\n注意:自动抓取会让 git push --force-with-lease 失去保护意义,强推前留意。"
+ },
+ "git-commit": {
+  "aliases": {
+   "chore": "git chore \"msg\" → chore: msg(杂务提交)",
+   "docs": "git docs \"msg\" → docs: msg(文档提交)",
+   "feat": "git feat [-s 范围] [-a] \"msg\" → feat: msg,新功能提交",
+   "fix": "git fix -s router \"msg\" → fix(router): msg,修 bug 提交",
+   "perf": "git perf \"msg\" → perf: msg(性能优化提交)",
+   "rev": "git rev [-s 范围] \"msg\" → revert: msg(回滚提交)",
+   "style": "git style \"msg\" → style: msg(格式调整提交)",
+   "test": "git test \"msg\" → test: msg(测试提交)"
   },
-  "fossil": {
-    "usage": "需安装 fossil。提供 fossil 子命令补全和 fossil_prompt_info 提示符函数:显示当前分支及工作区状态(✔ 干净 / ✖ 有改动)。\n加载后会通过 precmd 钩子自动把 $(fossil_prompt_info) 追加到 PROMPT 或 RPROMPT(主题 PROMPT 含 git 信息时挂 PROMPT,否则挂 RPROMPT),无需手改主题;可用 ZSH_THEME_FOSSIL_PROMPT_PREFIX/SUFFIX/DIRTY/CLEAN 变量定制外观。"
+  "usage": "启用后自动写入一组 git config 全局别名,按 conventional commits 风格提交:git fix -s router \"correct redirect link\" 提交为 fix(router): correct redirect link;加 -a 生成感叹号标记破坏性改动,如 git feat -a \"新 API\" → feat!: 新 API。\n支持 build/chore/ci/docs/feat/fix/perf/refactor/style/test/wip 共 12 类(revert 用 rev,避免与 git revert 冲突)。\n注意:会覆盖你手动配置的同名 alias.<type>。"
+ },
+ "git-escape-magic": {
+  "usage": "纯 zle 输入增强:在 git 命令行上输入 ~ ^ { } 等 git 对象元字符时自动按需加反斜杠转义,免去手动转义。例如直接输 git diff HEAD^、git show v1.0^{}、git log topic~2 不会再被 zsh 当作通配/替换语法报错。\n若同时使用 url-quote-magic,必须先加载它再加载本插件,避免冲突。"
+ },
+ "git-extras": {
+  "usage": "需安装 git-extras(tj/git-extras)。启用后为其几十个子命令提供 zsh 补全,如 git summary(仓库概况)、git changelog(按 tag 生成变更日志)、git effort(文件改动热度)、git standup(看我昨天的提交)、git undo(撤销上次提交)、git release / git squash / git delete-branch 等,命令名、分支名、tag 名均可 Tab 补全。\n补全基于 zsh 自带的 _git 实现,Homebrew 装的 git 需卸载其捆绑补全才生效;不添加任何别名。"
+ },
+ "git-flow": {
+  "aliases": {
+   "gcd": "检出 develop 分支",
+   "gflff": "完成指定 feature(gflff <name>)",
+   "gflffc": "完成当前 feature,自动填分支名",
+   "gflfpc": "发布当前 feature,自动填分支名",
+   "gflfs": "开始一个新 feature(gflfs <name>)",
+   "gflhf": "完成指定 hotfix(gflhf <version>)",
+   "gflhs": "开始一个新 hotfix(gflhs <version>)",
+   "gfli": "初始化 git-flow 仓库"
   },
-  "gas": {
-    "usage": "需安装 gas(Ruby 编写的 Git 作者切换工具)。启用后为 gas 命令提供 zsh 补全:Tab 可列出全部子命令——add(添加作者)、list(列出作者)、use(切换作者,如 gas use <名字>)、delete、import、ssh、show、version,子命令参数同样可补全。"
+  "usage": "需安装 git-flow(nvie 版)。启用后获得 git flow 全套补全和别名:gfli 初始化 → gflfs <name> 开功能分支 → gflff <name> 完成;gflhs <ver>/gflhf <ver> 开/收热修复,gflrs <ver>/gflrf <ver> 开/收发布分支;gcd 直达 develop。\n带 c 的别名一步操作当前分支:gflffc 完成当前 feature、gflfpc 发布当前 feature、gflhfc/gflrfc 同理;gflfpll <remote> <name> 拉别人的 feature。"
+ },
+ "git-flow-avh": {
+  "usage": "需安装 git-flow (AVH Edition)(brew install git-flow-avh)。启用后为 git flow 提供完整 zsh 补全,覆盖 init/feature/bugfix/release/hotfix/config 子命令:git flow feature finish <Tab> 直接列出所有 feature 分支,分支名、远程名、版本号均可补全。\n要求使用 zsh 自带的 _git 补全(默认即是,Homebrew 安装的 git 需卸载其捆绑补全);不添加任何别名。"
+ },
+ "git-hubflow": {
+  "aliases": {
+   "ghf": "打印 git hf 命令总览",
+   "ghff": "管理 feature 分支(git hf feature)",
+   "ghfh": "管理 hotfix 分支(git hf hotfix)",
+   "ghfr": "管理 release 分支(git hf release)",
+   "ghfs": "管理 support 分支(git hf support)",
+   "ghfu": "把上游变更拉取到 master 和 develop"
   },
-  "gh": {
-    "usage": "需安装 GitHub CLI(gh),未安装时插件静默跳过。启用后获得 gh 命令的完整 zsh 补全:gh pr/issue/repo/run 等子命令、flag 与参数均可 Tab 补全。\n补全脚本缓存在 $ZSH_CACHE_DIR/completions/_gh,每次加载插件(通常是新开终端)时在后台跑 gh completion --shell zsh 自动更新;插件不添加任何别名。"
+  "usage": "需安装 HubFlow(datasift 的 git hf 命令,面向 GitHub 的 GitFlow)。启用后获得 git hf 补全和 6 个别名:ghf 看命令总览,ghff/ghfr/ghfh/ghfs 分别管理 feature/release/hotfix/support 分支,ghfu 同步上游。\n例如 ghff start <name> 即 git hf feature start <name>,ghff finish <name> 完成功能分支;所有子命令与分支名均可 Tab 补全。"
+ },
+ "git-lfs": {
+  "aliases": {
+   "glfsi": "安装 git-lfs 钩子(git lfs install)",
+   "glfsls": "列出被 LFS 管理的文件(git lfs ls-files)",
+   "glfsmi": "把历史中的指定文件迁移进 LFS(git lfs migrate import --include=<路径>)",
+   "glfst": "跟踪大文件类型(git lfs track,如 glfst \"*.psd\")"
   },
-  "git-auto-fetch": {
-    "usage": "启用后在 git 仓库里每次显示提示符时自动后台执行 git fetch --all --recurse-submodules=yes,默认 60 秒内只跑一次,可用 GIT_AUTO_FETCH_INTERVAL=1200 调整间隔(单位秒);抓取日志写入 .git/FETCH_LOG。\n在仓库里运行 git-auto-fetch 可切换该目录的自动抓取开关(输出 enabled/disabled,靠 .git/NO_AUTO_FETCH 标记文件实现),流量敏感场景按仓库禁用。\n注意:自动抓取会让 git push --force-with-lease 失去保护意义,强推前留意。"
+  "usage": "需安装 git-lfs。启用后 4 个别名覆盖常用操作:glfsi 初始化仓库钩子 → glfst \"*.psd\" 把类型写入 .gitattributes 开始跟踪 → glfsls 查看 LFS 管理的文件;glfsmi 后接路径可把历史提交里的大文件迁移进 LFS。\n另有函数 gplfs:把当前分支的全部 LFS 对象推送到 origin(等价 git lfs push origin <当前分支> --all),推送超时后可用它补推。"
+ },
+ "git-prompt": {
+  "usage": "依赖 python3。启用后在主题里调用 git_super_status 函数即可显示富 git 状态,如 (master↑3|✚1):领先远程 3 个提交、1 个文件未暂存;(experimental↓2↑3|✔):与远程分叉但工作区干净。\n本地状态符号:●n 已暂存、✚n 未暂存、-n 已删除、✖n 冲突、⚑n 条 stash、… 有未跟踪文件、✔ 干净。\n设 ZSH_THEME_GIT_PROMPT_CACHE 启用缓存提速,设 ZSH_THEME_GIT_SHOW_UPSTREAM 显示上游分支名;提示符外观可用 ZSH_THEME_GIT_PROMPT_* 变量微调。"
+ },
+ "gitfast": {
+  "usage": "用 git 官方团队维护的补全替换 zsh 自带的 _git:分支、远程、文件路径、提交哈希等补全在大仓库里明显更快、更健壮,并跟随最新 git 上游更新(代价是不支持参数中文描述等 zsh 特性)。\n同时用 git 的 __git_ps1 重定义 git_prompt_info,主题提示符也比 OMZ 默认实现快。装完即生效,无需配置,不添加别名。"
+ },
+ "github": {
+  "aliases": {
+   "git": "安装了 hub 时用 hub 包装 git,解锁 git pull-request、git compare 等 hub 扩展命令"
   },
-  "git-commit": {
-    "aliases": {
-      "chore": "git chore \"msg\" → chore: msg(杂务提交)",
-      "docs": "git docs \"msg\" → docs: msg(文档提交)",
-      "feat": "git feat [-s 范围] [-a] \"msg\" → feat: msg,新功能提交",
-      "fix": "git fix -s router \"msg\" → fix(router): msg,修 bug 提交",
-      "perf": "git perf \"msg\" → perf: msg(性能优化提交)",
-      "rev": "git rev [-s 范围] \"msg\" → revert: msg(回滚提交)",
-      "style": "git style \"msg\" → style: msg(格式调整提交)",
-      "test": "git test \"msg\" → test: msg(测试提交)"
-    },
-    "usage": "启用后自动写入一组 git config 全局别名,按 conventional commits 风格提交:git fix -s router \"correct redirect link\" 提交为 fix(router): correct redirect link;加 -a 生成感叹号标记破坏性改动,如 git feat -a \"新 API\" → feat!: 新 API。\n支持 build/chore/ci/docs/feat/fix/perf/refactor/style/test/wip 共 12 类(revert 用 rev,避免与 git revert 冲突)。\n注意:会覆盖你手动配置的同名 alias.<type>。"
+  "usage": "装了 hub(brew install hub)时自动 alias git=hub,hub 的 pull-request/compare 等扩展子命令直接可用,补全也会生效;github Ruby gem 的补全同理(需先 gem 安装)。\n内置三个一键函数:empty_gh <name> 新建带 README.md 的仓库并推上 GitHub;new_gh <dir> 把现有目录 git init 后创建远程仓库并推送;exist_gh <dir> 给已有仓库建远程并推送(均依赖 hub create,需先完成 GitHub 认证)。"
+ },
+ "gitignore": {
+  "usage": "提供 gi 函数从 gitignore.io 拉取忽略规则模板(需联网):gi list 列出全部支持模板;gi java 预览对应规则;gi java,maven,macos >> .gitignore 把多套模板一次追加进项目 .gitignore。\n模板名支持 Tab 补全,列表有本地缓存并自动刷新。"
+ },
+ "jira": {
+  "usage": "先在项目根放 .jira-url(或全局 ~/.jira-url / 环境变量 JIRA_URL)配置站点,可用 .jira-prefix 设项目前缀。之后:jira 直接打开「新建 issue」页;jira ABC-123 打开对应工单(前缀可省);jira new / jira reported <用户> / jira mine 按动作直达对应页面。"
+ },
+ "jj": {
+  "aliases": {
+   "jjc": "提交当前 change 的描述修改(jj commit)",
+   "jjd": "查看差异(jj diff)",
+   "jjgcl": "克隆 jj 仓库(jj git clone <url>)",
+   "jjgp": "推送(jj git push)",
+   "jjl": "查看提交图(jj log)",
+   "jjn": "新建 change(jj new)",
+   "jjrt": "跳转到 jj 仓库根目录",
+   "jjst": "查看工作区状态(jj status)"
   },
-  "git-escape-magic": {
-    "usage": "纯 zle 输入增强:在 git 命令行上输入 ~ ^ { } 等 git 对象元字符时自动按需加反斜杠转义,免去手动转义。例如直接输 git diff HEAD^、git show v1.0^{}、git log topic~2 不会再被 zsh 当作通配/替换语法报错。\n若同时使用 url-quote-magic,必须先加载它再加载本插件,避免冲突。"
+  "usage": "需安装 jujutsu(jj)。启用后 38 个别名加补全:jjst 看状态 → jjd 看差异 → jjds 写描述 → jjn 开新 change;jjgcl <url> 克隆、jjgf/jjgfa 拉取、jjgp 推送(jjnt 在 trunk() 上新建,jjrbm 变基到 trunk);jjrt 跳仓库根。\n主题里可用 jj_prompt_template '模板' 读取当前 change 信息(如 change id 短哈希);提示符卡顿可配 zstyle :omz:plugins:jj ignore-working-copy yes 提速。"
+ },
+ "mercurial": {
+  "aliases": {
+   "hga": "添加文件纳入版本管理(hg add)",
+   "hgb": "显示当前分支(hg branch)",
+   "hgc": "提交(hg commit)",
+   "hgd": "查看差异(hg diff)",
+   "hgl": "拉取并更新到最新(hg pull -u)",
+   "hgp": "推送(hg push)",
+   "hgs": "查看工作区状态(hg status)",
+   "hgsl": "最近 20 条单行日志(节点|日期|作者: 描述)"
   },
-  "git-extras": {
-    "usage": "需安装 git-extras(tj/git-extras)。启用后为其几十个子命令提供 zsh 补全,如 git summary(仓库概况)、git changelog(按 tag 生成变更日志)、git effort(文件改动热度)、git standup(看我昨天的提交)、git undo(撤销上次提交)、git release / git squash / git delete-branch 等,命令名、分支名、tag 名均可 Tab 补全。\n补全基于 zsh 自带的 _git 实现,Homebrew 装的 git 需卸载其捆绑补全才生效;不添加任何别名。"
+  "usage": "需安装 hg(Mercurial)。启用后 20 个别名覆盖日常:hgs 看状态 → hga 加文件 → hgc 提交 → hgp 推送;hgl 拉取并更新、hglr 拉取并变基、hgi/hgo 查看未拉入/未推出的变更集,hgca 修补上次提交。\n函数 hgic/hgoc 直接统计入/出 changeset 条数;hg_prompt_info 可挂进主题显示分支与脏状态(把 $(hg_prompt_info) 加进 PROMPT 即可)。"
+ },
+ "repo": {
+  "aliases": {
+   "r": "repo 本身",
+   "rfa": "对所有项目执行命令(repo forall -c '<命令>')",
+   "rfap": "对所有项目执行命令并带路径前缀输出(repo forall -p -c)",
+   "rinf": "查看清单与分支信息(repo info)",
+   "rs": "同步全部项目(repo sync)",
+   "rsrra": "先同步再对所有项目变基,自动暂存本地改动",
+   "rst": "查看工作区状态(repo status)",
+   "ru": "上传改动供评审(repo upload)"
   },
-  "git-flow": {
-    "aliases": {
-      "gcd": "检出 develop 分支",
-      "gflff": "完成指定 feature(gflff <name>)",
-      "gflffc": "完成当前 feature,自动填分支名",
-      "gflfpc": "发布当前 feature,自动填分支名",
-      "gflfs": "开始一个新 feature(gflfs <name>)",
-      "gflhf": "完成指定 hotfix(gflhf <version>)",
-      "gflhs": "开始一个新 hotfix(gflhs <version>)",
-      "gfli": "初始化 git-flow 仓库"
-    },
-    "usage": "需安装 git-flow(nvie 版)。启用后获得 git flow 全套补全和别名:gfli 初始化 → gflfs <name> 开功能分支 → gflff <name> 完成;gflhs <ver>/gflhf <ver> 开/收热修复,gflrs <ver>/gflrf <ver> 开/收发布分支;gcd 直达 develop。\n带 c 的别名一步操作当前分支:gflffc 完成当前 feature、gflfpc 发布当前 feature、gflhfc/gflrfc 同理;gflfpll <remote> <name> 拉别人的 feature。"
+  "usage": "需安装 Google 的 repo 多仓库管理工具(Android 源码等场景)。启用后别名加补全:rs 同步全部项目,rsrra 同步后逐项目 repo rebase --auto-stash,ru 上传评审,rst 看各项目改动状态(rsto 只看当前项目)。\n跨项目批量操作用 rfa -c '<shell 命令>'(rfap 输出带项目路径),rinf 查看清单与分支概况。"
+ },
+ "svn": {
+  "usage": "为 svn 仓库提供一组主题函数:svn_prompt_info 显示仓库信息,in_svn 判断是否在 svn 工作副本内,svn_get_repo_name/svn_get_branch_name/svn_get_rev_nr 分别取仓库名、分支名、修订号,svn_dirty/svn_dirty_pwd 判断有无未提交变更。\n注意分支名取自 URL 第一级路径,不按 trunk/branches 布局时会返回第一个路径元素;参考 agnoster 示例把 prompt_svn 函数写进主题即可在提示符显示 修订号@分支名 及脏标记 ±。"
+ },
+ "svn-fast-info": {
+  "usage": "svn 插件的提速替身:每次提示符只调用一次 svn,大仓库上开销小得多;作为 drop-in 替代使用,不要与 svn 插件同时启用。主题里同样调用 svn_prompt_info,显示分支、仓库根、修订号和文件状态符号。\n状态符号默认:+=新增、✖=删除、✎=修改、∿=替换、?=未跟踪、!=脏;全部可用 ZSH_THEME_SVN_PROMPT_* 变量定制,如 ZSH_THEME_SVN_PROMPT_MODIFICATIONS='M'。"
+ },
+ "tig": {
+  "aliases": {
+   "tia": "从所有引用视图启动 tig(tig --all)",
+   "tib": "对当前文件做 blame 并检测复制/重命名(tig blame -C)",
+   "tif": "查看 reflog 视图(tig reflog)",
+   "til": "查看日志视图(tig log)",
+   "tis": "打开交互式状态视图(tig status,可逐个暂存/提交)"
   },
-  "git-flow-avh": {
-    "usage": "需安装 git-flow (AVH Edition)(brew install git-flow-avh)。启用后为 git flow 提供完整 zsh 补全,覆盖 init/feature/bugfix/release/hotfix/config 子命令:git flow feature finish <Tab> 直接列出所有 feature 分支,分支名、远程名、版本号均可补全。\n要求使用 zsh 自带的 _git 补全(默认即是,Homebrew 安装的 git 需卸载其捆绑补全);不添加任何别名。"
-  },
-  "git-hubflow": {
-    "aliases": {
-      "ghff": "管理 feature 分支(git hf feature)",
-      "ghfh": "管理 hotfix 分支(git hf hotfix)",
-      "ghfr": "管理 release 分支(git hf release)",
-      "ghfs": "管理 support 分支(git hf support)",
-      "ghf": "打印 git hf 命令总览",
-      "ghfu": "把上游变更拉取到 master 和 develop"
-    },
-    "usage": "需安装 HubFlow(datasift 的 git hf 命令,面向 GitHub 的 GitFlow)。启用后获得 git hf 补全和 6 个别名:ghf 看命令总览,ghff/ghfr/ghfh/ghfs 分别管理 feature/release/hotfix/support 分支,ghfu 同步上游。\n例如 ghff start <name> 即 git hf feature start <name>,ghff finish <name> 完成功能分支;所有子命令与分支名均可 Tab 补全。"
-  },
-  "git-lfs": {
-    "aliases": {
-      "glfsls": "列出被 LFS 管理的文件(git lfs ls-files)",
-      "glfsmi": "把历史中的指定文件迁移进 LFS(git lfs migrate import --include=<路径>)",
-      "glfsi": "安装 git-lfs 钩子(git lfs install)",
-      "glfst": "跟踪大文件类型(git lfs track,如 glfst \"*.psd\")"
-    },
-    "usage": "需安装 git-lfs。启用后 4 个别名覆盖常用操作:glfsi 初始化仓库钩子 → glfst \"*.psd\" 把类型写入 .gitattributes 开始跟踪 → glfsls 查看 LFS 管理的文件;glfsmi 后接路径可把历史提交里的大文件迁移进 LFS。\n另有函数 gplfs:把当前分支的全部 LFS 对象推送到 origin(等价 git lfs push origin <当前分支> --all),推送超时后可用它补推。"
-  },
-  "git-prompt": {
-    "usage": "依赖 python3。启用后在主题里调用 git_super_status 函数即可显示富 git 状态,如 (master↑3|✚1):领先远程 3 个提交、1 个文件未暂存;(experimental↓2↑3|✔):与远程分叉但工作区干净。\n本地状态符号:●n 已暂存、✚n 未暂存、-n 已删除、✖n 冲突、⚑n 条 stash、… 有未跟踪文件、✔ 干净。\n设 ZSH_THEME_GIT_PROMPT_CACHE 启用缓存提速,设 ZSH_THEME_GIT_SHOW_UPSTREAM 显示上游分支名;提示符外观可用 ZSH_THEME_GIT_PROMPT_* 变量微调。"
-  },
-  "gitfast": {
-    "usage": "用 git 官方团队维护的补全替换 zsh 自带的 _git:分支、远程、文件路径、提交哈希等补全在大仓库里明显更快、更健壮,并跟随最新 git 上游更新(代价是不支持参数中文描述等 zsh 特性)。\n同时用 git 的 __git_ps1 重定义 git_prompt_info,主题提示符也比 OMZ 默认实现快。装完即生效,无需配置,不添加别名。"
-  },
-  "github": {
-    "aliases": {
-      "git": "安装了 hub 时用 hub 包装 git,解锁 git pull-request、git compare 等 hub 扩展命令"
-    },
-    "usage": "装了 hub(brew install hub)时自动 alias git=hub,hub 的 pull-request/compare 等扩展子命令直接可用,补全也会生效;github Ruby gem 的补全同理(需先 gem 安装)。\n内置三个一键函数:empty_gh <name> 新建带 README.md 的仓库并推上 GitHub;new_gh <dir> 把现有目录 git init 后创建远程仓库并推送;exist_gh <dir> 给已有仓库建远程并推送(均依赖 hub create,需先完成 GitHub 认证)。"
-  },
-  "gitignore": {
-    "usage": "提供 gi 函数从 gitignore.io 拉取忽略规则模板(需联网):gi list 列出全部支持模板;gi java 预览对应规则;gi java,maven,macos >> .gitignore 把多套模板一次追加进项目 .gitignore。\n模板名支持 Tab 补全,列表有本地缓存并自动刷新。"
-  },
-  "jj": {
-    "aliases": {
-      "jjc": "提交当前 change 的描述修改(jj commit)",
-      "jjd": "查看差异(jj diff)",
-      "jjgcl": "克隆 jj 仓库(jj git clone <url>)",
-      "jjgp": "推送(jj git push)",
-      "jjl": "查看提交图(jj log)",
-      "jjn": "新建 change(jj new)",
-      "jjrt": "跳转到 jj 仓库根目录",
-      "jjst": "查看工作区状态(jj status)"
-    },
-    "usage": "需安装 jujutsu(jj)。启用后 38 个别名加补全:jjst 看状态 → jjd 看差异 → jjds 写描述 → jjn 开新 change;jjgcl <url> 克隆、jjgf/jjgfa 拉取、jjgp 推送(jjnt 在 trunk() 上新建,jjrbm 变基到 trunk);jjrt 跳仓库根。\n主题里可用 jj_prompt_template '模板' 读取当前 change 信息(如 change id 短哈希);提示符卡顿可配 zstyle :omz:plugins:jj ignore-working-copy yes 提速。"
-  },
-  "mercurial": {
-    "aliases": {
-      "hga": "添加文件纳入版本管理(hg add)",
-      "hgb": "显示当前分支(hg branch)",
-      "hgc": "提交(hg commit)",
-      "hgd": "查看差异(hg diff)",
-      "hgl": "拉取并更新到最新(hg pull -u)",
-      "hgp": "推送(hg push)",
-      "hgs": "查看工作区状态(hg status)",
-      "hgsl": "最近 20 条单行日志(节点|日期|作者: 描述)"
-    },
-    "usage": "需安装 hg(Mercurial)。启用后 20 个别名覆盖日常:hgs 看状态 → hga 加文件 → hgc 提交 → hgp 推送;hgl 拉取并更新、hglr 拉取并变基、hgi/hgo 查看未拉入/未推出的变更集,hgca 修补上次提交。\n函数 hgic/hgoc 直接统计入/出 changeset 条数;hg_prompt_info 可挂进主题显示分支与脏状态(把 $(hg_prompt_info) 加进 PROMPT 即可)。"
-  },
-  "repo": {
-    "aliases": {
-      "r": "repo 本身",
-      "rfap": "对所有项目执行命令并带路径前缀输出(repo forall -p -c)",
-      "rfa": "对所有项目执行命令(repo forall -c '<命令>')",
-      "rinf": "查看清单与分支信息(repo info)",
-      "rs": "同步全部项目(repo sync)",
-      "rsrra": "先同步再对所有项目变基,自动暂存本地改动",
-      "rst": "查看工作区状态(repo status)",
-      "ru": "上传改动供评审(repo upload)"
-    },
-    "usage": "需安装 Google 的 repo 多仓库管理工具(Android 源码等场景)。启用后别名加补全:rs 同步全部项目,rsrra 同步后逐项目 repo rebase --auto-stash,ru 上传评审,rst 看各项目改动状态(rsto 只看当前项目)。\n跨项目批量操作用 rfa -c '<shell 命令>'(rfap 输出带项目路径),rinf 查看清单与分支概况。"
-  },
-  "svn": {
-    "usage": "为 svn 仓库提供一组主题函数:svn_prompt_info 显示仓库信息,in_svn 判断是否在 svn 工作副本内,svn_get_repo_name/svn_get_branch_name/svn_get_rev_nr 分别取仓库名、分支名、修订号,svn_dirty/svn_dirty_pwd 判断有无未提交变更。\n注意分支名取自 URL 第一级路径,不按 trunk/branches 布局时会返回第一个路径元素;参考 agnoster 示例把 prompt_svn 函数写进主题即可在提示符显示 修订号@分支名 及脏标记 ±。"
-  },
-  "svn-fast-info": {
-    "usage": "svn 插件的提速替身:每次提示符只调用一次 svn,大仓库上开销小得多;作为 drop-in 替代使用,不要与 svn 插件同时启用。主题里同样调用 svn_prompt_info,显示分支、仓库根、修订号和文件状态符号。\n状态符号默认:+=新增、✖=删除、✎=修改、∿=替换、?=未跟踪、!=脏;全部可用 ZSH_THEME_SVN_PROMPT_* 变量定制,如 ZSH_THEME_SVN_PROMPT_MODIFICATIONS='M'。"
-  },
-  "tig": {
-    "aliases": {
-      "tia": "从所有引用视图启动 tig(tig --all)",
-      "tib": "对当前文件做 blame 并检测复制/重命名(tig blame -C)",
-      "tif": "查看 reflog 视图(tig reflog)",
-      "til": "查看日志视图(tig log)",
-      "tis": "打开交互式状态视图(tig status,可逐个暂存/提交)"
-    },
-    "usage": "需安装 tig(终端里的 git 文本界面)。启用后 5 个别名:tis 进交互式状态视图,在界面里逐个文件暂存、写提交;til 看提交日志;tib 对当前文件 blame(带复制/重命名追踪);tif 看 reflog;tia 覆盖所有分支与标签的视图。"
-  }
+  "usage": "需安装 tig(终端里的 git 文本界面)。启用后 5 个别名:tis 进交互式状态视图,在界面里逐个文件暂存、写提交;til 看提交日志;tib 对当前文件 blame(带复制/重命名追踪);tif 看 reflog;tia 覆盖所有分支与标签的视图。"
+ }
 }
