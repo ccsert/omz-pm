@@ -1,9 +1,37 @@
-//! README 阅读:整篇内容在 TUI 中查看,
-//! 对高度模板化的段落(启用方式)与小节标题做离线翻译。
+//! README 阅读:优先显示内置整篇中文译文(`data/readmes-zh/` 打包嵌入),
+//! 支持用户在 `~/.config/omz-pm/readmes-zh/<插件>.md` 覆盖;
+//! 没有整篇译文的插件(含自定义插件)回退为「轻翻译」:对原文的小节标题、
+//! 样板启用段做离线中文化。
 
+use std::collections::HashMap;
 use std::path::Path;
+use std::sync::OnceLock;
 
 use crate::catalog::find_readme_path;
+
+/// 内置整篇中文译文,由 tools/build_readme_bundle.py 从 data/readmes-zh/ 打包生成。
+const EMBEDDED_READMES: &str = include_str!("../data/readmes_zh.json");
+
+static BUNDLED: OnceLock<HashMap<String, String>> = OnceLock::new();
+
+fn bundled() -> &'static HashMap<String, String> {
+    BUNDLED.get_or_init(|| serde_json::from_str(EMBEDDED_READMES).unwrap_or_default())
+}
+
+/// 用户整篇译文覆盖:~/.config/omz-pm/readmes-zh/<插件>.md。
+fn user_override(name: &str) -> Option<String> {
+    let config = match std::env::var("XDG_CONFIG_HOME") {
+        Ok(d) if !d.is_empty() => Path::new(&d).to_path_buf(),
+        _ => crate::zshrc::home_dir().join(".config"),
+    };
+    let path = config
+        .join("omz-pm")
+        .join("readmes-zh")
+        .join(format!("{name}.md"));
+    std::fs::read_to_string(path)
+        .ok()
+        .filter(|t| !t.trim().is_empty())
+}
 
 /// 常见小节标题词典(命中即中文化,保留原文在括号里)。
 const HEADERS: &[(&str, &str)] = &[
@@ -51,9 +79,15 @@ const HEADERS: &[(&str, &str)] = &[
     ("contributing", "参与贡献"),
 ];
 
-/// 阅读并「轻翻译」README:标题汉化、样板启用说明替换为中文、
-/// 别名/命令表格原样保留(它们本身就是命令,无需翻译)。
+/// 阅读 README:优先用户覆盖译文,其次内置整篇译文,
+/// 都没有时读取原文件做轻翻译。
 pub fn read_translated(plugin_name: &str, dir: &Path) -> Option<String> {
+    if let Some(t) = user_override(plugin_name) {
+        return Some(t);
+    }
+    if let Some(t) = bundled().get(plugin_name) {
+        return Some(t.clone());
+    }
     let path = find_readme_path(dir)?;
     let text = std::fs::read_to_string(path).ok()?;
     Some(translate(plugin_name, &text))
@@ -141,6 +175,34 @@ fn translate_header(h: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn bundled_readmes_parse_and_cover_dictionary() {
+        let dict: HashMap<String, serde_json::Value> =
+            serde_json::from_str(include_str!("../data/translations.json")).unwrap();
+        assert!(dict.len() >= 300, "词典条目异常: {}", dict.len());
+        let b = bundled();
+        let missing: Vec<&String> = dict.keys().filter(|k| !b.contains_key(*k)).collect();
+        assert!(missing.is_empty(), "缺整篇译文的插件: {:?}", missing);
+    }
+
+    #[test]
+    fn bundled_readmes_are_complete_translations() {
+        for (name, text) in bundled() {
+            assert!(!text.trim().is_empty(), "{} 译文为空", name);
+            // 按行数围栏(6 反引号行会被子串计数多数一次)
+            let fences = text
+                .lines()
+                .filter(|l| l.trim_start().starts_with("```"))
+                .count();
+            assert!(fences % 2 == 0, "{} 代码围栏不闭合", name);
+            assert!(
+                !text.contains("plugins array"),
+                "{} 遗留英文样板启用段",
+                name
+            );
+        }
+    }
 
     #[test]
     fn header_translated() {
