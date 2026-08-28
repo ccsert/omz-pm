@@ -1,0 +1,167 @@
+{
+ "1password": {
+  "usage": "为 1Password CLI(op)提供补全与 opswd 函数:op <Tab> 补全子命令,opswd <Tab> 还能补全已保存的登录项名称。\n典型流程:opswd github.com——先把用户名复制进剪贴板,回车确认后复制密码,若存有 TOTP 会接着复制,20 秒后剪贴板自动清空。\n需安装 1Password CLI 2 并已登录,未登录时 opswd 直接报错退出。"
+ },
+ "arcanist": {
+  "usage": "为 Phabricator 代码评审工具 arcanist(arc)提供别名与函数:ard 发 diff、ardc 创建新 diff、arl 合并入库、arci 提交、arli 跑 lint、arls 列出 diff。\n函数 ardu/arpa 既接受完整评审 URL 也接受纯 revision id:ardu <URL> 更新 diff,arpa <URL> 把远端补丁应用到本地,直接粘贴浏览器地址即可。",
+  "aliases": {
+   "ara": "arc amend:修订提交",
+   "ard": "arc diff:提交代码评审 diff",
+   "ardc": "arc diff --create:创建新 diff",
+   "ardp": "arc diff --preview:在 Phabricator 界面生成预览 diff",
+   "arl": "arc land:把已评审的提交合并到主线",
+   "arci": "arc commit:提交变更",
+   "arli": "arc lint:运行代码检查",
+   "arls": "arc list:列出 diff"
+  }
+ },
+ "arduino-cli": {
+  "usage": "为 Arduino 官方 CLI 提供补全:arduino-cli <Tab> 补全 compile/upload/board/lib/core 等子命令及板型、端口等参数。\n补全脚本在插件加载时由 arduino-cli completion zsh 生成并缓存到 $ZSH_CACHE_DIR/completions;需先安装 arduino-cli,否则插件直接跳过。"
+ },
+ "bedtools": {
+  "usage": "为基因组区间分析套件 bedtools 提供补全:bedtools <Tab> 列出 intersect/merge/sort/getfasta/genomecov 等全部子命令,每项附一句功能说明;选中子命令后的参数位置自动回退为文件补全。\n纯补全插件,不定义别名。"
+ },
+ "buf": {
+  "usage": "为 Protocol Buffers 工具 Buf CLI 提供补全:buf <Tab> 补全 build/lint/format/generate 等子命令与参数。\n插件加载时调用 buf completion zsh 生成补全脚本并缓存,之后不再重复生成;需先安装 buf。"
+ },
+ "cdk": {
+  "usage": "为 AWS CDK CLI 提供别名与补全:cdk <Tab> 由 cdk --get-yargs-completions 实时补全子命令与参数。\n日常循环:cdkl 看栈列表 → cdkdiff 比对变更 → cdkdeploy 部署 → cdkdestroy 销毁;cdksynth 生成 CloudFormation 模板,cdkboot 做一次性引导。\n需先 npm install -g aws-cdk。",
+  "aliases": {
+   "cdkl": "cdk list:列出应用中的所有栈",
+   "cdkdeploy": "cdk deploy:将栈部署到 AWS",
+   "cdkdiff": "cdk diff:比较已部署栈与本地栈的差异",
+   "cdksynth": "cdk synth:合成 CloudFormation 模板",
+   "cdkdestroy": "cdk destroy:销毁已部署的栈",
+   "cdkboot": "cdk bootstrap:引导 CDK 环境",
+   "cdkwatch": "cdk watch:监视变更并自动部署",
+   "cdkdoc": "cdk docs:打开 CDK 文档"
+  }
+ },
+ "charm": {
+  "usage": "为 Charm 生态的命令行工具 charm 提供补全:charm <Tab> 补全子命令与参数,补全脚本由 charm completion zsh 生成并缓存。\n需先安装 charm,未安装则插件不生效;纯补全,不定义别名。"
+ },
+ "chezmoi": {
+  "usage": "为 dotfiles 管理器 chezmoi 提供补全:chezmoi <Tab> 补全 init/add/apply/edit/diff/update 等子命令及参数。\n补全脚本由 chezmoi completion zsh 在加载时生成并缓存;需先安装 chezmoi,纯补全、无别名。"
+ },
+ "codex": {
+  "usage": "为 OpenAI Codex CLI 提供补全:codex <Tab> 补全子命令与参数。\n加载时后台执行 codex completion zsh 生成补全脚本并缓存(生成失败会静默跳过);需先安装 codex,纯补全、无别名。"
+ },
+ "dotnet": {
+  "usage": "为 .NET CLI 提供补全与别名:补全实时调用 dotnet complete 计算,dotnet <Tab> 可补全 build/run/test/publish 等子命令与参数(机制与 node 插件的 npm 补全同款)。\n常用别名:db 构建、dr 运行、dt 测试、dwr 改代码自动重启运行、dp 打 NuGet 包。",
+  "aliases": {
+   "dn": "dotnet new:创建新项目或文件",
+   "dr": "dotnet run:构建并运行项目",
+   "dt": "dotnet test:运行单元测试",
+   "dw": "dotnet watch:监视源码变更并重启命令",
+   "dwr": "dotnet watch run:变更后自动重启运行",
+   "db": "dotnet build:构建项目",
+   "dp": "dotnet pack:创建 NuGet 包",
+   "dres": "dotnet restore:还原依赖项"
+  }
+ },
+ "grunt": {
+  "usage": "为 Grunt 任务运行器提供智能补全:grunt <Tab> 会向上级目录查找 Gruntfile.js/.coffee,解析出任务名与 --help 选项一并补全,结果缓存(gruntfile 变更即失效,默认 7 天过期)。\n缓存需在 .zshrc 中设置 zstyle ':completion:*' use-cache yes;另可用 zstyle 把 show_grunt_path 设为 yes,在补全提示里显示所用 gruntfile 的路径。"
+ },
+ "gulp": {
+  "usage": "为 gulp.js 提供任务补全:gulp <Tab> 执行 gulp --tasks-simple,把当前目录 gulpfile.js 中注册的所有任务名列出来供选择。\n需项目本地装有 gulp;纯补全插件,不定义别名。"
+ },
+ "jhbuild": {
+  "usage": "为 GNOME 源码构建工具 JHBuild 提供一组别名:jhb 全量构建、jhbo 单模块构建、jhu 更新源码、jhuo 单模块更新、jhi 查看模块信息、jht 跑 tinderbox(构建并生成网页报告)。\n要进入构建出的开发环境,用 jhsh(等于 jhbuild shell)。",
+  "aliases": {
+   "jh": "jhbuild 本体",
+   "jhb": "build:按依赖关系构建模块",
+   "jhbo": "buildone:只构建单个模块",
+   "jhu": "update:更新模块源码",
+   "jhuo": "updateone:只更新单个模块源码",
+   "jhi": "info:显示模块信息",
+   "jhl": "list:列出将要构建的模块",
+   "jht": "tinderbox:构建并生成网页测试报告"
+  }
+ },
+ "juju": {
+  "usage": "为 Canonical Juju 提供别名、函数与补全:juju <Tab> 补全子命令与选项,-c/-m 的值及 destroy-model 等位置参数还能补全已有控制器、模型名(依赖 jq)。\n别名命名约定:! 后缀等于 --force --no-wait -y,ds 后缀等于 --destroy-storage,jsh 前缀对应 juju show-*。\n常用组合:jst 看彩色状态、jb 引导环境、jd 部署应用、jsw 切换模型;jaddr karma 0 查单元 IP,wjst 2 每两秒刷新状态。",
+  "aliases": {
+   "j": "juju 本体",
+   "jb": "bootstrap:初始化一个 Juju 云环境",
+   "jd": "deploy:部署新的应用或 bundle",
+   "jst": "status --relations --color:彩色显示状态(含关系)",
+   "jsw": "switch:切换或查看当前控制器与模型",
+   "jctl": "controllers:列出所有控制器",
+   "jdm": "destroy-model:不可恢复地删除一个模型",
+   "jssh": "ssh:在 Juju 目标上发起 SSH 会话"
+  }
+ },
+ "lando": {
+  "usage": "为 Lando(Docker 本地开发环境)自动包装常用命令:只要当前目录或其在 ~/Sites 内的任一父目录存在 .lando.yml,artisan/composer/drush/gulp/npm/php/wp/yarn 就会自动以 lando <命令> 执行;确认不是 lando 任务时原样运行,免去手敲 lando 前缀。\n可用 LANDO_ZSH_SITES_DIRECTORY(默认 ~/Sites)、LANDO_ZSH_CONFIG_FILE(默认 .lando.yml)、LANDO_ZSH_WRAPPED_COMMANDS 自定义,须在插件加载前设置。"
+ },
+ "lighthouse": {
+  "usage": "为 Lighthouse 缺陷跟踪系统提供快捷命令:先在项目根目录放一个 .lighthouse-url 文件(内容为项目 URL),之后 lho 23 即用浏览器打开 23 号工单,不用再拼 URL。\n实际执行的是 open_lighthouse_ticket 函数,lho 是其唯一别名。",
+  "aliases": {
+   "lho": "open_lighthouse_ticket:用浏览器打开指定编号的 Lighthouse 工单"
+  }
+ },
+ "n98-magerun": {
+  "usage": "为 Magento 运维工具 n98-magerun 提供补全与别名:n98-magerun <Tab>(对 v1/v2 的带 phar 与不带 phar 共四种命令名均生效)实时解析命令输出,补全全部子命令。\n别名:mage/magerun/n98 都指向 n98-magerun.phar,mage2 系列指向 v2;mage-get/mage2-get 用 wget 把最新 phar 下载到当前目录。",
+  "aliases": {
+   "n98": "指向 n98-magerun.phar(v1)",
+   "mage": "同 n98,指向 n98-magerun.phar",
+   "magerun": "同 n98,指向 n98-magerun.phar",
+   "n98-2": "指向 n98-magerun2.phar(v2)",
+   "mage2": "同 n98-2,指向 n98-magerun2.phar",
+   "magerun2": "同 n98-2,指向 n98-magerun2.phar",
+   "mage-get": "wget 下载 n98-magerun.phar 到当前目录",
+   "mage2-get": "wget 下载 n98-magerun2.phar 到当前目录"
+  }
+ },
+ "nats": {
+  "usage": "为 NATS 生态两个 CLI 提供补全:nats <Tab> 补全 natscli 的子命令与参数(由 nats --completion-script-zsh 生成),nsc <Tab> 补全账户/证书管理工具 nsc 的子命令(由 nsc completion zsh 生成)。\n两个工具装了哪个就启用哪个、互不依赖,补全脚本均缓存;纯补全,不定义别名。"
+ },
+ "please": {
+  "usage": "为 Please 构建系统提供补全与别名:安装 plz 后,插件加载其自带补全脚本,plz <Tab> 补全子命令与构建目标。\n三个别名:pb 构建目标、pt 跑测试、pw 持续 watch,例如 pb //tools:formatter。",
+  "aliases": {
+   "pb": "plz build:构建指定目标",
+   "pt": "plz test:运行测试",
+   "pw": "plz watch:监视变更并持续重建"
+  }
+ },
+ "powify": {
+  "usage": "为 Pow(Rack 本地开发服务器)管理工具 powify 提供两级补全:powify <Tab> 补全 create/destroy/restart/rename/browse/logs 等子命令,powify server <Tab> 补全 install/start/stop/status 等服务器管理动作。\ndestroy/restart/browse/logs 等还会列出 ~/.pow/ 下已存在的应用名供补全;纯补全,不定义别名。"
+ },
+ "rclone": {
+  "usage": "为云存储同步工具 rclone 提供补全:rclone <Tab> 补全 copy/sync/ls/mount/config 等大量子命令、选项与参数。\n补全脚本由 rclone completion zsh 生成,内容较大,加载时缓存到 $ZSH_CACHE_DIR/completions 后续直接复用;需先安装 rclone。"
+ },
+ "samtools": {
+  "usage": "为高通量测序数据处理工具 samtools 提供补全:samtools <Tab> 列出 view/sort/index/flagstat/mpileup/merge 等子命令并附一句功能说明,子命令之后的参数位置回退为文件补全,便于选 BAM/SAM 文件。\n纯补全插件,不定义别名。"
+ },
+ "stack": {
+  "usage": "为 Haskell 构建工具 Stack 提供补全:通过 bashcompinit 加载 stack --bash-completion-script 输出的补全脚本,stack <Tab> 补全 build/test/bench/exec 等子命令。\n需先安装 stack,未安装则插件不加载;纯补全,不定义别名。"
+ },
+ "stripe": {
+  "usage": "为 Stripe CLI 提供补全:stripe <Tab> 补全 listen/trigger/webhooks/logs 等子命令与参数。\n补全脚本由 stripe completion --shell zsh 生成并缓存;需先安装 Stripe CLI,纯补全、不定义别名。"
+ },
+ "task": {
+  "usage": "为 go-task(Taskfile.dev)任务运行器提供补全:task <Tab> 补全选项与参数,补全脚本由 task --completion zsh 生成并缓存。\n注意这是 Taskfile 构建工具的插件,与任务管理软件 TaskWarrior 无关;纯补全,不定义别名。"
+ },
+ "taskwarrior": {
+  "usage": "为 TaskWarrior 提供深度补全:task <Tab> 补全子命令、任务 ID 与已定义的命令别名,project:/due:/priority: 等属性还能动态补出项目名、标签、H/M/L 优先级和 tomorrow/eow 等日期词。\n例如 task 66<Tab> 会列出对 66 号任务可用的操作;另设短别名 t 并绑定同一套补全。",
+  "aliases": {
+   "t": "task 本体,已绑定同一套 _task 补全"
+  }
+ },
+ "watson": {
+  "usage": "为时间跟踪工具 Watson 提供补全:watson <Tab> 时实时调用 watson 自身的补全接口(_WATSON_COMPLETE=zsh_complete),按当前输入返回子命令、项目名等候选,也支持目录/文件补全。\n需先安装 watson CLI;纯补全,不定义别名。"
+ },
+ "wp-cli": {
+  "usage": "为 WordPress 命令行工具 WP-CLI 提供补全与 80 多个别名:wp <Tab> 通过 wp cli completions 补全子命令与参数。\n别名按功能域分组:插件类如 wppi 安装插件、wppl 列出插件、wppu 更新插件;数据库类如 wpdbe 导出、wpdbi 导入;主题类如 wpti 安装、wptl 列表;用户类如 wpuc 创建、wpul 列表。",
+  "aliases": {
+   "wppi": "wp plugin install:安装插件",
+   "wppl": "wp plugin list:列出插件",
+   "wppu": "wp plugin update:更新插件",
+   "wpdbe": "wp db export:导出数据库",
+   "wpdbi": "wp db import:导入数据库",
+   "wpti": "wp theme install:安装主题",
+   "wpuc": "wp user create:创建用户",
+   "wpul": "wp user list:列出用户"
+  }
+ }
+}

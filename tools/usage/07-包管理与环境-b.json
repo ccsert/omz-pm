@@ -1,0 +1,149 @@
+{
+ "archlinux": {
+  "usage": "pacupg = sudo pacman -Syu 全量升级;pacin 包名 = 安装,pacrem 包名 = 连配置和依赖一起删(pacre 只删包本体);pacreps 关键字 = 搜仓库,pacrep/pacloc = 查仓库/本地详情,pacown 文件路径 = 查文件属于哪个包,pacfiles = 按文件名反查包。\n维护:pacupd 刷索引,pacmir 强制重刷,paclsorphans 列孤儿包、pacrmorphans 一键清掉;upgrade 是函数,先校验 archlinux-keyring 再全量升级。\nyay/trizen/pacaur/aura 的 AUR 别名(yaupg、trin、pain、auin 等)只在对应助手已安装时才会定义;装了助手后 upgrade 也会连 AUR 一起升。",
+  "aliases": {
+   "pacupg": "sudo pacman -Syu:同步并全量升级",
+   "pacin": "sudo pacman -S:从仓库安装",
+   "pacrem": "sudo pacman -Rns:连同配置和依赖一起卸载",
+   "pacreps": "pacman -Ss:在仓库中搜索",
+   "pacupd": "sudo pacman -Sy:只刷新软件包数据库",
+   "pacown": "pacman -Qo:查某个文件属于哪个包",
+   "paclsorphans": "pacman -Qdt:列出所有孤儿包",
+   "pacrmorphans": "sudo pacman -Rs $(pacman -Qtdq):删除全部孤儿包"
+  }
+ },
+ "asdf": {
+  "usage": "启用后插件只做两件事:把 ~/.asdf/shims(ASDF_DATA_DIR/shims)插到 PATH 最前,并生成加载 asdf 的 zsh 补全;不提供别名。\n本体三件事:装 asdf plugin add nodejs && asdf install nodejs 20.10.0(或 latest);切 asdf global nodejs 20 / asdf set nodejs 20(当前目录,-p 父目录、-u 家目录);看 asdf current。新装版本命令找不到时跑 asdf reshim 重建 shims。需先安装 asdf 并在 PATH 中。"
+ },
+ "bower": {
+  "usage": "bi = 按 bower.json 装依赖,bis = 安装并写入 dependencies,bisd = 写入 devDependencies;bl = 列本地包及可用更新,bs 关键字 = 搜索包。附 bower 子命令与已装包补全(uninstall/update 也能 Tab 选包)。需 npm i -g bower。",
+  "aliases": {
+   "bi": "bower install:安装 bower.json 依赖",
+   "bis": "bower install --save:安装并写入 dependencies",
+   "bisd": "bower install --save-dev:安装并写入 devDependencies",
+   "bl": "bower list:列出本地包及可用更新",
+   "bs": "bower search:搜索包"
+  }
+ },
+ "cask": {
+  "usage": "注意:这是 Emacs 项目管理工具 Cask,不是 Homebrew Cask;插件不含任何别名,只在检测到 cask 命令后,从 Homebrew 等非标准位置加载 cask_completion.zsh 补全。需先安装 Cask,并保证加载 OMZ 之前 cask 已在 PATH(否则启动报 command not found);之后 cask install、cask exec 等子命令均可 Tab 补全。"
+ },
+ "chruby": {
+  "usage": "自动加载 chruby 及 auto.sh(查找顺序:zstyle :omz:plugins:chruby path/auto 指定 → /usr/local/share/chruby → Homebrew),cd 进带 .ruby-version 的目录自动切 Ruby。\nrubies = chruby 列出全部已装 Ruby,chruby ruby-3.3 切换,chruby system 回系统 Ruby;提供 chruby_prompt_info 给主题显示当前版本,另附 chruby 与 ruby-build 定义的补全。需安装 chruby(brew install chruby)。",
+  "aliases": {
+   "rubies": "chruby 本体:列出并切换已安装的 Ruby"
+  }
+ },
+ "debian": {
+  "usage": "后端自动选:装了 aptitude 用 aptitude(safe-upgrade),否则 apt,再退 apt-get(可预设 apt_pref/apt_upgr 覆盖);无 sudo 的环境别名自动改用 su。\nai 包名 = 安装,ad = 刷索引,adg = update+upgrade 一条龙,ap = purge 连配置卸载,aar = autoremove;acs 关键字 = 搜索,app 包名 = 看版本来源,di x.deb = 装 local deb(dia 装当前目录全部 .deb),ail 可管道批量装(每行取第一个词)。\n函数:apt-history install/remove 查 dpkg 日志历史,apt-list-packages 按体积排已装包,apt-copy 生成复刻系统的安装脚本。",
+  "aliases": {
+   "ai": "sudo $apt_pref install:安装包",
+   "ad": "sudo $apt_pref update:刷新软件包索引",
+   "adg": "sudo $apt_pref update && upgrade:更新并升级一条龙",
+   "au": "sudo $apt_pref $apt_upgr:只升级",
+   "acs": "apt-cache search:搜索包",
+   "ap": "sudo $apt_pref purge:卸载并清配置",
+   "aar": "sudo $apt_pref autoremove:清理不再需要的包",
+   "di": "sudo dpkg -i:安装本地 .deb"
+  }
+ },
+ "dnf": {
+  "usage": "dnfi 包名 = 安装,dnfr = 卸载,dnfu = 升级,dnfur = 刷新元数据再升级;dnfs 关键字 = 搜索,dnfp 包名 = 详情,dnfli = 列已装,dnfmc = 重建缓存,dnfc = 清缓存。\n包组:dnfgl 列出 / dnfgi 安装 / dnfgr 卸载;系统装有 dnf5 时所有别名自动指向 dnf5(组命令语法随之切换为 group list/install/remove)。",
+  "aliases": {
+   "dnfi": "sudo dnf install:安装包",
+   "dnfu": "sudo dnf upgrade:升级包",
+   "dnfr": "sudo dnf remove:卸载包",
+   "dnfs": "dnf search:搜索包",
+   "dnfp": "dnf info:显示包详情",
+   "dnfli": "dnf list --installed:列已装包",
+   "dnfmc": "dnf makecache:重建元数据缓存",
+   "dnfc": "sudo dnf clean all:清缓存"
+  }
+ },
+ "fnm": {
+  "usage": "生成 fnm 的 zsh 补全;写 zstyle ':omz:plugins:fnm' autostart yes(默认关)后,启动即执行 fnm env 注入环境,配合默认开启的 use-on-cd,cd 进含 .node-version/.nvmrc 的目录自动切 node。\n本体三件事:装 fnm install 20;切 fnm use 20 / fnm default 20;看 fnm list。需先安装 fnm。"
+ },
+ "jenv": {
+  "usage": "自动找到 jenv(认 ~/.jenv、/usr/local、/opt 及 brew --prefix jenv)并执行 jenv init - zsh,启用 shims 与自动切换;未装 jenv 时 jenv_prompt_info 回退显示 system: 版本。\n提示符:jenv_prompt_info 输出当前 Java 版本名,挂进 PROMPT/RPROMPT 即可,如 RPROMPT='$(jenv_prompt_info)';另会导出 JENV_ROOT。本体:jenv add $JAVA_HOME 注册 JDK,jenv versions 看,jenv global 17 / jenv local 11 切。需先安装 jenv。"
+ },
+ "macports": {
+  "usage": "pi 包名 = 安装,pup = selfupdate + 升级全部过期 port 一条龙(psu 只更新 MacPorts 自身/ports 树,puo 只升级过期 port);puni = 清掉 inactive 旧版本,pc = 清理已装 port 的编译中间文件。\npli = 检查已装 port 有无新版;plm [维护者] = 查维护者名下 port 的更新(不传参默认取 $MACPORTS_MAINTAINER 或 $USER)。需安装 MacPorts。",
+  "aliases": {
+   "pi": "sudo port install:安装 port",
+   "pup": "sudo port selfupdate && sudo port upgrade outdated:全量更新一条龙",
+   "psu": "sudo port selfupdate:更新 MacPorts 与 ports 树",
+   "puo": "sudo port upgrade outdated:升级全部过期 port",
+   "puni": "sudo port uninstall inactive:卸载非激活旧版本",
+   "pc": "sudo port clean --all installed:清理编译中间文件",
+   "pli": "port livecheck installed:检查已装 port 更新",
+   "plm": "port-livecheck-maintainer:按维护者检查 port 更新"
+  }
+ },
+ "mise": {
+  "usage": "启动即执行 mise activate zsh:钩子按 mise.toml/.tool-versions 在 cd 时自动切版本,并生成加载 mise 补全;不提供别名。\n本体三件事:装 mise install node@20 或 mise install(按配置文件);切 mise use -g node@20 设全局、mise use node@20 只管当前项目;看 mise ls / mise current。兼容 asdf 插件与 .tool-versions,可直接替代。需先安装 mise(curl https://mise.jdx.dev/install.sh | sh)。"
+ },
+ "nvm": {
+  "usage": "自动定位并 source nvm(依次找 $NVM_DIR、~/.nvm、XDG 目录、Homebrew 前缀),并加载补全。\n提速/自动化(zstyle 写在加载 OMZ 之前):':omz:plugins:nvm' lazy yes 懒加载,首次调 nvm/node/npm/yarn/corepack 等才真正载入(_omz_nvm_load 手动触发);':omz:plugins:nvm' autoload yes 后 cd 进含 .nvmrc 的目录自动 nvm use/install,离开回退 default(再加 silent-autoload yes 静默切换)。\n本体:nvm install 20 / nvm use 20 / nvm ls。需先安装 nvm。"
+ },
+ "pyenv": {
+  "usage": "检测到 pyenv 自动 init(shims 进 PATH),发现 pyenv-virtualenv 一并启用;当前已处于虚拟环境(VIRTUAL_ENV)时本插件直接让位不加载。若启动报「badly configured」,把 export PYENV_ROOT/pyenv init --path 几行放进 .zprofile。\n提供 pyenv_prompt_info 给主题显示当前 Python 版本:ZSH_THEME_PYENV_PREFIX/SUFFIX 加装饰,ZSH_THEME_PYENV_NO_SYSTEM=true 不显示 system;ZSH_PYENV_VIRTUALENV=false 禁 virtualenv 加载,ZSH_PYENV_QUIET=true 静默警告。本体:pyenv install 3.12 / pyenv global 3.12 / pyenv versions。"
+ },
+ "sdk": {
+  "usage": "纯补全插件:为 SDKMAN 的 sdk 命令提供完整 zsh 补全(命令、候选包、已装版本、offline/env 参数均可 Tab)。本体:sdk install java 17 装,sdk current 看,sdk use java 17 只切当前 shell,sdk default java 17 设默认,sdk env init 生成 .sdkmanrc。需先安装 SDKMAN(curl -s https://get.sdkman.io | bash)。"
+ },
+ "snap": {
+  "usage": "si 包名 = 安装(--classic、--channel=xxx 照跟),sr = 卸载,sref = 刷新全部 snap,srev 包名 = 回滚到上一版本;sl = 列已装,sf 关键字 = 搜索商店,sin 包名 = 详情,sd/se = 禁用/启用。需系统装有 snapd。",
+  "aliases": {
+   "si": "snap install:安装 snap",
+   "sr": "snap remove:卸载 snap",
+   "sref": "snap refresh:刷新(升级)snap",
+   "srev": "snap revert:回滚到上一版本",
+   "sl": "snap list:列出已装 snap",
+   "sf": "snap find:搜索商店",
+   "sin": "snap info:查看 snap 详情",
+   "se": "snap enable:启用已禁用的 snap"
+  }
+ },
+ "spackenv": {
+  "usage": "提供 spackenv_prompt_info 函数供主题调用:显示当前 Spack 环境($SPACK_ENV 的目录名),默认渲染成 [环境名],用 ZSH_THEME_SPACKENV_PREFIX/SUFFIX 改前后缀。\n配套用法:spack env create myenv 建环境,spack env activate myenv 激活后提示符出现 myenv,spack env deactivate 退出后消失。"
+ },
+ "suse": {
+  "usage": "z = sudo zypper 主入口;zin 包名 = 装,zrm = 卸,zup = 更新全部包,zdup = 发行版级 dup 全量升级,zpatch = 打补丁,zinr = 补装新推荐的包。\nzse 关键字 = 搜索,zif 包名 = 详情,zpa = 列包,zlr = 列仓库,zar = 加仓库,zref = 刷新;查询类别名(zpa/zse/zpch 等)自带 --no-refresh 提速,查不到新数据先跑 zref。锁定包:zal 加锁 / zll 看锁 / zrl 解锁。",
+  "aliases": {
+   "z": "sudo zypper:主入口",
+   "zin": "sudo zypper in:安装包",
+   "zrm": "sudo zypper rm:卸载包",
+   "zup": "sudo zypper up:更新全部软件包",
+   "zdup": "sudo zypper dup:发行版级全量升级",
+   "zse": "zypper se:搜索包(--no-refresh)",
+   "zif": "zypper if:查看包信息(--no-refresh)",
+   "zref": "sudo zypper ref:刷新软件仓库"
+  }
+ },
+ "ubuntu": {
+  "usage": "后端自动选:apt-fast > apt > apt-get($APT);agi 包名 = 装,agu = 刷索引,aguu = update+upgrade 一条龙,agud = update+dist-upgrade,agr = 卸载,agar = autoremove 清孤儿。\nacs 关键字 = 搜索,acp = 看来源优先级,agli = 列已装,aglu = 列可升级,ags 包名 = 拉源码;函数 aar ppa:用户/ppa [包名] = 加 PPA 并自动装,apt-history install 查安装历史,ppap ppa = 回滚移除 PPA(需装 ppa-purge)。",
+  "aliases": {
+   "agi": "sudo $APT install:安装包",
+   "agu": "sudo $APT update:刷新软件包列表",
+   "aguu": "sudo $APT update && sudo $APT upgrade:更新并升级一条龙",
+   "agug": "sudo $APT upgrade:只升级",
+   "agr": "sudo $APT remove:卸载包",
+   "agar": "sudo $APT autoremove:清理不再需要的包",
+   "acs": "apt-cache search:搜索包",
+   "aglu": "apt list --upgradable:列出可升级的包"
+  }
+ },
+ "yum": {
+  "usage": "yi 包名 = 安装,yu = 全量升级,yr = 卸载;ys 关键字 = 搜索,yp 包名 = 详情,yli = 列已装,yl = 列包。\n包组:ygl 列出、ygi 安装、ygr 卸载;yrl 卸包并清叶子依赖,ymc 重建元数据缓存,yc = yum clean all 清缓存。",
+  "aliases": {
+   "yi": "sudo yum install:安装包",
+   "yu": "sudo yum update:全量升级",
+   "yr": "sudo yum remove:卸载包",
+   "ys": "yum search:搜索包",
+   "yp": "yum info:查看包详情",
+   "yli": "yum list installed:列出已装包",
+   "ygl": "yum grouplist:列出包组",
+   "yc": "sudo yum clean all:清缓存"
+  }
+ }
+}
