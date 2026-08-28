@@ -1,0 +1,12 @@
+{
+ "brew": {
+  "aliases": {
+   "bi": "brew install 安装",
+   "bl": "brew list 已安装列表",
+   "bo": "brew upgrade:只升级过期的包",
+   "bs": "brew search 搜索",
+   "bubu": "brew update && upgrade 全量升级"
+  },
+  "usage": "bi 包名 = 安装;bu/bubo = 升级,bubu = update+upgrade 全量升级,bo = 只升级过期的;bl 列已装;bs 搜索;binfo 包名 看详情。卸载没有官方别名,直接 brew uninstall。"
+ }
+}

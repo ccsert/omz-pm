@@ -5,14 +5,22 @@
   "summary": "1Password CLI 补全"
  },
  "alias-finder": {
+  "aliases": {
+   "-c": "优先更短的命令(--cheaper)",
+   "-e": "精确匹配(--exact)",
+   "-l": "只匹配更长的别名(--longer)",
+   "alias-finder": "手动查询某命令对应的更短别名,如 alias-finder git status"
+  },
   "cat": "快捷键与效率",
   "detail": "输入命令时自动在已定义的别名中查找等价别名并提示,帮你发现和记住现成的缩写。可通过 ALIAS_FINDER_PRE_EXCLUDE / ALIAS_FINDER_EXCLUDE 排除不想提示的别名。",
-  "summary": "查找已有别名"
+  "summary": "查找已有别名",
+  "usage": "敲一条命令时自动在已定义别名里搜出更短的等价写法:比如输入 git status 回车,执行前先提示 gst='git status',照着学即可越敲越短;\n默认只手动用:alias-finder git status 直接查询;想让每条命令都自动提示,在 zshrc 加 zstyle ':omz:plugins:alias-finder' autoload yes;\n装了 rg(ripgrep)会自动用它加速搜索,没有则用 grep。"
  },
  "aliases": {
   "cat": "快捷键与效率",
   "detail": "提供 als 命令,按插件分组列出当前会话中所有可用的别名,方便速查。支持 als <插件名> 只看某个插件的别名。",
-  "summary": "列出可用别名"
+  "summary": "列出可用别名",
+  "usage": "需要先安装 python3。als 按底层命令分组列出当前 shell 已定义的全部别名,一眼看清装了哪些插件的快捷方式;\nals git 只显示名字或内容含 git 的别名并高亮关键词;\nals -g git 只看某个分组(如 git 插件的别名),可多次 -g 看多组;als --groups 仅列分组名;als -h 看帮助。"
  },
  "ansible": {
   "cat": "容器与云运维",
@@ -55,9 +63,13 @@
   "summary": "asdf 版本管理补全"
  },
  "autoenv": {
+  "aliases": {
+   "use_env": "函数:在 .env 中激活/创建指定名称的 Python virtualenv,已是当前环境则不动作"
+  },
   "cat": "目录与跳转",
   "detail": "进入含有 .env / .out 文件的目录时自动执行其中的环境变量设置,离开时自动还原。需单独安装 autoenv。",
-  "summary": "进入目录自动加载环境变量"
+  "summary": "进入目录自动加载环境变量",
+  "usage": "需先安装 autoenv(如 brew install autoenv),插件会自动在多个常见路径中定位并加载它。\n启用后 cd 进入含 .env 文件的目录时自动执行该文件,常用来一进项目就激活虚拟环境、导出环境变量。\n另提供 use_env <名称> 函数:在项目 .env 里写一行 use_env myenv,进入目录即激活同名 Python virtualenv,不存在会询问后创建(依赖 virtualenvwrapper 的 workon/mkvirtualenv)。"
  },
  "autojump": {
   "cat": "目录与跳转",
@@ -84,7 +96,8 @@
  "battery": {
   "cat": "系统管理",
   "detail": "在 macOS 上显示电池充电状态与剩余电量百分比。",
-  "summary": "macOS 电池状态"
+  "summary": "macOS 电池状态",
+  "usage": "给主题提供一组电池函数:把 RPROMPT='$(battery_pct_prompt)' 写进主题,提示符右侧即显示电量(>50% 绿 / >20% 黄 / 更低红,充电时显示 ⚡️,可用 BATTERY_CHARGING 换符号);\nbattery_pct 直接输出电量数字,battery_time_remaining 显示剩余可用时间,battery_is_charging 判断是否在充电;\nbattery_level_gauge 画 [▶▶▶▷▷] 式电量条,槽位/颜色/符号用 BATTERY_GAUGE_SLOTS、BATTERY_COLOR_GREEN 等变量定制;macOS 上设 BATTERY_SHOW_WATTS=true 还能显示充电器功率。\nLinux 需先安装 acpi 或 acpitool。"
  },
  "bazel": {
   "cat": "编程语言与框架",
@@ -121,14 +134,14 @@
   "aliases": {
    "bi": "brew install 安装",
    "bl": "brew list 已安装列表",
-   "brm": "brew uninstall 卸载",
+   "bo": "brew upgrade:只升级过期的包",
    "bs": "brew search 搜索",
    "bubu": "brew update && upgrade 全量升级"
   },
   "cat": "包管理与环境",
   "detail": "为 macOS 的包管理器 brew 提供大量别名:brewu=更新、bubi=升级、bi=安装、bz=卸载等。",
   "summary": "Homebrew 简写别名",
-  "usage": "bi 包名 = 安装;bu = 升级全部;bo = 只升级过期的;brm = 卸载;bl 列已装;bs 搜索;binfo 包名 看详情。全部别名只是 brew 子命令的缩写。"
+  "usage": "bi 包名 = 安装;bu/bubo = 升级,bubu = update+upgrade 全量升级,bo = 只升级过期的;bl 列已装;bs 搜索;binfo 包名 看详情。卸载没有官方别名,直接 brew uninstall。"
  },
  "bridgetown": {
   "cat": "编程语言与框架",
@@ -243,7 +256,8 @@
  "colemak": {
   "cat": "快捷键与效率",
   "detail": "为 Colemak 键盘布局用户把 hjkl 式导航映射到 Colemak 的 neiu 按键上(如向上=n、向下=e)。",
-  "summary": "Colemak 键位方向键映射"
+  "summary": "Colemak 键位方向键映射",
+  "usage": "面向 Colemak 键盘用户,需在 zshrc 另加 bindkey -v 启用 vi 模式;生效后 ESC 进入导航模式时,按键按 QWERTY 位置重排:\n· n/e 即原 j/k:下移/上移一行或翻命令历史;i 即原 l:右移一字符;\n· u 进入插入模式(原 i),U 跳到行首非空白处插入(原 I),l 撤销修改(原 u);\n· k/K 重复上一次搜索(原 n/N),j/J 跳到词尾(原 e/E),N 合并行(原 J),Ctrl+n 确认执行当前行;\n同时为 less 重映射:n 下滚一行、e 上滚一行、k 重复搜索(ESC+k 全文重复搜索)。"
  },
  "colored-man-pages": {
   "cat": "提示符与外观",
@@ -251,19 +265,36 @@
   "summary": "man 手册页彩色高亮"
  },
  "colorize": {
+  "aliases": {
+   "ccat": "带语法高亮地输出文件内容,相当于 cat 的彩色版,无参数时对标准输入上色",
+   "cless": "带语法高亮用 less 翻页查看文件"
+  },
   "cat": "提示符与外观",
   "detail": "提供 colorize / cc 命令,按扩展名自动选择语法高亮方式查看源码文件。需安装 highlight 或 pygments。",
-  "summary": "带语法高亮查看文件"
+  "summary": "带语法高亮查看文件",
+  "usage": "需先安装 pygments(提供 pygmentize)或 chroma 任一工具。\ncat 的高亮替代:ccat app.py 按扩展名自动选语法上色,认不出扩展名就猜文件内容,再不行退化为普通 cat;支持管道,如 curl -s https://example.com/x.json | ccat 直接给标准输入上色。\ncless src.rs 用 less 翻页查看带高亮的文件,同样支持管道输入。\n默认优先用 pygmentize 引擎、emacs 样式(源码设定):ZSH_COLORIZE_TOOL=chroma 强制换引擎,ZSH_COLORIZE_STYLE=\"colorful\" 换配色;chroma 引擎还可设 ZSH_COLORIZE_CHROMA_FORMATTER=terminal256 开 256 色。"
  },
  "command-not-found": {
   "cat": "快捷键与效率",
   "detail": "输入不存在的命令时,自动在系统包管理器中搜索哪个包提供该命令并提示安装方式。",
-  "summary": "未找到命令时给建议"
+  "summary": "未找到命令时给建议",
+  "usage": "敲错命令不再只报 command not found,而是告诉你在哪个软件包里并给出安装建议,例如敲 mutt 会提示 Try: sudo apt install mutt;\n无需学任何新命令,启用即生效;开箱支持 Ubuntu/Debian/Arch/Fedora/NixOS/Termux/SUSE/Gentoo/Void/Alpine(Arch 需先安装 pkgfile);\nmacOS 上配合 Homebrew 即用(其 handler 随 brew 自带)。"
  },
  "common-aliases": {
+  "aliases": {
+   "G": "全局别名,加在命令末尾等于管道给 grep,如 ls -la G json",
+   "h": "查看命令历史",
+   "l": "长列表显示文件,含大小与类型,大小人类可读",
+   "la": "长列表列出几乎所有文件(含隐藏文件)",
+   "ldot": "只列出隐藏(点)文件的详细属性",
+   "lt": "长列表按修改时间排序列出文件",
+   "sgrep": "递归搜索文件内容,带 5 行上下文,自动跳过 .git/.svn/CVS",
+   "t": "实时跟踪文件新增内容(tail -f),如 t /var/log/syslog"
+  },
   "cat": "快捷键与效率",
   "detail": "一组最常用的通用别名:ls 系列(l=ls -la)、目录导航(..、...)、grep 彩色、历史搜索 h=history 等。",
-  "summary": "通用简写别名大全"
+  "summary": "通用简写别名大全",
+  "usage": "一批常用命令的效率别名:ls 家族(l/la/lr/lt/ldot/lS/lart 等)覆盖各种列表与排序方式;rm/cp/mv 默认加 -i,删改前先确认防手滑;h 看历史,hgrep 关键词 在历史里搜索;\n全局别名可放在命令行末尾当管道用:ls -l /var/log L 等于 | less 分页(G 需已装 most),find . -type f NE 静默 stderr,NUL 丢弃全部输出,LL 合并错误再分页;\n文件后缀别名:直接敲 report.pdf 会用 acroread 打开,敲 pkg.zip 列出压缩包内容(需安装对应程序,如 mplayer 看视频);$EDITOR 打开 .txt/.c 等、$BROWSER 打开网址。"
  },
  "compleat": {
   "cat": "编程语言与框架",
@@ -320,7 +351,8 @@
  "dash": {
   "cat": "快捷键与效率",
   "detail": "为 macOS API 文档浏览器 Dash 提供 dash <关键字> 直接查询文档的别名。",
-  "summary": "Dash 文档查询别名"
+  "summary": "Dash 文档查询别名",
+  "usage": "需先安装 macOS 上的 API 文档浏览器 Dash。dash 直接打开并切换到 Dash 应用;\ndash golang 在 Dash 中查询 golang;支持文档集关键字前缀:dash python:tuple 限定在 Python 文档里查;\n输入 dash 后按 Tab,自动补全 Dash 里已启用文档集的关键字(如 python3、java8)。"
  },
  "dbt": {
   "aliases": {
@@ -356,7 +388,8 @@
  "direnv": {
   "cat": "目录与跳转",
   "detail": "为 direnv 提供钩子:进入项目目录自动 export 该项目的环境变量,离开自动卸载。需单独安装 direnv。",
-  "summary": "按目录自动加载环境"
+  "summary": "按目录自动加载环境",
+  "usage": "需先安装 direnv(brew install direnv)。插件把 direnv 挂进 zsh 的 precmd/chpwd 钩子,cd 进出目录时环境自动加载/卸载。\n在项目里执行 direnv edit . 用 $EDITOR 创建 .envrc 写入环境变量,首次进入会提示 blocked,执行 direnv allow 放行后,以后每次 cd 进该目录变量自动生效、离开自动还原。"
  },
  "dirhistory": {
   "cat": "目录与跳转",
@@ -367,7 +400,8 @@
  "dirpersist": {
   "cat": "目录与跳转",
   "detail": "把访问过的目录历史保存到文件,新开的终端会话也能继续向上翻阅之前的目录栈。",
-  "summary": "跨会话保留目录历史"
+  "summary": "跨会话保留目录历史",
+  "usage": "全自动,无需操作:每次 cd 都把最近 20 个不重复目录持久化到 ~/.zdirs,新开终端自动还原 dirstack。\n效果:刚登录 shell 也能 cd - 回到上次所在目录,cd -<n> 直接回到第 n 个最近访问的目录,cd - 后按 Tab 还能列出候选。"
  },
  "dnf": {
   "cat": "包管理与环境",
@@ -382,18 +416,18 @@
  },
  "docker": {
   "aliases": {
-   "d": "docker 本体",
-   "dex": "进入容器内 shell(exec)",
-   "di": "docker images",
-   "dip": "查看容器 IP",
+   "dcls": "docker container ls:列出容器",
+   "dlo": "docker container logs:查看容器日志",
    "dps": "列出运行中容器",
    "dpsa": "列出全部容器(含已停止)",
-   "drmf": "删除全部已停止容器"
+   "drm": "docker container rm:删除容器",
+   "dsta": "docker stop $(docker ps -q):停止全部运行中容器",
+   "dxc": "docker container exec:在容器内执行命令"
   },
   "cat": "容器与云运维",
   "detail": "为 Docker 提供大量别名和补全:dps=容器列表、dpsa=含已停止容器、dbu/dbd=启动停止、drm=删除容器、d=docker 本身等。",
   "summary": "Docker 别名与补全",
-  "usage": "d = docker;dps 一屏看容器(名称/镜像/端口);dcu=compose up、dcd=down(需配合 docker-compose 插件);dip 容器名 查它的 IP。"
+  "usage": "别名均为 docker 子命令缩写:dps 一屏看运行中容器(加 a 含已停止);dcls 列容器、drm 删容器、dlo 容器名 看日志;dxc 容器名 <命令> 在容器内执行(dxcit 交互式 shell);dsta 一键停止全部运行中容器。"
  },
  "docker-compose": {
   "cat": "容器与云运维",
@@ -417,9 +451,13 @@
   "summary": ".NET CLI 补全"
  },
  "droplr": {
+  "aliases": {
+   "droplr": "上传文件或缩短链接,底层调用 Droplr.app"
+  },
   "cat": "网络与远程",
   "detail": "从命令行用 Droplr 上传文件并生成短链。需安装并登录 Droplr.app,仅 macOS。",
-  "summary": "Droplr 文件分享命令"
+  "summary": "Droplr 文件分享命令",
+  "usage": "仅 macOS,需先安装并登录 Droplr.app。droplr ./report.pdf 上传文件;droplr https://example.com/long-url 缩短链接——参数以 http(s):// 开头就走缩短,否则交给 Droplr.app 上传。"
  },
  "drush": {
   "cat": "编程语言与框架",
@@ -442,19 +480,33 @@
   "summary": "Ember CLI 别名与补全"
  },
  "emoji": {
+  "aliases": {
+   "display_emoji": "列出某个分组(不带参数则全部)的 emoji 及其名称",
+   "random_emoji": "随机打印一个 emoji,可传分组名(如 fruits、faces、flags)在组内抽取"
+  },
   "cat": "提示符与外观",
   "detail": "提供各种 emoji 的变量(如 echo $emoji[smile]),以及 random_emoji 随机输出函数。",
-  "summary": "终端输出 emoji"
+  "summary": "终端输出 emoji",
+  "usage": "启用后按名字引用 emoji:echo $emoji[penguin] 输出🐧,echo $emoji_flags[China] 输出国旗(国旗映射按国家名或 ISO 两位代码索引,如 Japan、United_States)。\nrandom_emoji 随机抽一个,random_emoji faces/animals/fruits 在指定分组内抽;echo ${(k)emoji_groups} 列出全部分组,源码共 7 组:fruits、vehicles、hands、people、animals、faces、flags。\ndisplay_emoji faces 打印该组全部 emoji 及对应名称,用来查名字。\n也可嵌进提示符:PROMPT=\"$emoji[penguin] > \" 直接把🐧放进提示符。"
  },
  "emoji-clock": {
+  "aliases": {
+   "emoji-clock": "把当前时间显示为时钟 emoji,精确到半小时"
+  },
   "cat": "提示符与外观",
   "detail": "根据当前时间显示对应的 ⏰ emoji 钟面,可放进终端提示符。",
-  "summary": "显示 emoji 时钟"
+  "summary": "显示 emoji 时钟",
+  "usage": "零配置:启用后运行 emoji-clock,当前时间变成时钟 emoji,精确到半小时——8:10 显示🕗,8:20 就显示🕣(内部先给分钟数加 15 再归到半点,即四舍五入到最近的半点)。\n典型玩法是嵌进提示符:setopt prompt_subst 后写 PS1=\"$(emoji-clock) %~ %# \",每次刷新提示符时间图标跟着走。"
  },
  "emotty": {
+  "aliases": {
+   "display_emotty": "列出指定字符集(默认当前 emotty_set)里的全部 emoji 及名称",
+   "emotty": "按当前终端 $TTY 编号从所选字符集返回一个 emoji,常用于提示符"
+  },
   "cat": "提示符与外观",
   "detail": "根据当前 TTY 编号为每个终端会话返回一个专属 emoji,可放进提示符区分不同终端窗口。",
-  "summary": "每个终端专属 emoji"
+  "summary": "每个终端专属 emoji",
+  "usage": "依赖 emoji 插件,两者需一起启用。\nemotty 按当前终端 $TTY 编号从字符集返回一个 emoji,用来给不同终端窗口的提示符配不同图标:setopt prompt_subst 后写 PROMPT='$(emotty) %~$ ',每开一个新窗口图标就换。\nexport emotty_set=nature 切换字符集,源码内置 6 套:emoji(默认)、floral、love、nature、stellar、zodiac。\ndisplay_emotty zodiac 先预览整套字符再决定用哪套。"
  },
  "encode64": {
   "cat": "快捷键与效率",
@@ -493,7 +545,8 @@
  "fastfile": {
   "cat": "目录与跳转",
   "detail": "为常用文件设置短别名,如 ff vimrc 直接用 vim 打开 .vimrc、ffp 打印路径、ffd 查看所在目录。",
-  "summary": "快速打开常用文件"
+  "summary": "快速打开常用文件",
+  "usage": "ff <名字> [路径] 为当前目录(或指定路径)建快捷方式,之后在任意位置 cd §<名字> 直接跳转、§<名字> 可当路径用在任何命令里(§ 前缀可用 fastfile_var_prefix 变量改,如 '@')。\nffls 列出全部快捷方式;ffrm <名字> 删除;ffp <名字> 打印「§名字 -> 路径」;ffsync 为所有快捷方式重建全局别名。"
  },
  "fbterm": {
   "cat": "编辑器与终端",
@@ -501,9 +554,17 @@
   "summary": "TTY 自动启动 fbterm"
  },
  "firewalld": {
+  "aliases": {
+   "fw": "sudo firewall-cmd:命令简写",
+   "fwl": "列出所有活动区域配置及直接规则",
+   "fwp": "sudo firewall-cmd --permanent:写永久规则",
+   "fwr": "sudo firewall-cmd --reload:重载防火墙配置",
+   "fwrp": "sudo firewall-cmd --runtime-to-permanent:运行时配置转永久"
+  },
   "cat": "系统管理",
   "detail": "为 firewalld 防火墙的 firewall-cmd 提供简短别名。",
-  "summary": "firewalld 别名"
+  "summary": "firewalld 别名",
+  "usage": "firewalld 防火墙的 sudo 简写:fw = sudo firewall-cmd;fwp = 附带 --permanent 写永久规则;fwr = 重新加载配置;fwrp = 把当前运行时配置保存为永久;fwl 一次列出所有活动区域的配置和直接规则;\n例:fw --add-port=8080/tcp --permanent 后接 fwr 生效。需系统已安装并运行 firewalld。"
  },
  "flutter": {
   "cat": "编程语言与框架",
@@ -601,14 +662,14 @@
    "gds": "差异 + 暂存区对比",
    "gf": "拉取远程更新(fetch)",
    "gfa": "拉取所有远程并清理已删分支",
+   "ggpull": "拉取当前分支(git pull origin <当前分支>)",
+   "ggpur": "变基方式拉取当前分支(pull --rebase)",
+   "ggpush": "推送当前分支(git push origin <当前分支>)",
    "glg": "简洁提交历史(带改动统计)",
    "gm": "合并分支(merge)",
-   "gpl": "拉取并合并(pull)",
-   "gps": "推送到远程(push)",
    "grb": "变基(rebase)",
    "gss": "简洁模式的状态(一行一个文件)",
-   "gst": "查看工作区状态",
-   "gup": "变基方式拉取(pull --rebase)"
+   "gst": "查看工作区状态"
   },
   "cat": "版本控制",
   "detail": "最常用的插件:提供 100 多个 git 缩写别名(g=git、gst=status、gco=checkout、gb=branch、gpl=pull、gps=push 等)和当前分支等辅助函数。",
@@ -683,12 +744,14 @@
  "globalias": {
   "cat": "快捷键与效率",
   "detail": "输入全局别名列别名后按空格自动展开成完整命令,既省输入又能看到实际执行的命令。",
-  "summary": "空格展开全局别名"
+  "summary": "空格展开全局别名",
+  "usage": "输入别名或含 glob/子命令的命令后按一下空格,整条命令自动展开成完整形式:如 l␣G␣ 展开为 ls --color=auto -lah | grep ...;touch {1..10}␣ 展开为 touch 1 2 … 10;mkdir \"`date -R`\"␣ 展开为实际日期时间;\n只想输入普通空格不展开时按 Ctrl+空格;\n不想被展开的别名放进数组排除:GLOBALIAS_FILTER_VALUES=(l),这样 l 保留原样而 la 仍展开。"
  },
  "gnu-utils": {
   "cat": "快捷键与效率",
   "detail": "在 macOS 上把 PATH 前置 Homebrew 的 coreutils 等 GNU 工具,使 ls/cp 等保持 GNU 行为并去掉 g 前缀。",
-  "summary": "优先使用 GNU 工具"
+  "summary": "优先使用 GNU 工具",
+  "usage": "macOS/FreeBSD 等 BSD 系统先装好带 g 前缀的 GNU 工具(如 brew install coreutils gnu-sed ggrep gnu-tar gmake findutils),启用本插件后 ls、date、sed、grep、find 等会自动改用 GNU 版(通过 hash 把 ls 指向 gls),不用逐个敲 g 前缀;\nGNU 专有选项直接可用,如 ls --color=tty、date -d yesterday;\n执行 rehash 或 hash -r 后,插件会在下一次敲命令时自动重新绑定,不会失效;\n注意:echo 等为 zsh 内建命令,内建优先,不会被换成 gecho。"
  },
  "golang": {
   "cat": "编程语言与框架",
@@ -714,7 +777,8 @@
  "grc": {
   "cat": "提示符与外观",
   "detail": "集成 generic colouriser,让 cat/curl/ping/mount 等命令自动带语法高亮配色。需安装 grc。",
-  "summary": "为命令套上彩色输出"
+  "summary": "为命令套上彩色输出",
+  "usage": "需先安装 grc(brew install grc 或 apt install grc)。\n启用后插件自动在 /etc/grc.zsh、/opt/homebrew/etc/grc.zsh(Apple Silicon Homebrew)、/usr/share/grc/grc.zsh 等标准路径中查找并加载 grc 自带的别名配置,让 ps、ping、dig、netstat 等常用命令输出自动上色。\n具体包装了哪些命令由所装 grc 版本决定,以对应 grc.zsh 文件内容为准,插件本身只负责按顺序找到第一个可读的配置并加载。"
  },
  "grunt": {
   "cat": "补全增强",
@@ -757,9 +821,16 @@
   "summary": "Heroku 别名"
  },
  "history": {
+  "aliases": {
+   "h": "history,直接列出命令历史",
+   "hl": "history | less,把历史送进 less 翻页浏览",
+   "hs": "history | grep,按关键字搜索命令历史",
+   "hsi": "history | grep -i,不区分大小写地搜索命令历史"
+  },
   "cat": "历史与搜索",
   "detail": "提供 h=history、hs=history | grep 搜索别名,快速查找和重用历史命令。",
-  "summary": "历史命令增强别名"
+  "summary": "历史命令增强别名",
+  "usage": "给查历史配好 4 个别名:h 列出全部历史;hs ssh 一键在历史里 grep 含 ssh 的命令;hsi Docker 忽略大小写搜 docker 相关记录;hl 把历史灌进 less 里慢慢翻(按 / 搜索,q 退出)。"
  },
  "history-substring-search": {
   "cat": "历史与搜索",
@@ -794,7 +865,8 @@
  "httpie": {
   "cat": "网络与远程",
   "detail": "为更人性化的 curl 替代品 http/https 命令提供补全。",
-  "summary": "HTTPie 补全"
+  "summary": "HTTPie 补全",
+  "usage": "为 httpie 的 http 和 https 命令提供 <Tab> 补全:请求方法、常用头部、命令行选项都能列出来,调试接口不用翻文档。需先安装 httpie(如 brew install httpie)。"
  },
  "invoke": {
   "cat": "编程语言与框架",
@@ -809,7 +881,8 @@
  "ipfs": {
   "cat": "网络与远程",
   "detail": "为去中心化文件系统 IPFS 的命令提供补全。",
-  "summary": "IPFS 补全"
+  "summary": "IPFS 补全",
+  "usage": "为 ipfs 命令提供 <Tab> 子命令补全:add、cat、get、daemon、ls 等子命令及其选项直接列出,不用背。需先安装 IPFS(kubo)才有 ipfs 命令可补。"
  },
  "isodate": {
   "cat": "快捷键与效率",
@@ -1009,11 +1082,11 @@
  },
  "lol": {
   "aliases": {
-   "icanhas": "mkdir",
-   "moar": "more",
+   "icanhas": "mkdir:建目录",
+   "moar": "more:翻页",
    "nomnom": "killall 杀进程",
-   "rtfm": "man",
-   "tldr": "less",
+   "rtfm": "man:打开手册",
+   "tldr": "less:分页查看",
    "wtf": "dmesg 内核日志"
   },
   "cat": "趣味与语录",
@@ -1036,9 +1109,9 @@
   "aliases": {
    "cdf": "cd 到 Finder 当前目录",
    "hidefiles": "Finder 隐藏隐藏文件",
-   "preview": "用「预览」打开文件",
-   "showfiles": "Finder 显示隐藏文件",
-   "spot": "用 Spotlight 搜索文件"
+   "music": "控制 Apple Music(music -h 看用法)",
+   "quick-look": "对文件快速预览(Quick Look)",
+   "showfiles": "Finder 显示隐藏文件"
   },
   "cat": "系统管理",
   "detail": "提供 macOS 常用操作别名:showfiles/hidefiles 显示隐藏文件、preview 用预览打开、btrestart 蓝牙重启、cdf 跳到 Finder 当前目录等。",
@@ -1059,7 +1132,8 @@
  "man": {
   "cat": "历史与搜索",
   "detail": "提供一个快速按关键词搜索并打开 man 手册页的包装函数。",
-  "summary": "man 手册搜索增强"
+  "summary": "man 手册搜索增强",
+  "usage": "把命令敲好后按 Esc 再依次按 m a n,当前行会自动改成 man 开头:如输入 git push 后按 Esc+man,若存在 git-push 的手册则变成 man git-push,否则退回 man git;当前行为空时取上一条命令;行首已是 man 则原样不动。"
  },
  "marked2": {
   "cat": "编辑器与终端",
@@ -1127,10 +1201,10 @@
  },
  "mongocli": {
   "aliases": {
-   "ma": "mongocli atlas",
-   "mcm": "mongocli cloud-manager",
-   "miam": "mongocli iam",
-   "mom": "mongocli ops-manager"
+   "ma": "mongocli atlas:进 Atlas 子命令",
+   "mcm": "mongocli cloud-manager:进 Cloud Manager",
+   "miam": "mongocli iam:进 IAM 子命令",
+   "mom": "mongocli ops-manager:进 Ops Manager"
   },
   "cat": "数据库与数据",
   "detail": "为 MongoDB 云 CLI mongocli 提供补全。",
@@ -1140,7 +1214,8 @@
  "mosh": {
   "cat": "网络与远程",
   "detail": "为稳健的移动 SSH 替代品 mosh 提供别名。",
-  "summary": "mosh 别名"
+  "summary": "mosh 别名",
+  "usage": "让 mosh 复用 ssh 的主机名补全:mosh user@<Tab> 会列出 ~/.ssh/config 里的 Host 条目,与 ssh <Tab> 一致,连到弱网服务器前不用先 ssh 一次查名字。需先安装 mosh(本地和远端都要装)。"
  },
  "multipass": {
   "cat": "容器与云运维",
@@ -1192,12 +1267,24 @@
  "ngrok": {
   "cat": "网络与远程",
   "detail": "为内网穿透工具 ngrok 提供命令补全。",
-  "summary": "ngrok 补全"
+  "summary": "ngrok 补全",
+  "usage": "为 ngrok 提供 <Tab> 补全,子命令和参数直接列出。补全脚本由 ngrok completion zsh 生成,缓存在 $ZSH_CACHE_DIR/completions/_ngrok,每次开新终端时后台自动更新。需先安装 ngrok;本插件不添加任何别名。"
  },
  "nmap": {
+  "aliases": {
+   "nmap_check_for_vulns": "nmap --script=vuln:用漏洞检测脚本扫描目标",
+   "nmap_detect_versions": "sudo 全端口探测服务与操作系统版本(-sV -O)",
+   "nmap_fast": "快扫最常用的 300 个端口(-F -T5 --top-ports 300)",
+   "nmap_full": "sudo 激进全量扫描(-A -p1-65535),含操作系统与服务版本识别",
+   "nmap_open_ports": "nmap --open:只列出目标上开放的端口",
+   "nmap_ping_scan": "nmap -n -sP:ICMP 扫描寻找存活主机",
+   "nmap_slow": "sudo 慢速 SYN 扫描(-sS -v -T1),低调不刷爆对方日志",
+   "nmap_traceroute": "sudo 综合主机发现加路由跟踪(--traceroute)"
+  },
   "cat": "网络与远程",
   "detail": "为端口扫描工具 nmap 提供常用扫描场景的快捷别名(快速全端口、OS 探测等)。",
-  "summary": "nmap 扫描辅助"
+  "summary": "nmap 扫描辅助",
+  "usage": "把常用扫描方案做成现成别名,像 zenmap 的配置档:nmap_open_ports 192.168.1.1 只看开放端口;nmap_fast 目标 快扫最常用 300 个端口;nmap_full 目标 sudo 激进全端口扫描(含系统/服务识别);nmap_check_for_vulns 目标 用 vuln 脚本查漏洞。需先安装 nmap;多数别名带 sudo,只对自有或已授权主机使用。"
  },
  "node": {
   "cat": "编程语言与框架",
@@ -1289,7 +1376,8 @@
  "percol": {
   "cat": "历史与搜索",
   "detail": "把 Ctrl+R 接管为交互式模糊选择工具 percol 来筛选历史命令。需安装 percol。",
-  "summary": "percol 历史选择器"
+  "summary": "percol 历史选择器",
+  "usage": "需先 pip install percol。按 Ctrl+R 弹出 percol 交互界面模糊检索全部历史(已输入的文字会作为初始过滤词),选中回车即填入命令行;若在此之前启用了 jump 插件,还可按 Ctrl+B 用 percol 检索目录书签,选中后路径直接填入。"
  },
  "perl": {
   "cat": "编程语言与框架",
@@ -1297,9 +1385,15 @@
   "summary": "Perl 便捷别名"
  },
  "perms": {
+  "aliases": {
+   "resetperms": "目录 755、文件 644 一步修正,询问 y/n 确认后才执行",
+   "set644": "把目录下普通文件权限递归设为 644(不动符号链接)",
+   "set755": "把目录及其子目录权限递归设为 755"
+  },
   "cat": "快捷键与效率",
   "detail": "提供 perms 等函数,以简洁语法快速查看与批量修改 Unix 文件系统权限。",
-  "summary": "文件权限快捷工具"
+  "summary": "文件权限快捷工具",
+  "usage": "一键整理网站/项目目录权限:set755 把目录及其子目录全部设为 755;set644 把其中所有普通文件递归设为 644(不动符号链接);两者默认从当前目录开始,也可传路径,如 set644 ~/www;\nresetperms ~/www 会先问 Proceed? (y|n) 确认,再把目录设 755、文件设 644;-v 显示处理详情,目录本身权限坏了进不去时加 --slow 慢速可靠模式;\n这些操作直接改权限且无撤回,别对系统目录乱用。"
  },
  "phing": {
   "cat": "编程语言与框架",
@@ -1320,7 +1414,8 @@
  "pj": {
   "cat": "目录与跳转",
   "detail": "先把项目根目录登记进 PROJECT_PATHS 数组,之后 pj <项目名> 直接跳转到对应项目文件夹,pja 添加、pjo 打开Finder。",
-  "summary": "项目目录快速跳转"
+  "summary": "项目目录快速跳转",
+  "usage": "先在 ~/.zshrc 设 PROJECT_PATHS=(~/src ~/work),之后 pj <项目名> 直接 cd 到这些目录下的同名项目,支持 Tab 补全项目名;多个重名时取 PROJECT_PATHS 中靠前的目录。\npjo <项目名> 用 $EDITOR 打开项目目录而不切换过去。"
  },
  "please": {
   "cat": "补全增强",
@@ -1366,9 +1461,17 @@
   "usage": "Homebrew 版 PostgreSQL 的服务管理别名:startpost/stoppost/restartpost/reloadpost/statuspost。注意数据目录硬编码为 /usr/local/var/postgres(仅适合 Intel Mac 的 Homebrew 路径,Apple Silicon 为 /opt/homebrew,不匹配时勿用)。"
  },
  "pow": {
+  "aliases": {
+   "kapow": "重启 pow 上的应用(缺省为当前目录应用)",
+   "kaput": "tail -f 所有 pow 应用日志",
+   "powed": "列出指向当前应用的 .dev 域名",
+   "powit": "把当前应用软链接到 ~/.pow",
+   "repow": "杀掉 pow 进程并经 launchctl 重启"
+  },
   "cat": "系统管理",
   "detail": "为 Rack 本地预览服务器 pow 提供 start/restart/日志查看等管理函数。",
-  "summary": "Pow 管理函数"
+  "summary": "Pow 管理函数",
+  "usage": "macOS 零配置 Rack 服务器 pow 的辅助命令(需先安装 pow):kapow 重启当前应用(自动向上层目录找 config.ru 定位),kapow myapp 重启指定应用;\nkaput 实时滚动查看所有 pow 应用的 stdout 日志;repow 强杀 pow 进程并用 launchctl 重启;\npowit 把当前应用软链到 ~/.pow 交给 pow 托管;powed 列出关联当前目录的 *.dev 域名。"
  },
  "powder": {
   "cat": "编程语言与框架",
@@ -1401,7 +1504,8 @@
  "profiles": {
   "cat": "系统管理",
   "detail": "利用 macOS 的网络位置(Network Location)功能,提供快速列出行/切换网络配置的别名。",
-  "summary": "macOS 网络位置切换"
+  "summary": "macOS 网络位置切换",
+  "usage": "按主机名自动加载分机配置:zsh 启动时读取 $HOST,把域名按「.」逐级拆分、从后往前依次 source $ZSH_CUSTOM/profiles/ 下的同名文件;\n如 HOST=host.domain.com 会依次尝试加载 com、domain.com、host.domain.com,后加载的覆盖先加载的;\n适合一份 zshrc 通吃多台机器:公共配置放 zshrc,公司/家里的差异各放一个 profile 文件。建议把本插件放在 plugins 列表最前面,让机器差异尽早生效。"
  },
  "pulumi": {
   "cat": "容器与云运维",
@@ -1503,12 +1607,20 @@
  "ros": {
   "cat": "系统管理",
   "detail": "为机器人操作系统 ROS/ROS2 提供环境配置与 roscd 等常用函数。",
-  "summary": "ROS 开发辅助"
+  "summary": "ROS 开发辅助",
+  "usage": "为 Roswell(Common Lisp 环境管理器,需先安装 ros)提供 Tab 补全:\nros 后按 Tab 列出 run/install/use/build/fmt/list/delete 等子命令,--version、-L、-e、-s 等选项也带中文可读的说明;\nros -l <文件> 处按 Tab 补全文件名。"
  },
  "rsync": {
+  "aliases": {
+   "rsync-copy": "rsync -avz --progress -h:递归复制,保留权限时间戳,带压缩与进度",
+   "rsync-move": "同复制,但传完删除源文件,等效移动",
+   "rsync-synchronize": "再加 --delete,删掉目标里源中没有的文件,镜像同步",
+   "rsync-update": "多加 -u,只更新目标上过期的文件"
+  },
   "cat": "网络与远程",
   "detail": "提供 rsy=rsync -av --progress 等带进度的同步别名,大文件拷贝一目了然。",
-  "summary": "rsync 进度别名"
+  "summary": "rsync 进度别名",
+  "usage": "四个带好参数的 rsync 别名,传文件不用再拼选项:rsync-copy 源 目标 递归复制(归档+压缩+进度条);rsync-move 传完自动删源文件;rsync-update 只覆盖目标上较旧的文件;rsync-synchronize 额外加 --delete,让目标和源完全一致,做目录镜像同步。"
  },
  "ruby": {
   "cat": "编程语言与框架",
@@ -1552,9 +1664,13 @@
   "summary": "Scala REPL 补全"
  },
  "scd": {
+  "aliases": {
+   "scd": "函数:按历史索引智能跳目录,支持片段匹配、选择菜单和 --alias 目录别名"
+  },
   "cat": "目录与跳转",
   "detail": "内置版智能跳目录:scd 记录访问过的路径,之后用 scd <片段> 模糊匹配跳转,支持多选菜单。需 Python。",
-  "summary": "scd 智能目录跳转"
+  "summary": "scd 智能目录跳转",
+  "usage": "首次 scd -ar ~/Documents 递归建立目录索引,之后每次 cd 会自动记录访问历史。\nscd doc 只凭路径片段跳到最常去且最近的匹配目录,多个结果弹菜单选择;scd -v 在菜单里显示排名;scd --alias=xray 给当前目录建永久别名,以后 scd xray 直达。\n还支持 scd \"ts$\" 匹配路径结尾、scd ./ 只在当前目录的子目录里找。"
  },
  "screen": {
   "cat": "编辑器与终端",
@@ -1577,19 +1693,34 @@
   "summary": "Salesforce DX 补全"
  },
  "sfffe": {
+  "aliases": {
+   "acss": "ack --type css,在 .css 文件内容里搜索",
+   "ajs": "ack --type js,在 .js 文件内容里搜索",
+   "fcss": "按文件名前缀在当前目录递归找 .css 文件",
+   "fjs": "按文件名前缀在当前目录递归找 .js 文件"
+  },
   "cat": "历史与搜索",
   "detail": "Search files for Front-End:用 ack 快速搜索 jsx/html/css/scss 等前端文件的函数集合(依赖 ack)。",
-  "summary": "前端文件搜索函数"
+  "summary": "前端文件搜索函数",
+  "usage": "需先安装 ack。专给前端用的 4 个搜索函数:ajs handleClick 在所有 .js 文件内容里搜 handleClick;acss .header 在 .css 文件里搜;fjs main 按文件名前缀找 .js 文件(匹配 main*.js);fcss 同理找 .css。"
  },
  "shell-proxy": {
+  "aliases": {
+   "proxy": "proxy enable/disable/status:一键开关代理环境变量并查看状态"
+  },
   "cat": "网络与远程",
   "detail": "从 ~/.config/proxy 读取代理地址定义,proxy/unproxy 函数一键设置或清除 http_proxy/https_proxy 等环境变量。",
-  "summary": "代理一键开关"
+  "summary": "代理一键开关",
+  "usage": "用 proxy enable 一键导出 HTTP_PROXY/HTTPS_PROXY/ALL_PROXY 等全套代理变量,并给 ssh/scp/sftp/ssh-copy-id 加走代理的别名、设好 GIT_SSH,让 git 和 ssh 也过代理;proxy disable 全部取消,proxy status 查看当前生效的代理变量。代理地址先用 SHELLPROXY_URL=\"http://127.0.0.1:8123\" 指定(可用 SHELLPROXY_NO_PROXY 排除本地),或写进可执行文件 ~/.config/proxy(第一行代理 URL,第二行 NO_PROXY 列表),也可用 SHELLPROXY_CONFIG 指定该文件路径。需要 python3。"
  },
  "shrink-path": {
+  "aliases": {
+   "shrink_path": "缩短目录路径显示(如 /home/me/foo/bar/quux → /h/m/f/b/q),支持 -f/-g/-t/-x 等选项,常嵌入提示符"
+  },
   "cat": "提示符与外观",
   "detail": "提供 shrink_path 函数把很长的当前路径压缩显示(保留末尾若干层或每段只留首字母),供主题在提示符中使用。",
-  "summary": "提示符路径缩短"
+  "summary": "提示符路径缩短",
+  "usage": "核心命令 shrink_path /home/me/foo/bar/quux 输出 /h/m/f/b/q:每段截到不产生歧义的最短前缀。\n最常用 -f(fish 风格,等同 -l -s -t:家目录变 ~、末级目录保留全名):setopt prompt_subst 后把 PS1='%n@%m $(shrink_path -f)>' 写进 zshrc,提示符即显示短路径。\n-g 给缩写段加 * 使缩短路径可直接 glob;-3 每段至少保留 3 字符;-e '$' 自定义截断后缀符号;-x 还原完整路径。\n偏好可持久化:zstyle :prompt:shrink_path fish yes;再配合 zle widget + bindkey(如绑到 ALT+SHIFT+S)可随时一键切换缩短/展开。"
  },
  "sigstore": {
   "cat": "安全与密码",
@@ -1598,9 +1729,20 @@
   "usage": "为软件供应链签名三件套提供补全:cosign(镜像签名/验签)、sget(带验签的拉取)、rekor(透明日志查询)。"
  },
  "singlechar": {
+  "aliases": {
+   "c": "查看文件内容(cat)",
+   "f": "只列出包含关键词的文件名(grep -Rli)",
+   "n": "反选:只显示不含关键词的行(grep -Rvi)",
+   "s": "以 root 权限执行后面的命令(sudo)",
+   "u": "发 HTTP 请求(curl),如 u https://example.com",
+   "w": "把内容覆盖写入文件(echo >),如 w \"hi\" a.txt",
+   "x": "把管道传来的内容当参数执行(xargs)",
+   "y": "递归忽略大小写搜索文件内容,如 y foo ."
+  },
   "cat": "快捷键与效率",
   "detail": "为常用命令提供单字符或双字符超短别名与组合(y=yarn、p=ping 等),输入飞快但需要记住含义。",
-  "summary": "单字符快捷别名"
+  "summary": "单字符快捷别名",
+  "usage": "把常用命令压成单字符:c 看文件(cat)、p 分页(less)、m 手册(man)、u 发请求(curl)、d 下载(wget)、s 即 sudo;\n搜索三件套:y 关键词 目录 递归忽略大小写搜内容,f 只列出包含该词的文件名,n 反选只显示不含该词的行(f. 是对 find 结果 grep);\n写文件:w \"内容\" 文件 覆盖写入,a 追加,w:/a: 改用 stdin 写(cat > / cat >>);\n前缀组合:x 开头是 xargs 版(xy/xf/xc…),s 开头是 sudo 版(sy/sc/sp…),sx 开头两者兼有;\n加载插件前可设 GREP/ROOT/CURL/WGET/PAGER 变量替换底层命令。"
  },
  "skaffold": {
   "cat": "容器与云运维",
@@ -1625,7 +1767,8 @@
  "sprunge": {
   "cat": "快捷键与效率",
   "detail": "管道一行即得分享链接:cat file | sprunge,可加语言参数高亮,把代码片段贴给他人非常方便。",
-  "summary": "粘贴分享到 sprunge.us"
+  "summary": "粘贴分享到 sprunge.us",
+  "usage": "把文字、文件或命令输出一键传到 pastebin(sprunge.us)换回可分享的 URL,需联网,底层用 curl:\nsprunge notes.txt 上传文件;echo hello | sprunge 上传管道输出;cat err.log | sprunge 贴报错求救;\nsprunge \"一段文字\" 直接传文本;sprunge --help 查看完整说明;\n输入优先级:stdin 重定向 > 管道 > 文件名参数 > 文本字符串;文件名拼错不报错,会被当成文本上传,注意。"
  },
  "ssh": {
   "cat": "网络与远程",
@@ -1647,7 +1790,8 @@
  "starship": {
   "cat": "提示符与外观",
   "detail": "加载跨语言提示符工具 Starship 的初始化脚本,享受快速美观的提示符(STARSHIP_CONFIG 自定义配置路径)。",
-  "summary": "Starship 提示符集成"
+  "summary": "Starship 提示符集成",
+  "usage": "需先安装 starship(curl -sS https://starship.rs/install.sh | sh,或 brew install starship)。\n启用即生效:插件检测到 starship 命令后自动执行 starship init zsh 初始化跨 shell 提示符,并 unset ZSH_THEME 屏蔽 oh-my-zsh 主题;未安装时启动会提示 starship not found 并保留原主题。\n外观定制不写 zshrc:改 ~/.config/starship.toml,或用 starship preset 一键套预设(如 starship preset pastel-powerline)。"
  },
  "stripe": {
   "cat": "补全增强",
@@ -1671,9 +1815,20 @@
   "usage": "敲完一条命令才发现要 root?在空命令行或刚敲完的行上连按两次 Esc,自动在行首补上 sudo。"
  },
  "supervisor": {
+  "aliases": {
+   "sup": "sudo supervisorctl:进入交互控制台",
+   "suprr": "只重读配置不重启",
+   "suprs": "重启进程",
+   "sups": "查看所有受管进程状态",
+   "supso": "停止进程",
+   "supsr": "启动进程",
+   "supt": "tail 进程日志",
+   "supu": "重读配置并按需重启(更新)"
+  },
   "cat": "系统管理",
   "detail": "为进程管理工具 supervisord/supervisorctl 提供启动、停止、重启状态的封装别名。",
-  "summary": "Supervisor 启停封装"
+  "summary": "Supervisor 启停封装",
+  "usage": "supervisorctl 的 sudo 简写全家桶:sups = 看所有受管进程状态;supsr = 启动;supso = 停止;suprs = 重启;\nsupu = 改完 .ini 配置后更新生效;suprr = 只重读配置;supt = tail 进程日志;supa = 列出可用程序;sup = 进入 supervisorctl 交互控制台。"
  },
  "suse": {
   "cat": "包管理与环境",
@@ -1716,19 +1871,41 @@
   "summary": "Symfony6 console 别名"
  },
  "systemadmin": {
+  "aliases": {
+   "clr": "清屏并打印当前用户、TTY 和目录",
+   "hist10": "历史命令使用次数 Top10",
+   "path": "每行一个打印 PATH 数组",
+   "ping": "只发 5 个包的 ping",
+   "pscpu10": "吃 CPU 最多的前 10 个进程",
+   "psmem": "按内存占用降序列出所有进程",
+   "psmem10": "吃内存最多的前 10 个进程"
+  },
   "cat": "系统管理",
   "detail": "收集系统管理员日常小工具:挂 tmpfs、建内存盘 ramdisk、CPU 温度查看、按内存排序的 top(tops)等。",
-  "summary": "运维常用小工具"
+  "summary": "运维常用小工具",
+  "usage": "运维百宝箱:psmem10 = 吃内存最多的 10 个进程;pscpu10 = 吃 CPU 最多的 10 个;hist10 = 历史命令使用 Top10;path 每行一个打印 PATH;\npsgrep 关键字查进程,killit 按正则批量 sudo kill;geteip 查外网 IP、getip 查本机 IP;d0 删除 0 字节文件,clrz 清僵尸进程;\ncon80 统计 80 端口连接数,req20/sortconip/timewait20 分析连接来源(基于 ss,退回 netstat);\naccessip10、visitpage20、c404、httpstatus、webtraffic 分析 nginx 访问日志,默认 /var/log/nginx/access.log,可传其他日志路径作参数。\n注意:它把 ping 覆盖成只发 5 包、mkdir 覆盖成 mkdir -pv。"
  },
  "systemd": {
+  "aliases": {
+   "sc-cat": "显示单元的 unit 文件内容",
+   "sc-edit": "sudo systemctl edit:编辑 drop-in 配置",
+   "sc-enable-now": "启用开机自启并立即启动",
+   "sc-failed": "列出失败的单元",
+   "sc-is-active": "systemctl is-active:查单元是否活动",
+   "sc-reload": "sudo systemctl reload:重载单元",
+   "sc-restart": "sudo systemctl restart:重启单元",
+   "sc-status": "查看单元运行状态"
+  },
   "cat": "系统管理",
   "detail": "为 systemd 服务管理提供 sc-start/sc-restart/sc-stop 等别名和补全。",
-  "summary": "systemctl 别名"
+  "summary": "systemctl 别名",
+  "usage": "systemctl 全套简写,sc-<子命令> 即用:sc-status 看状态、sc-start/stop/restart 启停(需 sudo 的自动带上)、sc-enable-now 设开机自启并立即启动、sc-failed 列失败单元、sc-cat 看 unit 文件、sc-edit 编辑 drop-in、sc-daemon-reload 重载配置;\n把 sc 换成 scu 即 --user 用户级操作(不带 sudo),如 scu-restart、scu-list-units;\nsystemd_prompt_info 函数可放进主题提示符实时显示单元活动状态,如 PROMPT='$(systemd_prompt_info nginx)'。只写 systemd 相关增量。"
  },
  "tailscale": {
   "cat": "网络与远程",
   "detail": "为异地组网 VPN 工具 tailscale 的命令行提供补全。",
-  "summary": "Tailscale 补全"
+  "summary": "Tailscale 补全",
+  "usage": "为 tailscale 提供 <Tab> 补全:up、down、status、ssh 等子命令和选项直接列出。补全脚本由 tailscale completion zsh 生成并缓存到 $ZSH_CACHE_DIR/completions/_tailscale,加载插件时后台更新;即使你的别名指向大写的 Tailscale 命令也能绑定补全。需已安装 tailscale。"
  },
  "task": {
   "cat": "补全增强",
@@ -1743,7 +1920,8 @@
  "term_tab": {
   "cat": "系统管理",
   "detail": "让所有打开的 zsh 会话共享同一个当前目录(cwd 同步)。仅支持 Solaris 和 Linux。",
-  "summary": "多终端同步目录"
+  "summary": "多终端同步目录",
+  "usage": "多终端会话共享目录:在补全位置按 Ctrl+V(^v 已绑定 term_list),会把其他 zsh 会话当前所在的工作目录列为补全候选,选中即填入,配合 cd 快速跳到别的终端正在干活的目录;\n实现上 Linux 读 /proc/<pid>/cwd、macOS 用 lsof、Solaris 用 pwdx(README 只提 Linux/Solaris,源码实际含 macOS 分支)。"
  },
  "terminitor": {
   "cat": "编辑器与终端",
@@ -1801,7 +1979,8 @@
  "tldr": {
   "cat": "历史与搜索",
   "detail": "包装社区版 tldr(简化版 man 手册),tl 别名快速查询常用命令的实际例子;支持 TLDR_CLIENT 切换不同实现。",
-  "summary": "tldr 客户端包装"
+  "summary": "tldr 客户端包装",
+  "usage": "需先安装 tldr。敲好命令后按 Esc 再依次按 t l d r,当前行自动变成 tldr 加首个词:如输入 tar -xzvf 后按 Esc+tldr 得到 tldr tar,回车即看该命令的示例速查页;当前行为空时取上一条命令;已以 tldr 开头则不动。"
  },
  "tmux": {
   "cat": "编辑器与终端",
@@ -1833,14 +2012,19 @@
   "usage": "把磁力链接转成本地 .torrent 种子文件:magnet_to_torrent 'magnet:?xt=urn:btih:…'(参数加引号防 & 截断)。依赖 python3 与本机可用的 BT 工具链。"
  },
  "transfer": {
+  "aliases": {
+   "transfer": "上传文件/目录(或管道内容)到 transfer.sh 并输出下载链接"
+  },
   "cat": "网络与远程",
   "detail": "transfer <文件> 上传到 transfer.sh 并返回下载 URL,也支持目录打包和指定自建服务器。",
-  "summary": "上传分享到 transfer.sh"
+  "summary": "上传分享到 transfer.sh",
+  "usage": "一条命令分享文件:transfer file.txt 上传到 transfer.sh 并回显下载链接;transfer dir/ 自动打成 tar.gz 再传;cat log.txt | transfer log.txt 支持管道上传;加 -ca 选项先用 gpg 对称加密再上传(输出 ASCII armored),对端用 gpg -d 文件 解密。依赖 curl,加密需另装 gpg。"
  },
  "tt": {
   "cat": "快捷键与效率",
   "detail": "Unix 时间戳与日期文本互相转换:tt <时间戳> 显示对应日期,tt <日期> 反向解析为时间戳。",
-  "summary": "时间戳互转"
+  "summary": "时间戳互转",
+  "usage": "日期与 Unix 时间戳互转(用的是 macOS/BSD 的 date 语法,Linux 下不可用):\ntt 2019-10-16 把日期转成时间戳(时间部分自动补 00:00:00);tt \"2019-10-16 18:41:00\" 带时间转换,含空格记得加引号;\ntt 1571222561 把时间戳转回 \"YYYY-MM-DD HH:MM:SS\";不带参数直接 tt 输出当前时间戳。"
  },
  "tugboat": {
   "cat": "容器与云运维",
@@ -1855,7 +2039,8 @@
  "ufw": {
   "cat": "系统管理",
   "detail": "为 uncomplicated firewall(ufw)提供规则管理相关别名和补全。",
-  "summary": "ufw 防火墙别名与补全"
+  "summary": "ufw 防火墙别名与补全",
+  "usage": "为 ufw 防火墙命令(需系统已安装)提供 Tab 补全:\nufw 后按 Tab 列出 allow/deny/limit/delete/status/reload 等子命令;delete 时自动读出当前带编号的规则供直接选择;\nstatus 后补全 numbered/verbose,logging 后补全 on/off/low/medium/high/full,app 后补全 list/info/update 及 /etc/ufw/applications.d 里的应用配置名。"
  },
  "universalarchive": {
   "cat": "文件与压缩",
@@ -1928,9 +2113,13 @@
   "summary": "Vundle vim 插件管理别名"
  },
  "wakeonlan": {
+  "aliases": {
+   "wake": "按 ~/.wakeonlan/<设备名> 配置文件发送魔术包唤醒设备"
+  },
   "cat": "网络与远程",
   "detail": "wol <MAC地址> 向局域网广播魔术包远程开机,WAKEONLAN_DEFAULT_MAC 等变量可设默认值。",
-  "summary": "局域网唤醒(WOL)"
+  "summary": "局域网唤醒(WOL)",
+  "usage": "局域网远程开机:先在 ~/.wakeonlan/ 下给每台设备建一个文件(如 leto),内容一行「MAC地址 广播地址」,之后 wake leto 即发送魔术包唤醒该机器;wake <Tab> 自动补全 ~/.wakeonlan 里的设备名。需先安装 wakeonlan 工具(多数发行版软件仓库有)。"
  },
  "watson": {
   "cat": "补全增强",
@@ -2004,7 +2193,8 @@
  "zsh-interactive-cd": {
   "cat": "目录与跳转",
   "detail": "cd 之后按 Tab 时不再列出文字菜单,而是弹出 fzf 模糊搜索窗口逐级选择子目录,体验流畅。",
-  "summary": "Tab 交互式选目录"
+  "summary": "Tab 交互式选目录",
+  "usage": "需先安装 fzf。启用后在 cd 命令后按 Tab 不再是普通补全,而是弹出 fzf 交互菜单实时过滤子目录,Tab 下移、Shift+Tab 上移、退格删除字符,回车把选中项补进命令行。\n仅当行首命令为 cd 时生效;在 zshrc 设 zic_case_insensitive=true 可不区分大小写,设 zic_custom_binding 可改触发键(默认 ^I 即 Tab)。"
  },
  "zsh-navigation-tools": {
   "cat": "历史与搜索",

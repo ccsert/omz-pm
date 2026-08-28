@@ -1,0 +1,30 @@
+{
+ "gpg-agent": {
+  "usage": "零配置启用。修复 GPG 常见翻车点:每次命令执行前刷新 GPG_TTY(否则 pinentry 弹不出密码框);若 gpg-agent 开了 enable-ssh-support,自动把 SSH_AUTH_SOCK 指到 gpg 的 ssh 套接字(让 ssh 用 GPG 密钥)。做 git 签名提交必配。"
+ },
+ "lpass": {
+  "usage": "为 LastPass 密码管理器 CLI 提供补全:lpass <Tab> 补全 show/generate/login 等子命令与条目名。需安装 lastpass-cli 并已登录。"
+ },
+ "otp": {
+  "aliases": {
+   "ot": "生成验证码并复制到剪贴板",
+   "otp_add_device": "登记新的 GPG 加密 MFA 密钥"
+  },
+  "usage": "把双因素验证器搬进终端(依赖 oathtool 与 GPG):otp_add_device 登记一个新 MFA 密钥(密钥用你的 GPG 公钥加密后存到 ~/.otp);之后 ot <名字> 生成一次性验证码并自动进剪贴板,粘贴即用。"
+ },
+ "pass": {
+  "usage": "为标准 Unix 密码管理器 pass 提供完整补全(含密码条目名 Tab 补全)。多密码库场景可按 README 配 compdef + zstyle prefix + 包装函数,让 workpass 等私有库各自补全。"
+ },
+ "pass-cli": {
+  "usage": "为 Proton Pass 官方 CLI 提供补全(pass <Tab>)。需安装 Proton Pass CLI。"
+ },
+ "rbw": {
+  "aliases": {
+   "rbwpw": "取密码进剪贴板,20 秒后自动清空"
+  },
+  "usage": "为 Bitwarden 第三方客户端 rbw 提供补全;亮点是 rbwpw <服务名>:把对应密码复制进剪贴板并在 20 秒后自动清空,免去看明文的尴尬。需先 rbw login/unlock。"
+ },
+ "sigstore": {
+  "usage": "为软件供应链签名三件套提供补全:cosign(镜像签名/验签)、sget(带验签的拉取)、rekor(透明日志查询)。"
+ }
+}

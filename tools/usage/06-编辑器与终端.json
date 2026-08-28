@@ -1,0 +1,5 @@
+{
+ "vscode": {
+  "usage": "code . 用 VS Code 打开当前目录(需先在 VS Code 里装 Shell Command);另有直接打开 settings.json、keybindings.json 等配置文件的快捷命令。"
+ }
+}

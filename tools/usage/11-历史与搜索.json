@@ -1,0 +1,20 @@
+{
+ "frontend-search": {
+  "usage": "面向前端的全站搜索别名:npms redux 搜 npm、mdn fetch 搜 MDN、so css grid 搜 StackOverflow 等,浏览器直达结果页。"
+ },
+ "fzf": {
+  "usage": "装好后立刻可用三个快捷键:\n· Ctrl+R —— 模糊搜索历史命令,输入片段即筛选,回车执行;\n· Ctrl+T —— 模糊选择当前目录下的文件/目录,把路径插入到命令行光标处(如先敲 vim 再按 Ctrl+T);\n· Alt+C —— 模糊选择并 cd 进入某个子目录。\n可用 FZF_DEFAULT_OPTS 调外观,FZF_CTRL_T_OPTS 等变量定制各弹窗。"
+ },
+ "history-substring-search": {
+  "usage": "输入任意片段(不必是开头,如 status)后按 ↑/↓,在所有包含该片段的历史命令间上下翻找,回车执行。"
+ },
+ "per-directory-history": {
+  "usage": "默认仍用全局历史;按 Ctrl+G 切到「当前目录历史」模式(提示符会变色),此时 ↑↓ 只翻这个目录里执行过的命令。适合在同一个目录里重复某类操作。"
+ },
+ "web-search": {
+  "usage": "google rust book、ddg zsh array、github omz、wiki 北京…回车即打开浏览器进入对应站点搜索页,省去开浏览器敲网址。"
+ },
+ "zsh-navigation-tools": {
+  "usage": "Ctrl+R 打开全屏历史浏览器(可多选);另有 n-cd、n-aliases、n-env、n-kill(选进程杀)等面板工具,F1~F4 快捷唤起,方向键+回车操作。"
+ }
+}

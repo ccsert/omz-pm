@@ -1,0 +1,5 @@
+{
+ "themes": {
+  "usage": "theme agnoster 立即切换主题看效果(可配合 themes 命令补全);theme -l 列出全部主题;满意后写进 ~/.zshrc 的 ZSH_THEME= 持久化。"
+ }
+}

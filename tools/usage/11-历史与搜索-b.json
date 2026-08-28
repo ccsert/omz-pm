@@ -1,0 +1,29 @@
+{
+ "history": {
+  "aliases": {
+   "h": "history,直接列出命令历史",
+   "hl": "history | less,把历史送进 less 翻页浏览",
+   "hs": "history | grep,按关键字搜索命令历史",
+   "hsi": "history | grep -i,不区分大小写地搜索命令历史"
+  },
+  "usage": "给查历史配好 4 个别名:h 列出全部历史;hs ssh 一键在历史里 grep 含 ssh 的命令;hsi Docker 忽略大小写搜 docker 相关记录;hl 把历史灌进 less 里慢慢翻(按 / 搜索,q 退出)。"
+ },
+ "man": {
+  "usage": "把命令敲好后按 Esc 再依次按 m a n,当前行会自动改成 man 开头:如输入 git push 后按 Esc+man,若存在 git-push 的手册则变成 man git-push,否则退回 man git;当前行为空时取上一条命令;行首已是 man 则原样不动。"
+ },
+ "percol": {
+  "usage": "需先 pip install percol。按 Ctrl+R 弹出 percol 交互界面模糊检索全部历史(已输入的文字会作为初始过滤词),选中回车即填入命令行;若在此之前启用了 jump 插件,还可按 Ctrl+B 用 percol 检索目录书签,选中后路径直接填入。"
+ },
+ "sfffe": {
+  "aliases": {
+   "acss": "ack --type css,在 .css 文件内容里搜索",
+   "ajs": "ack --type js,在 .js 文件内容里搜索",
+   "fcss": "按文件名前缀在当前目录递归找 .css 文件",
+   "fjs": "按文件名前缀在当前目录递归找 .js 文件"
+  },
+  "usage": "需先安装 ack。专给前端用的 4 个搜索函数:ajs handleClick 在所有 .js 文件内容里搜 handleClick;acss .header 在 .css 文件里搜;fjs main 按文件名前缀找 .js 文件(匹配 main*.js);fcss 同理找 .css。"
+ },
+ "tldr": {
+  "usage": "需先安装 tldr。敲好命令后按 Esc 再依次按 t l d r,当前行自动变成 tldr 加首个词:如输入 tar -xzvf 后按 Esc+tldr 得到 tldr tar,回车即看该命令的示例速查页;当前行为空时取上一条命令;已以 tldr 开头则不动。"
+ }
+}

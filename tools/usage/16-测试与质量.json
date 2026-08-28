@@ -1,0 +1,31 @@
+{
+ "codeclimate": {
+  "usage": "为代码质量平台 Code Climate 的 CLI 提供子命令补全(codeclimate engines list 等)。需安装 codeclimate CLI。"
+ },
+ "kitchen": {
+  "usage": "为基础设施测试框架 Test Kitchen 提供补全:kitchen<Tab> 可补全 list/create/converge/verify/destroy/login 等子命令与套件名。需安装 kitchen。"
+ },
+ "molecule": {
+  "aliases": {
+   "mcon": "converge:对实例执行配置",
+   "mcr": "create:用 provisioner 启动测试实例",
+   "mls": "list:查看实例状态",
+   "mol": "molecule 本体",
+   "mvf": "verify:对实例运行自动化测试"
+  },
+  "usage": "为 Ansible 角色测试框架 Molecule 提供别名与补全。典型循环:mol 建实例 → mcon 跑配置 → mvf 跑测试,mls 随时看实例状态。"
+ },
+ "pre-commit": {
+  "aliases": {
+   "prc": "pre-commit 本体(有 prek 时自动切 prek)",
+   "prcau": "autoupdate:更新钩子版本",
+   "prcr": "run:运行钩子",
+   "prcra": "run --all-files:全仓库检查",
+   "prcrf": "run --files <文件>:只检查指定文件"
+  },
+  "usage": "pre-commit 钩子框架的常用别名。日常:git add 后跑 prcra 做全文件检查;装了 prek(Rust 版 pre-commit)时会自动用它替代,速度更快。"
+ },
+ "qodana": {
+  "usage": "为 JetBrains Qodana 代码质量 CLI 提供补全;补全脚本带缓存并在插件加载时自动更新,终端启动无明显开销。需安装 qodana CLI。"
+ }
+}

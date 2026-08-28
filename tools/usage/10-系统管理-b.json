@@ -1,0 +1,75 @@
+{
+ "battery": {
+  "usage": "给主题提供一组电池函数:把 RPROMPT='$(battery_pct_prompt)' 写进主题,提示符右侧即显示电量(>50% 绿 / >20% 黄 / 更低红,充电时显示 ⚡️,可用 BATTERY_CHARGING 换符号);\nbattery_pct 直接输出电量数字,battery_time_remaining 显示剩余可用时间,battery_is_charging 判断是否在充电;\nbattery_level_gauge 画 [▶▶▶▷▷] 式电量条,槽位/颜色/符号用 BATTERY_GAUGE_SLOTS、BATTERY_COLOR_GREEN 等变量定制;macOS 上设 BATTERY_SHOW_WATTS=true 还能显示充电器功率。\nLinux 需先安装 acpi 或 acpitool。"
+ },
+ "firewalld": {
+  "aliases": {
+   "fw": "sudo firewall-cmd:命令简写",
+   "fwl": "列出所有活动区域配置及直接规则",
+   "fwp": "sudo firewall-cmd --permanent:写永久规则",
+   "fwr": "sudo firewall-cmd --reload:重载防火墙配置",
+   "fwrp": "sudo firewall-cmd --runtime-to-permanent:运行时配置转永久"
+  },
+  "usage": "firewalld 防火墙的 sudo 简写:fw = sudo firewall-cmd;fwp = 附带 --permanent 写永久规则;fwr = 重新加载配置;fwrp = 把当前运行时配置保存为永久;fwl 一次列出所有活动区域的配置和直接规则;\n例:fw --add-port=8080/tcp --permanent 后接 fwr 生效。需系统已安装并运行 firewalld。"
+ },
+ "pow": {
+  "aliases": {
+   "kapow": "重启 pow 上的应用(缺省为当前目录应用)",
+   "kaput": "tail -f 所有 pow 应用日志",
+   "powed": "列出指向当前应用的 .dev 域名",
+   "powit": "把当前应用软链接到 ~/.pow",
+   "repow": "杀掉 pow 进程并经 launchctl 重启"
+  },
+  "usage": "macOS 零配置 Rack 服务器 pow 的辅助命令(需先安装 pow):kapow 重启当前应用(自动向上层目录找 config.ru 定位),kapow myapp 重启指定应用;\nkaput 实时滚动查看所有 pow 应用的 stdout 日志;repow 强杀 pow 进程并用 launchctl 重启;\npowit 把当前应用软链到 ~/.pow 交给 pow 托管;powed 列出关联当前目录的 *.dev 域名。"
+ },
+ "profiles": {
+  "usage": "按主机名自动加载分机配置:zsh 启动时读取 $HOST,把域名按「.」逐级拆分、从后往前依次 source $ZSH_CUSTOM/profiles/ 下的同名文件;\n如 HOST=host.domain.com 会依次尝试加载 com、domain.com、host.domain.com,后加载的覆盖先加载的;\n适合一份 zshrc 通吃多台机器:公共配置放 zshrc,公司/家里的差异各放一个 profile 文件。建议把本插件放在 plugins 列表最前面,让机器差异尽早生效。"
+ },
+ "ros": {
+  "usage": "为 Roswell(Common Lisp 环境管理器,需先安装 ros)提供 Tab 补全:\nros 后按 Tab 列出 run/install/use/build/fmt/list/delete 等子命令,--version、-L、-e、-s 等选项也带中文可读的说明;\nros -l <文件> 处按 Tab 补全文件名。"
+ },
+ "supervisor": {
+  "aliases": {
+   "sup": "sudo supervisorctl:进入交互控制台",
+   "suprr": "只重读配置不重启",
+   "suprs": "重启进程",
+   "sups": "查看所有受管进程状态",
+   "supso": "停止进程",
+   "supsr": "启动进程",
+   "supt": "tail 进程日志",
+   "supu": "重读配置并按需重启(更新)"
+  },
+  "usage": "supervisorctl 的 sudo 简写全家桶:sups = 看所有受管进程状态;supsr = 启动;supso = 停止;suprs = 重启;\nsupu = 改完 .ini 配置后更新生效;suprr = 只重读配置;supt = tail 进程日志;supa = 列出可用程序;sup = 进入 supervisorctl 交互控制台。"
+ },
+ "systemadmin": {
+  "aliases": {
+   "clr": "清屏并打印当前用户、TTY 和目录",
+   "hist10": "历史命令使用次数 Top10",
+   "path": "每行一个打印 PATH 数组",
+   "ping": "只发 5 个包的 ping",
+   "pscpu10": "吃 CPU 最多的前 10 个进程",
+   "psmem": "按内存占用降序列出所有进程",
+   "psmem10": "吃内存最多的前 10 个进程"
+  },
+  "usage": "运维百宝箱:psmem10 = 吃内存最多的 10 个进程;pscpu10 = 吃 CPU 最多的 10 个;hist10 = 历史命令使用 Top10;path 每行一个打印 PATH;\npsgrep 关键字查进程,killit 按正则批量 sudo kill;geteip 查外网 IP、getip 查本机 IP;d0 删除 0 字节文件,clrz 清僵尸进程;\ncon80 统计 80 端口连接数,req20/sortconip/timewait20 分析连接来源(基于 ss,退回 netstat);\naccessip10、visitpage20、c404、httpstatus、webtraffic 分析 nginx 访问日志,默认 /var/log/nginx/access.log,可传其他日志路径作参数。\n注意:它把 ping 覆盖成只发 5 包、mkdir 覆盖成 mkdir -pv。"
+ },
+ "systemd": {
+  "aliases": {
+   "sc-cat": "显示单元的 unit 文件内容",
+   "sc-edit": "sudo systemctl edit:编辑 drop-in 配置",
+   "sc-enable-now": "启用开机自启并立即启动",
+   "sc-failed": "列出失败的单元",
+   "sc-is-active": "systemctl is-active:查单元是否活动",
+   "sc-reload": "sudo systemctl reload:重载单元",
+   "sc-restart": "sudo systemctl restart:重启单元",
+   "sc-status": "查看单元运行状态"
+  },
+  "usage": "systemctl 全套简写,sc-<子命令> 即用:sc-status 看状态、sc-start/stop/restart 启停(需 sudo 的自动带上)、sc-enable-now 设开机自启并立即启动、sc-failed 列失败单元、sc-cat 看 unit 文件、sc-edit 编辑 drop-in、sc-daemon-reload 重载配置;\n把 sc 换成 scu 即 --user 用户级操作(不带 sudo),如 scu-restart、scu-list-units;\nsystemd_prompt_info 函数可放进主题提示符实时显示单元活动状态,如 PROMPT='$(systemd_prompt_info nginx)'。只写 systemd 相关增量。"
+ },
+ "term_tab": {
+  "usage": "多终端会话共享目录:在补全位置按 Ctrl+V(^v 已绑定 term_list),会把其他 zsh 会话当前所在的工作目录列为补全候选,选中即填入,配合 cd 快速跳到别的终端正在干活的目录;\n实现上 Linux 读 /proc/<pid>/cwd、macOS 用 lsof、Solaris 用 pwdx(README 只提 Linux/Solaris,源码实际含 macOS 分支)。"
+ },
+ "ufw": {
+  "usage": "为 ufw 防火墙命令(需系统已安装)提供 Tab 补全:\nufw 后按 Tab 列出 allow/deny/limit/delete/status/reload 等子命令;delete 时自动读出当前带编号的规则供直接选择;\nstatus 后补全 numbered/verbose,logging 后补全 on/off/low/medium/high/full,app 后补全 list/info/update 及 /etc/ufw/applications.d 里的应用配置名。"
+ }
+}

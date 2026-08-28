@@ -1,0 +1,48 @@
+{
+ "dbt": {
+  "aliases": {
+   "dbtcds": "生成并启动文档站点",
+   "dbtfrt": "全量刷新运行并测试",
+   "dbtlm": "列出改动过的模型",
+   "dbtrm": "只运行改动过的模型",
+   "dbtrs": "clean+deps+seed 重新灌种子数据",
+   "dbtrtm": "运行并测试改动过的模型",
+   "dbttm": "只测试改动过的模型"
+  },
+  "usage": "数据分析工具 dbt 的别名集,围绕「只处理改动过的模型」:dbtrtm 一条命令跑完 改动模型+测试;dbtfrt 全量重建;dbtcds 生成并本地预览文档站点。"
+ },
+ "mongo-atlas": {
+  "usage": "为 MongoDB Atlas 官方 CLI(atlas 命令)提供子命令与参数补全:atlas <Tab>。需安装 atlas CLI。"
+ },
+ "mongocli": {
+  "aliases": {
+   "ma": "mongocli atlas:进 Atlas 子命令",
+   "mcm": "mongocli cloud-manager:进 Cloud Manager",
+   "miam": "mongocli iam:进 IAM 子命令",
+   "mom": "mongocli ops-manager:进 Ops Manager"
+  },
+  "usage": "MongoDB 运维 CLI 的快捷前缀:ma 进 Atlas、mcm 进 Cloud Manager、mom 进 Ops Manager、miam 进 IAM 子命令,后接 Tab 补全。"
+ },
+ "mysql-macports": {
+  "aliases": {
+   "mysqlrestart": "重启 MySQL 服务",
+   "mysqlstart": "启动 MySQL 服务",
+   "mysqlstatus": "ping 检查服务是否存活",
+   "mysqlstop": "停止 MySQL 服务"
+  },
+  "usage": "MacPorts 安装的 MySQL 服务管理四件套:mysqlstart / mysqlstop / mysqlrestart / mysqlstatus(status 会提示输 root 密码)。仅适合 MacPorts 安装方式。"
+ },
+ "postgres": {
+  "aliases": {
+   "reloadpost": "重载配置(部分配置需重启才生效)",
+   "restartpost": "重启 postgres",
+   "startpost": "启动 postgres 并写日志",
+   "statuspost": "查看运行状态",
+   "stoppost": "快速停止 postgres"
+  },
+  "usage": "Homebrew 版 PostgreSQL 的服务管理别名:startpost/stoppost/restartpost/reloadpost/statuspost。注意数据目录硬编码为 /usr/local/var/postgres(仅适合 Intel Mac 的 Homebrew 路径,Apple Silicon 为 /opt/homebrew,不匹配时勿用)。"
+ },
+ "redis-cli": {
+  "usage": "为 redis-cli 提供命令与参数补全(基于 Homebrew 补全改造)。需本机安装 redis。"
+ }
+}

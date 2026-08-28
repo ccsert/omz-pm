@@ -1,0 +1,63 @@
+{
+  "droplr": {
+    "usage": "仅 macOS,需先安装并登录 Droplr.app。droplr ./report.pdf 上传文件;droplr https://example.com/long-url 缩短链接——参数以 http(s):// 开头就走缩短,否则交给 Droplr.app 上传。",
+    "aliases": {
+      "droplr": "上传文件或缩短链接,底层调用 Droplr.app"
+    }
+  },
+  "httpie": {
+    "usage": "为 httpie 的 http 和 https 命令提供 <Tab> 补全:请求方法、常用头部、命令行选项都能列出来,调试接口不用翻文档。需先安装 httpie(如 brew install httpie)。"
+  },
+  "ipfs": {
+    "usage": "为 ipfs 命令提供 <Tab> 子命令补全:add、cat、get、daemon、ls 等子命令及其选项直接列出,不用背。需先安装 IPFS(kubo)才有 ipfs 命令可补。"
+  },
+  "mosh": {
+    "usage": "让 mosh 复用 ssh 的主机名补全:mosh user@<Tab> 会列出 ~/.ssh/config 里的 Host 条目,与 ssh <Tab> 一致,连到弱网服务器前不用先 ssh 一次查名字。需先安装 mosh(本地和远端都要装)。"
+  },
+  "ngrok": {
+    "usage": "为 ngrok 提供 <Tab> 补全,子命令和参数直接列出。补全脚本由 ngrok completion zsh 生成,缓存在 $ZSH_CACHE_DIR/completions/_ngrok,每次开新终端时后台自动更新。需先安装 ngrok;本插件不添加任何别名。"
+  },
+  "nmap": {
+    "usage": "把常用扫描方案做成现成别名,像 zenmap 的配置档:nmap_open_ports 192.168.1.1 只看开放端口;nmap_fast 目标 快扫最常用 300 个端口;nmap_full 目标 sudo 激进全端口扫描(含系统/服务识别);nmap_check_for_vulns 目标 用 vuln 脚本查漏洞。需先安装 nmap;多数别名带 sudo,只对自有或已授权主机使用。",
+    "aliases": {
+      "nmap_open_ports": "nmap --open:只列出目标上开放的端口",
+      "nmap_fast": "快扫最常用的 300 个端口(-F -T5 --top-ports 300)",
+      "nmap_slow": "sudo 慢速 SYN 扫描(-sS -v -T1),低调不刷爆对方日志",
+      "nmap_full": "sudo 激进全量扫描(-A -p1-65535),含操作系统与服务版本识别",
+      "nmap_detect_versions": "sudo 全端口探测服务与操作系统版本(-sV -O)",
+      "nmap_check_for_vulns": "nmap --script=vuln:用漏洞检测脚本扫描目标",
+      "nmap_traceroute": "sudo 综合主机发现加路由跟踪(--traceroute)",
+      "nmap_ping_scan": "nmap -n -sP:ICMP 扫描寻找存活主机"
+    }
+  },
+  "rsync": {
+    "usage": "四个带好参数的 rsync 别名,传文件不用再拼选项:rsync-copy 源 目标 递归复制(归档+压缩+进度条);rsync-move 传完自动删源文件;rsync-update 只覆盖目标上较旧的文件;rsync-synchronize 额外加 --delete,让目标和源完全一致,做目录镜像同步。",
+    "aliases": {
+      "rsync-copy": "rsync -avz --progress -h:递归复制,保留权限时间戳,带压缩与进度",
+      "rsync-move": "同复制,但传完删除源文件,等效移动",
+      "rsync-update": "多加 -u,只更新目标上过期的文件",
+      "rsync-synchronize": "再加 --delete,删掉目标里源中没有的文件,镜像同步"
+    }
+  },
+  "shell-proxy": {
+    "usage": "用 proxy enable 一键导出 HTTP_PROXY/HTTPS_PROXY/ALL_PROXY 等全套代理变量,并给 ssh/scp/sftp/ssh-copy-id 加走代理的别名、设好 GIT_SSH,让 git 和 ssh 也过代理;proxy disable 全部取消,proxy status 查看当前生效的代理变量。代理地址先用 SHELLPROXY_URL=\"http://127.0.0.1:8123\" 指定(可用 SHELLPROXY_NO_PROXY 排除本地),或写进可执行文件 ~/.config/proxy(第一行代理 URL,第二行 NO_PROXY 列表),也可用 SHELLPROXY_CONFIG 指定该文件路径。需要 python3。",
+    "aliases": {
+      "proxy": "proxy enable/disable/status:一键开关代理环境变量并查看状态"
+    }
+  },
+  "tailscale": {
+    "usage": "为 tailscale 提供 <Tab> 补全:up、down、status、ssh 等子命令和选项直接列出。补全脚本由 tailscale completion zsh 生成并缓存到 $ZSH_CACHE_DIR/completions/_tailscale,加载插件时后台更新;即使你的别名指向大写的 Tailscale 命令也能绑定补全。需已安装 tailscale。"
+  },
+  "transfer": {
+    "usage": "一条命令分享文件:transfer file.txt 上传到 transfer.sh 并回显下载链接;transfer dir/ 自动打成 tar.gz 再传;cat log.txt | transfer log.txt 支持管道上传;加 -ca 选项先用 gpg 对称加密再上传(输出 ASCII armored),对端用 gpg -d 文件 解密。依赖 curl,加密需另装 gpg。",
+    "aliases": {
+      "transfer": "上传文件/目录(或管道内容)到 transfer.sh 并输出下载链接"
+    }
+  },
+  "wakeonlan": {
+    "usage": "局域网远程开机:先在 ~/.wakeonlan/ 下给每台设备建一个文件(如 leto),内容一行「MAC地址 广播地址」,之后 wake leto 即发送魔术包唤醒该机器;wake <Tab> 自动补全 ~/.wakeonlan 里的设备名。需先安装 wakeonlan 工具(多数发行版软件仓库有)。",
+    "aliases": {
+      "wake": "按 ~/.wakeonlan/<设备名> 配置文件发送魔术包唤醒设备"
+    }
+  }
+}

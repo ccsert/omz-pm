@@ -1,0 +1,12 @@
+{
+ "macos": {
+  "aliases": {
+   "cdf": "cd 到 Finder 当前目录",
+   "hidefiles": "Finder 隐藏隐藏文件",
+   "music": "控制 Apple Music(music -h 看用法)",
+   "quick-look": "对文件快速预览(Quick Look)",
+   "showfiles": "Finder 显示隐藏文件"
+  },
+  "usage": "常用别名:showfiles / hidefiles 开关 Finder 隐藏文件;preview 文件 用「预览」打开;cdf 跳到 Finder 当前正打开的目录;music 系列控制音乐播放。"
+ }
+}

@@ -1,0 +1,69 @@
+{
+ "alias-finder": {
+  "aliases": {
+   "-c": "优先更短的命令(--cheaper)",
+   "-e": "精确匹配(--exact)",
+   "-l": "只匹配更长的别名(--longer)",
+   "alias-finder": "手动查询某命令对应的更短别名,如 alias-finder git status"
+  },
+  "usage": "敲一条命令时自动在已定义别名里搜出更短的等价写法:比如输入 git status 回车,执行前先提示 gst='git status',照着学即可越敲越短;\n默认只手动用:alias-finder git status 直接查询;想让每条命令都自动提示,在 zshrc 加 zstyle ':omz:plugins:alias-finder' autoload yes;\n装了 rg(ripgrep)会自动用它加速搜索,没有则用 grep。"
+ },
+ "aliases": {
+  "usage": "需要先安装 python3。als 按底层命令分组列出当前 shell 已定义的全部别名,一眼看清装了哪些插件的快捷方式;\nals git 只显示名字或内容含 git 的别名并高亮关键词;\nals -g git 只看某个分组(如 git 插件的别名),可多次 -g 看多组;als --groups 仅列分组名;als -h 看帮助。"
+ },
+ "colemak": {
+  "usage": "面向 Colemak 键盘用户,需在 zshrc 另加 bindkey -v 启用 vi 模式;生效后 ESC 进入导航模式时,按键按 QWERTY 位置重排:\n· n/e 即原 j/k:下移/上移一行或翻命令历史;i 即原 l:右移一字符;\n· u 进入插入模式(原 i),U 跳到行首非空白处插入(原 I),l 撤销修改(原 u);\n· k/K 重复上一次搜索(原 n/N),j/J 跳到词尾(原 e/E),N 合并行(原 J),Ctrl+n 确认执行当前行;\n同时为 less 重映射:n 下滚一行、e 上滚一行、k 重复搜索(ESC+k 全文重复搜索)。"
+ },
+ "command-not-found": {
+  "usage": "敲错命令不再只报 command not found,而是告诉你在哪个软件包里并给出安装建议,例如敲 mutt 会提示 Try: sudo apt install mutt;\n无需学任何新命令,启用即生效;开箱支持 Ubuntu/Debian/Arch/Fedora/NixOS/Termux/SUSE/Gentoo/Void/Alpine(Arch 需先安装 pkgfile);\nmacOS 上配合 Homebrew 即用(其 handler 随 brew 自带)。"
+ },
+ "common-aliases": {
+  "aliases": {
+   "G": "全局别名,加在命令末尾等于管道给 grep,如 ls -la G json",
+   "h": "查看命令历史",
+   "l": "长列表显示文件,含大小与类型,大小人类可读",
+   "la": "长列表列出几乎所有文件(含隐藏文件)",
+   "ldot": "只列出隐藏(点)文件的详细属性",
+   "lt": "长列表按修改时间排序列出文件",
+   "sgrep": "递归搜索文件内容,带 5 行上下文,自动跳过 .git/.svn/CVS",
+   "t": "实时跟踪文件新增内容(tail -f),如 t /var/log/syslog"
+  },
+  "usage": "一批常用命令的效率别名:ls 家族(l/la/lr/lt/ldot/lS/lart 等)覆盖各种列表与排序方式;rm/cp/mv 默认加 -i,删改前先确认防手滑;h 看历史,hgrep 关键词 在历史里搜索;\n全局别名可放在命令行末尾当管道用:ls -l /var/log L 等于 | less 分页(G 需已装 most),find . -type f NE 静默 stderr,NUL 丢弃全部输出,LL 合并错误再分页;\n文件后缀别名:直接敲 report.pdf 会用 acroread 打开,敲 pkg.zip 列出压缩包内容(需安装对应程序,如 mplayer 看视频);$EDITOR 打开 .txt/.c 等、$BROWSER 打开网址。"
+ },
+ "dash": {
+  "usage": "需先安装 macOS 上的 API 文档浏览器 Dash。dash 直接打开并切换到 Dash 应用;\ndash golang 在 Dash 中查询 golang;支持文档集关键字前缀:dash python:tuple 限定在 Python 文档里查;\n输入 dash 后按 Tab,自动补全 Dash 里已启用文档集的关键字(如 python3、java8)。"
+ },
+ "globalias": {
+  "usage": "输入别名或含 glob/子命令的命令后按一下空格,整条命令自动展开成完整形式:如 l␣G␣ 展开为 ls --color=auto -lah | grep ...;touch {1..10}␣ 展开为 touch 1 2 … 10;mkdir \"`date -R`\"␣ 展开为实际日期时间;\n只想输入普通空格不展开时按 Ctrl+空格;\n不想被展开的别名放进数组排除:GLOBALIAS_FILTER_VALUES=(l),这样 l 保留原样而 la 仍展开。"
+ },
+ "gnu-utils": {
+  "usage": "macOS/FreeBSD 等 BSD 系统先装好带 g 前缀的 GNU 工具(如 brew install coreutils gnu-sed ggrep gnu-tar gmake findutils),启用本插件后 ls、date、sed、grep、find 等会自动改用 GNU 版(通过 hash 把 ls 指向 gls),不用逐个敲 g 前缀;\nGNU 专有选项直接可用,如 ls --color=tty、date -d yesterday;\n执行 rehash 或 hash -r 后,插件会在下一次敲命令时自动重新绑定,不会失效;\n注意:echo 等为 zsh 内建命令,内建优先,不会被换成 gecho。"
+ },
+ "perms": {
+  "aliases": {
+   "resetperms": "目录 755、文件 644 一步修正,询问 y/n 确认后才执行",
+   "set644": "把目录下普通文件权限递归设为 644(不动符号链接)",
+   "set755": "把目录及其子目录权限递归设为 755"
+  },
+  "usage": "一键整理网站/项目目录权限:set755 把目录及其子目录全部设为 755;set644 把其中所有普通文件递归设为 644(不动符号链接);两者默认从当前目录开始,也可传路径,如 set644 ~/www;\nresetperms ~/www 会先问 Proceed? (y|n) 确认,再把目录设 755、文件设 644;-v 显示处理详情,目录本身权限坏了进不去时加 --slow 慢速可靠模式;\n这些操作直接改权限且无撤回,别对系统目录乱用。"
+ },
+ "singlechar": {
+  "aliases": {
+   "c": "查看文件内容(cat)",
+   "f": "只列出包含关键词的文件名(grep -Rli)",
+   "n": "反选:只显示不含关键词的行(grep -Rvi)",
+   "s": "以 root 权限执行后面的命令(sudo)",
+   "u": "发 HTTP 请求(curl),如 u https://example.com",
+   "w": "把内容覆盖写入文件(echo >),如 w \"hi\" a.txt",
+   "x": "把管道传来的内容当参数执行(xargs)",
+   "y": "递归忽略大小写搜索文件内容,如 y foo ."
+  },
+  "usage": "把常用命令压成单字符:c 看文件(cat)、p 分页(less)、m 手册(man)、u 发请求(curl)、d 下载(wget)、s 即 sudo;\n搜索三件套:y 关键词 目录 递归忽略大小写搜内容,f 只列出包含该词的文件名,n 反选只显示不含该词的行(f. 是对 find 结果 grep);\n写文件:w \"内容\" 文件 覆盖写入,a 追加,w:/a: 改用 stdin 写(cat > / cat >>);\n前缀组合:x 开头是 xargs 版(xy/xf/xc…),s 开头是 sudo 版(sy/sc/sp…),sx 开头两者兼有;\n加载插件前可设 GREP/ROOT/CURL/WGET/PAGER 变量替换底层命令。"
+ },
+ "sprunge": {
+  "usage": "把文字、文件或命令输出一键传到 pastebin(sprunge.us)换回可分享的 URL,需联网,底层用 curl:\nsprunge notes.txt 上传文件;echo hello | sprunge 上传管道输出;cat err.log | sprunge 贴报错求救;\nsprunge \"一段文字\" 直接传文本;sprunge --help 查看完整说明;\n输入优先级:stdin 重定向 > 管道 > 文件名参数 > 文本字符串;文件名拼错不报错,会被当成文本上传,注意。"
+ },
+ "tt": {
+  "usage": "日期与 Unix 时间戳互转(用的是 macOS/BSD 的 date 语法,Linux 下不可用):\ntt 2019-10-16 把日期转成时间戳(时间部分自动补 00:00:00);tt \"2019-10-16 18:41:00\" 带时间转换,含空格记得加引号;\ntt 1571222561 把时间戳转回 \"YYYY-MM-DD HH:MM:SS\";不带参数直接 tt 输出当前时间戳。"
+ }
+}

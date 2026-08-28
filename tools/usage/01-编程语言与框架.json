@@ -1,0 +1,8 @@
+{
+ "pip": {
+  "usage": "pipi 包 = 安装;pipu = 升级;pipun = 卸载;pipreq 把当前环境依赖导出成 requirements.txt(配合虚拟环境最干净)。"
+ },
+ "python": {
+  "usage": "py = python3;ipy = ipython;pyserver 在当前目录起一个 http.server,局域网共享文件秒变「本地网盘」;pyclean 清理 __pycache__ 与 .pyc。"
+ }
+}
