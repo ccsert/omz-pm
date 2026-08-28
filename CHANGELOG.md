@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Complete usage corpus — 359/359 plugins**: every built-in plugin now has a
+  practical usage guide plus curated Chinese alias annotations (previously 48).
+  Corpus lives in `tools/usage/<issue#>-<category>.json`; aliases are verified
+  against plugin sources via `tools/enrich_translations.py --check-sources`.
 - **Complete Chinese translations of all 359 built-in plugin READMEs** (`data/readmes-zh/`,
   packed into the compile-time `data/readmes_zh.json`): every section, table and
   note faithfully translated — alias/command tables preserved, boilerplate enable

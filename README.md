@@ -41,7 +41,7 @@ omz-pm puts all of that in a terminal UI:
 | --- | --- |
 | **Browse & search** | All built-in + custom plugins, with live search (names, Chinese descriptions, categories) and 18 category filters |
 | **Toggle & save** | `Space` to stage enable/disable changes, `s` to preview a diff, `Enter` to write — atomic, always backed up |
-| **Chinese dictionary** | 359 curated entries baked into the binary: summary, usage guide, annotated aliases for the 48 most popular plugins |
+| **Chinese dictionary** | 359 curated entries baked into the binary: summary, usage guide, and annotated aliases for every plugin |
 | **Alias index** | Aliases are extracted from each plugin's source code — works for custom plugins too |
 | **README reader** | Read any plugin's README in-TUI — all 359 built-in plugins ship with a complete curated Chinese translation (prose, settings, alias tables); custom plugins fall back to light on-the-fly localization |
 
@@ -152,7 +152,9 @@ Full-README translations work the same way: put a file at
 `~/.config/omz-pm/readmes-zh/<plugin>.md` to override the built-in translation,
 or to give your own custom plugin a Chinese README.
 
-`tools/enrich_translations.py` regenerates the baked-in dictionary (categories + usage corpus);
+The usage corpus lives in `tools/usage/<issue#>-<category>.json`, one file per
+category — edit and re-run `tools/enrich_translations.py` to regenerate;
+`--check-sources` verifies every alias against the plugin source.
 `tools/build_readme_bundle.py` validates `data/readmes-zh/` (one curated Chinese
 translation per plugin, style guide in `docs/readme-translation-guide.md`) and packs
 it into the compile-time `data/readmes_zh.json`.
@@ -175,8 +177,8 @@ cargo test      # 52 unit tests (zshrc round-trips, alias parser, diff, dictiona
 cargo clippy    # zero warnings
 ```
 
-Contributions welcome — especially usage-guide entries for the remaining ~280 plugins
-(edit `tools/enrich_translations.py`, run it, and `data/translations.json` is regenerated).
+The usage corpus is complete (359/359). Found an inaccuracy? Edit the category
+JSON under `tools/usage/`, re-run `python3 tools/enrich_translations.py`, and send a PR.
 
 ## License
 

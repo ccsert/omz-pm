@@ -26,7 +26,7 @@ Oh My Zsh 自带 **359 个插件、144 个主题**,但想发现它们只能翻�
 omz-pm 把这些全部搬进终端界面:
 
 - **看得全** —— 插件和主题一屏浏览,启用状态一目了然
-- **看得懂** —— 每个插件都有中文简介;48 个常用插件带实战用法指南和别名中文注解;359 个插件的 README 均有整篇中文译文,一键阅读
+- **看得懂** —— 359 个插件个个都有中文简介、实战用法指南、别名中文注解,README 均有整篇中文译文一键阅读
 - **改得放心** —— 每次写入前 diff 预览,自动时间戳备份,一条命令回滚
 
 ## 功能
@@ -144,7 +144,9 @@ omz-pm enable/disable <名称>...     # 脚本化启停
 README 整篇译文同理:把 `~/.config/omz-pm/readmes-zh/<插件名>.md` 放好即可覆盖内置译文,
 自定义插件也能用它获得中文 README。
 
-`tools/enrich_translations.py` 可离线重新生成内置词典(分类 + 实战用语料);
+`tools/enrich_translations.py` 可离线重新生成内置词典(分类标签),
+实战用语料按分类放在 `tools/usage/<issue号>-<分类>.json`,改完重跑即可;
+`--check-sources` 会把语料里的每个别名对插件源码核验。
 `tools/build_readme_bundle.py` 校验 `data/readmes-zh/` 下的整篇译文并打包成编译用的
 `data/readmes_zh.json`(译文规范见 `docs/readme-translation-guide.md`)。
 
@@ -155,8 +157,8 @@ cargo test      # 52 个单元测试(zshrc 往返 / 别名解析 / diff / 词典
 cargo clippy    # 零警告
 ```
 
-欢迎贡献 —— 尤其是剩下约 280 个插件的实战用法语料
-(编辑 `tools/enrich_translations.py` 后运行即可重新生成 `data/translations.json`)。
+实战用语料已 359/359 全覆盖。发现某条不准?直接改 `tools/usage/` 下对应分类的 JSON,
+重跑 `python3 tools/enrich_translations.py` 即可;欢迎 PR。
 
 ## 许可证
 
