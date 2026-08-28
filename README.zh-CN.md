@@ -26,7 +26,7 @@ Oh My Zsh 自带 **359 个插件、144 个主题**,但想发现它们只能翻�
 omz-pm 把这些全部搬进终端界面:
 
 - **看得全** —— 插件和主题一屏浏览,启用状态一目了然
-- **看得懂** —— 每个插件都有中文简介;48 个常用插件带实战用法指南和别名中文注解;README 一键阅读(标题汉化)
+- **看得懂** —— 每个插件都有中文简介;48 个常用插件带实战用法指南和别名中文注解;359 个插件的 README 均有整篇中文译文,一键阅读
 - **改得放心** —— 每次写入前 diff 预览,自动时间戳备份,一条命令回滚
 
 ## 功能
@@ -39,7 +39,7 @@ omz-pm 把这些全部搬进终端界面:
 | **切换与保存** | `空格` 暂存启停变更,`s` 预览 diff,`Enter` 写入 —— 原子写入,必定先备份 |
 | **中文词典** | 359 条精编词典编译进二进制:简介 + 实战用法 + 常用别名中文注解 |
 | **别名索引** | 别名直接从插件源码提取 —— 自定义插件同样适用 |
-| **README 阅读器** | 在 TUI 里读任意插件 README:小节标题汉化、样板启用说明翻译、别名表格原样保留 |
+| **README 阅读器** | 在 TUI 里读任意插件 README:全部 359 个内置插件都带有精心翻译的整篇中文译文(正文、配置说明、别名表格);自定义插件回退为在线轻翻译 |
 
 ### 🎨 主题管理(按 `T` 切换)
 
@@ -66,7 +66,7 @@ omz-pm 把这些全部搬进终端界面:
 | --- | --- |
 | <img src="docs/screenshots/themes.png" width="100%"> | <img src="docs/screenshots/diff.png" width="100%"> |
 
-| README 阅读器(标题汉化) | — |
+| README 阅读器(整篇中文译文) | — |
 | --- | --- |
 | <img src="docs/screenshots/readme.png" width="100%"> | |
 
@@ -100,7 +100,7 @@ omz-pm bench      # 看看哪个插件拖慢了启动
 | `Tab` / `Shift+Tab` | 筛选:全部 → 已启用 → 未启用 |
 | `c` / `C` | 分类筛选循环(18 类) |
 | `/` | 搜索(名称、中文说明、分类) |
-| `r` | 阅读 README(标题汉化) |
+| `r` | 阅读 README(整篇中文译文) |
 | `s` | 保存 —— 先弹 diff 预览 |
 | `b` | 备份管理与恢复 |
 | `T` | 插件视图 ↔ 主题视图 |
@@ -114,7 +114,7 @@ omz-pm list [--enabled|--disabled]  # 插件清单
 omz-pm info <名称>                  # 说明 + 实战用法 + 别名注解
 omz-pm which <别名>                 # gco ← git 插件:切换分支(git checkout)
 omz-pm aliases <名称>               # 列出插件全部别名
-omz-pm readme <名称>                # 输出翻译辅助后的 README
+omz-pm readme <名称>                # 输出整篇中文译文的 README
 omz-pm themes                       # 主题清单
 omz-pm theme <名称>                 # 启用主题(diff 确认)
 omz-pm theme --preview <名称>       # 渲染主题提示符(带颜色)
@@ -141,16 +141,21 @@ omz-pm enable/disable <名称>...     # 脚本化启停
 }
 ```
 
-`tools/enrich_translations.py` 可离线重新生成内置词典(分类 + 实战用语料)。
+README 整篇译文同理:把 `~/.config/omz-pm/readmes-zh/<插件名>.md` 放好即可覆盖内置译文,
+自定义插件也能用它获得中文 README。
+
+`tools/enrich_translations.py` 可离线重新生成内置词典(分类 + 实战用语料);
+`tools/build_readme_bundle.py` 校验 `data/readmes-zh/` 下的整篇译文并打包成编译用的
+`data/readmes_zh.json`(译文规范见 `docs/readme-translation-guide.md`)。
 
 ## 开发
 
 ```bash
-cargo test      # 50 个单元测试(zshrc 往返 / 别名解析 / diff / 词典 / 排版)
+cargo test      # 52 个单元测试(zshrc 往返 / 别名解析 / diff / 词典 / README 译文包 / 排版)
 cargo clippy    # 零警告
 ```
 
-欢迎贡献 —— 尤其是剩下约 300 个插件的实战用法语料
+欢迎贡献 —— 尤其是剩下约 280 个插件的实战用法语料
 (编辑 `tools/enrich_translations.py` 后运行即可重新生成 `data/translations.json`)。
 
 ## 许可证

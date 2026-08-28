@@ -29,7 +29,8 @@ omz-pm puts all of that in a terminal UI:
 
 - **See everything** — plugins *and* themes, enabled state at a glance
 - **Understand everything** — every plugin ships with a curated Chinese summary,
-  practical usage guide, and annotated aliases; READMEs are one keypress away
+  practical usage guide, and annotated aliases; every README comes fully
+  translated, one keypress away
 - **Change safely** — diff preview before every write, timestamped backups, one-command rollback
 
 ## Features
@@ -42,7 +43,7 @@ omz-pm puts all of that in a terminal UI:
 | **Toggle & save** | `Space` to stage enable/disable changes, `s` to preview a diff, `Enter` to write — atomic, always backed up |
 | **Chinese dictionary** | 359 curated entries baked into the binary: summary, usage guide, annotated aliases for the 48 most popular plugins |
 | **Alias index** | Aliases are extracted from each plugin's source code — works for custom plugins too |
-| **README reader** | Read any plugin's README in-TUI: section headers localized, boilerplate translated, alias tables kept as-is |
+| **README reader** | Read any plugin's README in-TUI — all 359 built-in plugins ship with a complete curated Chinese translation (prose, settings, alias tables); custom plugins fall back to light on-the-fly localization |
 
 ### 🎨 Theme management (`T`)
 
@@ -71,7 +72,7 @@ so you can see exactly what's slowing your startup down.
 | --- | --- |
 | <img src="docs/screenshots/themes.png" width="100%"> | <img src="docs/screenshots/diff.png" width="100%"> |
 
-| README reader (localized) | — |
+| README reader (full Chinese translation) | — |
 | --- | --- |
 | <img src="docs/screenshots/readme.png" width="100%"> | |
 
@@ -105,7 +106,7 @@ omz-pm bench      # which plugins slow down your startup?
 | `Tab` / `Shift+Tab` | Filter: all → enabled → disabled |
 | `c` / `C` | Cycle 18 category filters |
 | `/` | Search (names, Chinese text, categories) |
-| `r` | Read plugin README (localized) |
+| `r` | Read plugin README (full Chinese translation) |
 | `s` | Save — opens diff preview first |
 | `b` | Backup browser & restore |
 | `T` | Switch plugin ↔ theme view |
@@ -119,7 +120,7 @@ omz-pm list [--enabled|--disabled]  # plugin inventory
 omz-pm info <name>                  # description + usage guide + annotated aliases
 omz-pm which <alias>                # gco ← git plugin: git checkout
 omz-pm aliases <name>               # every alias a plugin defines
-omz-pm readme <name>                # print the localized README
+omz-pm readme <name>                # print the fully translated README
 omz-pm themes                       # list themes
 omz-pm theme <name>                 # enable a theme (diff-confirmed)
 omz-pm theme --preview <name>       # render its prompt in color
@@ -147,7 +148,14 @@ This is also the place to document your own custom plugins:
 }
 ```
 
-`tools/enrich_translations.py` regenerates the baked-in dictionary (categories + usage corpus).
+Full-README translations work the same way: put a file at
+`~/.config/omz-pm/readmes-zh/<plugin>.md` to override the built-in translation,
+or to give your own custom plugin a Chinese README.
+
+`tools/enrich_translations.py` regenerates the baked-in dictionary (categories + usage corpus);
+`tools/build_readme_bundle.py` validates `data/readmes-zh/` (one curated Chinese
+translation per plugin, style guide in `docs/readme-translation-guide.md`) and packs
+it into the compile-time `data/readmes_zh.json`.
 
 ## How it works
 
@@ -163,11 +171,11 @@ data/translations.json  ─┘ (baked in) └───────────�
 ## Development
 
 ```bash
-cargo test      # 50 unit tests (zshrc round-trips, alias parser, diff, dictionary, layout)
+cargo test      # 52 unit tests (zshrc round-trips, alias parser, diff, dictionary, README bundle, layout)
 cargo clippy    # zero warnings
 ```
 
-Contributions welcome — especially usage-guide entries for the remaining ~300 plugins
+Contributions welcome — especially usage-guide entries for the remaining ~280 plugins
 (edit `tools/enrich_translations.py`, run it, and `data/translations.json` is regenerated).
 
 ## License

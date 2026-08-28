@@ -3,6 +3,22 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+
+- **Complete Chinese translations of all 359 built-in plugin READMEs** (`data/readmes-zh/`,
+  packed into the compile-time `data/readmes_zh.json`): every section, table and
+  note faithfully translated — alias/command tables preserved, boilerplate enable
+  paragraphs replaced by a standard Chinese note. The README reader (`r`,
+  `omz-pm readme`) now shows the full translation instead of light on-the-fly
+  localization; custom plugins keep the previous fallback behavior.
+- User overrides: `~/.config/omz-pm/readmes-zh/<plugin>.md` replaces the built-in
+  translation without recompiling (also works for custom plugins).
+- `tools/build_readme_bundle.py` validates the translations against each source
+  README (heading/table/fence parity, coverage of all dictionary entries) and
+  regenerates the bundle; style guide in `docs/readme-translation-guide.md`.
+
 ## [0.3.0] - 2026-08-27
 
 ### Added
