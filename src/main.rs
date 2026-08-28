@@ -6,6 +6,7 @@ mod aliases;
 mod bench;
 mod catalog;
 mod diff;
+mod markdown;
 mod plugin;
 mod readme;
 mod textwrap;

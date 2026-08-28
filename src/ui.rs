@@ -18,7 +18,7 @@ use unicode_width::UnicodeWidthStr;
 use crate::{
     aliases,
     catalog::{readme_excerpt, Catalog},
-    diff,
+    diff, markdown,
     plugin::Plugin,
     readme, textwrap,
     theme::{self, ThemeInfo},
@@ -393,24 +393,7 @@ impl App {
         };
         match readme::read_translated(&p.name, &p.dir) {
             Some(text) => {
-                let w = 100usize;
-                let mut lines: Vec<Line> = Vec::new();
-                for l in textwrap::wrap(&text, w) {
-                    let styled = if l.starts_with('#') {
-                        Line::from(l).style(
-                            Style::default()
-                                .fg(Color::Cyan)
-                                .add_modifier(Modifier::BOLD),
-                        )
-                    } else if l.starts_with("✅") || l.starts_with("📌") {
-                        Line::from(l).style(Style::default().fg(Color::Green))
-                    } else if l.trim_start().starts_with('|') {
-                        Line::from(l).style(Style::default().fg(Color::Gray))
-                    } else {
-                        Line::from(l)
-                    };
-                    lines.push(styled);
-                }
+                let lines = markdown::render(&text, 100);
                 let title = format!(" README · {} ", p.name);
                 self.modal = Modal::Readme {
                     title,

@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Markdown rendering in the README reader** (`r`): headings, bold/italic,
+  inline code, links (label only), `<kbd>` keys, fenced code blocks with a
+  gutter, blockquotes, rules and lists are rendered instead of shown raw;
+  tables are column-aligned (CJK-aware widths) and wide tables wrap cells
+  instead of clipping. Zero new dependencies (`src/markdown.rs`).
 - **Complete usage corpus — 359/359 plugins**: every built-in plugin now has a
   practical usage guide plus curated Chinese alias annotations (previously 48).
   Corpus lives in `tools/usage/<issue#>-<category>.json`; aliases are verified

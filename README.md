@@ -43,7 +43,7 @@ omz-pm puts all of that in a terminal UI:
 | **Toggle & save** | `Space` to stage enable/disable changes, `s` to preview a diff, `Enter` to write — atomic, always backed up |
 | **Chinese dictionary** | 359 curated entries baked into the binary: summary, usage guide, and annotated aliases for every plugin |
 | **Alias index** | Aliases are extracted from each plugin's source code — works for custom plugins too |
-| **README reader** | Read any plugin's README in-TUI — all 359 built-in plugins ship with a complete curated Chinese translation (prose, settings, alias tables); custom plugins fall back to light on-the-fly localization |
+| **README reader** | Read any plugin's README in-TUI with markdown rendered (aligned tables, styled headings, links, code blocks) — all 359 built-in plugins ship with a complete curated Chinese translation; custom plugins fall back to light on-the-fly localization |
 
 ### 🎨 Theme management (`T`)
 
