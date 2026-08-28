@@ -1,0 +1,124 @@
+{
+  "bbedit": {
+    "usage": "需安装 BBEdit 及其命令行工具。\n`bb` 不带参数直接启动 BBEdit;`bb 目录` 打开该目录并 cd 进去;`bb 文件` 在 BBEdit 中打开文件。\n`bbpb` 把剪贴板内容新建成一个 BBEdit 文档;`bbd 旧文件 新文件` 调起 BBEdit 的 diff 窗口比较两个文件。",
+    "aliases": {
+      "bbpb": "把剪贴板内容新建为 BBEdit 文档",
+      "bbd": "bbdiff 的别名,在 BBEdit 中比较两个文件"
+    }
+  },
+  "emacs": {
+    "usage": "利用 Emacs daemon 能力,一个常驻 Emacs 进程接管所有 frame,打开文件秒开、多 frame 共享缓冲区(需 Emacs 24+)。\n`e 文件` 用 emacsclient 快速打开(已有图形 frame 就复用,没有则新建);`te 文件` 在终端里打开(-nw);`eframe` 另开一个图形 frame。\n`eeval '(表达式)'` 相当于在 Emacs 外执行 M-x eval;`efile`/`ecd` 打印当前 buffer 打开的文件路径/所在目录。\n未自定义 EDITOR 时,插件会把 EDITOR 设为 emacsclient 启动器,git commit 等直接落到 Emacs。",
+    "aliases": {
+      "e": "用 emacsclient 快速打开文件,打开后立即返回",
+      "te": "在终端里打开 emacsclient(-nw)",
+      "emacs": "emacsclient 启动器加 --no-wait,与 e 等价",
+      "eeval": "在 Emacs 外部执行 elisp 表达式",
+      "eframe": "新建一个图形 frame"
+    }
+  },
+  "fbterm": {
+    "usage": "需安装 fbterm(帧缓冲终端,可在无 X 的 tty 下显示中文)。\n仅当登录在真实终端(/dev/tty*)时生效:自动启动 `fbterm`,退出 fbterm 即注销会话。\n在 X/图形终端里启用后无任何影响。"
+  },
+  "foot": {
+    "usage": "给 Wayland 终端 foot 提供 shell 集成,自动在提示符前后输出 OSC 133 标记(需在 foot 终端里使用)。\n之后按 ctrl+shift+n 新开的 foot 实例会落在当前工作目录;ctrl+shift+z / ctrl+shift+x 在历史命令的提示符之间上下跳转。\n再在 foot 配置里绑定 pipe-command-output(如 ctrl+shift+g),可把上一条命令的输出管道给指定程序(例如临时存文件后用 emacsclient 打开)。"
+  },
+  "forklift": {
+    "usage": "需 macOS + ForkLift 文件管理器。\n`fl` 在 ForkLift 中打开当前目录;`fl 目录` 打开指定目录;`fl 文件` 打开它所在的目录。\n靠 AppleScript 模拟 Shift+Cmd+G 前往文件夹,首次使用需在系统设置里给终端授予「辅助功能」权限。"
+  },
+  "iterm2": {
+    "usage": "仅 macOS 的 iTerm2(检测到 ITERM_SESSION_ID)时生效。\n`iterm2_profile 名称` 一键切换当前窗口的 profile(配色/字体等);`iterm2_tab_color 255 100 0` 给当前标签页上色,`iterm2_tab_color_reset` 恢复默认。\n在 source oh-my-zsh 之前写 zstyle ':omz:plugins:iterm2' shell-integration yes 可加载官方 shell 集成:每条命令都会被标记,支持点命令选中其全部输出、查看命令耗时等 iTerm2 特性。"
+  },
+  "kate": {
+    "usage": "需安装 Kate 编辑器。\n`kt 目录` 先 cd 进该目录再启动 Kate,终端与编辑器同步到位。\n别名 `kate` 被改为静默启动(输出全部丢弃),不会再在终端里刷警告信息。",
+    "aliases": {
+      "kate": "静默启动 Kate,不向终端输出任何信息"
+    }
+  },
+  "kitty": {
+    "usage": "只在 Kitty 终端里($TERM 为 xterm-kitty)生效。\nssh 到远程机报 terminal unknown 时改用 `kssh 主机`,它会用 kitten ssh 自动把 terminfo 带过去;kssh 仍失败就用 `kssh-slow` 手动编译 terminfo 到远程机。\n`kitty-theme` 交互式浏览并更换 Kitty 配色主题。",
+    "aliases": {
+      "kssh": "以 kitten ssh 方式登录远程机,自动同步 terminfo",
+      "kssh-slow": "kssh 失败时的兜底,手动把 xterm-kitty terminfo 编译进远程机",
+      "kitty-theme": "交互式浏览并更换 Kitty 配色主题"
+    }
+  },
+  "marked2": {
+    "usage": "需 macOS + Marked 2(Markdown 预览器)。\n`marked README.md` 在 Marked 2 中打开并实时预览;不带参数直接启动 Marked 2。"
+  },
+  "marktext": {
+    "usage": "需 macOS + MarkText(Markdown 编辑器)。\n`marktext README.md` 打开指定文件编辑预览;不带参数直接启动 MarkText。"
+  },
+  "screen": {
+    "usage": "只在 GNU screen 会话里($TERM 为 screen*)生效:自动接管标签页标题与硬状态栏。\n空闲时标题显示「主机:当前目录」,敲命令时变成正在执行的命令名;硬状态栏带 [路径] 前缀。\n无需记新命令,`screen` 开个会话就能看到效果,多标签一眼分清各自在跑什么。"
+  },
+  "sublime": {
+    "usage": "需安装 Sublime Text(PATH 里没有 subl 时,插件会自动搜索常见安装位置并补上别名)。\n`st 文件` 打开文件,`stt` 在当前目录打开;改系统文件用 `sst 文件` 以 root 打开。\n`stp` 自动向上查找 .sublime-project 并打开(找不到时退回 git 仓库根或当前目录);`stn [目录]` 生成存根 .sublime-project 方便配置项目。",
+    "aliases": {
+      "st": "subl 的别名,打开 Sublime Text(可带文件/目录参数)",
+      "stt": "在当前目录打开 Sublime Text",
+      "sst": "以 root 权限打开 Sublime Text,编辑系统文件用",
+      "stp": "向上查找并打开最近的 .sublime-project",
+      "stn": "为目录生成存根 .sublime-project"
+    }
+  },
+  "sublime-merge": {
+    "usage": "需安装 Sublime Merge(macOS 下会自动定位 smerge 命令行工具)。\n`sm` 启动 Sublime Merge;`sm 目录` 打开该目录的 git 仓库;`smt` 等价于 `sm .`,直接看当前仓库。\nLinux 上另有 `ssm`,用 sudo 打开,适合仓库受权限保护的场景。",
+    "aliases": {
+      "sm": "在 Sublime Merge 中打开指定目录的 git 仓库",
+      "smt": "等价于 sm .,打开当前目录的仓库",
+      "ssm": "以 sudo 运行 Sublime Merge(仅 Linux 定义)"
+    }
+  },
+  "terminitor": {
+    "usage": "只为 Terminitor(终端工作流配置工具)提供 TAB 补全,需先安装 terminitor。\n敲 `terminitor start` 后按 TAB 会列出 ~/.config/terminitor/ 下的全部 .term 脚本;start/edit/delete/setup 也都能补全脚本名。\ncreate/init/fetch/list 等子命令同样有补全。"
+  },
+  "textastic": {
+    "usage": "需 macOS + Textastic 代码编辑器。\n`tt` 启动 Textastic;`tt 文件` 打开该文件;`tt 目录` 打开目录并 cd 进去,方便终端里继续操作。"
+  },
+  "textmate": {
+    "usage": "需安装 TextMate 及其 mate 命令行工具。\n`tm` 在当前目录打开 TextMate;`tm 目录` 打开该目录并 cd 进去。\n`tm a.txt b.txt` 把所有参数原样传给 mate,一次打开多个文件。"
+  },
+  "tmux": {
+    "usage": "需安装 tmux。`tmux` 被包装过:已有会话自动接入、没有就新建(自动修正 $TERM;设 ZSH_TMUX_AUTOSTART=true 开终端即进 tmux,设 ZSH_TMUX_ITERM2=true 启用 iTerm2 的 tmux 集成 -CC)。\n日常:`ta 名字` 接会话、`ts 名字` 新建、`to 名字` 新建或接入、`tl` 列出会话、`tksv` 杀掉整个 server。\n`tds` 按当前目录名创建/复用专属会话(目录名+哈希),一个项目一个会话互不打扰;`tad 名字` 接入时踢掉旧连接;`tmuxconf` 用编辑器打开 tmux 配置。",
+    "aliases": {
+      "ta": "接入指定名称的 tmux 会话",
+      "tad": "接入会话并踢掉其他连接(attach -d)",
+      "ts": "新建指定名称的会话",
+      "to": "会话存在则接入,不存在则新建",
+      "tl": "列出正在运行的会话",
+      "tkss": "终止指定名称的会话",
+      "tksv": "杀掉 tmux server,结束所有会话",
+      "tds": "为当前目录创建/接入专属会话"
+    }
+  },
+  "tmux-cssh": {
+    "usage": "只为 tmux-cssh 提供补全(需安装 tmux-cssh,用 tmux 多窗格同时操作多台机器)。\n`tmux-cssh -sc root@host1 -sc root@host2` 可在多机上同步执行命令;-u 用户、-f 主机列表文件、-ts 会话名等选项按 TAB 即可补全,主机名也有补全。"
+  },
+  "tmuxinator": {
+    "usage": "需安装 tmuxinator(Ruby 工具,用 YAML 定义 tmux 多窗格工作区)。\n`txn 项目名` 生成项目配置;`txo 项目名` 打开配置编辑;`txs 项目名` 一键按配置拉起整套 tmux 窗格;`txl` 列出所有项目。\n命令与项目名都支持 TAB 补全。",
+    "aliases": {
+      "txs": "启动指定项目的 tmux 工作区",
+      "txo": "打开项目配置文件进行编辑",
+      "txn": "新建 tmuxinator 项目",
+      "txl": "列出全部项目"
+    }
+  },
+  "vim-interaction": {
+    "usage": "需 gvim(带 +clientserver)。\n`v 文件` 把文件送进最近的 gvim 实例的参数列表(没有运行实例会自动启动一个);`v *.txt` 批量装入。\n`vvsp 文件`/`vhsp 文件` 先垂直/水平分屏再打开;`vh/vj/vk/vl 文件` 先把焦点切到左/下/上/右窗口再载入。\n还可用 `v -b':vsp' 文件` 在打开前执行 Ex 命令(-a 在打开后执行);定义 postCallVim 函数可在加载后回调,比如用 osascript 把 MacVim 调到前台。",
+    "aliases": {
+      "v": "callvim 的简写,把文件送进运行中的 gvim",
+      "vvsp": "先垂直分屏再打开文件",
+      "vhsp": "先水平分屏再打开文件",
+      "vh": "先把焦点移到左边窗口再载入文件",
+      "vj": "先把焦点移到下方窗口再载入文件",
+      "vk": "先把焦点移到上方窗口再载入文件",
+      "vl": "先把焦点移到右边窗口再载入文件"
+    }
+  },
+  "vundle": {
+    "usage": "为 Vundle(Vim 插件管理器)提供免进 vim 的一键操作。\n`vundle` 安装 .vimrc 里声明的插件(等价 :PluginInstall);`vundle-update` 更新全部插件;`vundle-clean` 删除已从 .vimrc 移除的插件。\n首次运行会自动 git clone Vundle 本体到 ~/.vim/bundle/Vundle.vim,命令执行完自动退出 vim。"
+  },
+  "zbell": {
+    "usage": "长命令结束提醒:命令运行超过阈值才响铃,默认 15 秒,可在 source oh-my-zsh 前设 `zbell_duration=60` 调整。\n明知很慢的命令加进 zbell_ignore 数组免打扰(默认忽略 $EDITOR、$PAGER);Linux 上若可用会调 notify-send 弹桌面通知,不想要就设 zbell_use_notify_send=false。\n纯 zsh 内建实现,无额外依赖,通知本体就是一个终端响铃(\\a)。"
+  }
+}

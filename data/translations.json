@@ -2,7 +2,8 @@
  "1password": {
   "cat": "补全增强",
   "detail": "为 1Password 的命令行工具 op 提供命令与参数自动补全,需要先安装 1Password CLI。",
-  "summary": "1Password CLI 补全"
+  "summary": "1Password CLI 补全",
+  "usage": "为 1Password CLI(op)提供补全与 opswd 函数:op <Tab> 补全子命令,opswd <Tab> 还能补全已保存的登录项名称。\n典型流程:opswd github.com——先把用户名复制进剪贴板,回车确认后复制密码,若存有 TOTP 会接着复制,20 秒后剪贴板自动清空。\n需安装 1Password CLI 2 并已登录,未登录时 opswd 直接报错退出。"
  },
  "alias-finder": {
   "aliases": {
@@ -38,19 +39,42 @@
   "summary": "Apache2 启停别名(macports)"
  },
  "arcanist": {
+  "aliases": {
+   "ara": "arc amend:修订提交",
+   "arci": "arc commit:提交变更",
+   "ard": "arc diff:提交代码评审 diff",
+   "ardc": "arc diff --create:创建新 diff",
+   "ardp": "arc diff --preview:在 Phabricator 界面生成预览 diff",
+   "arl": "arc land:把已评审的提交合并到主线",
+   "arli": "arc lint:运行代码检查",
+   "arls": "arc list:列出 diff"
+  },
   "cat": "补全增强",
   "detail": "为 Phabricator 的命令行工具 arcanist(arc 命令)提供参数补全。",
-  "summary": "Arcanist 补全"
+  "summary": "Arcanist 补全",
+  "usage": "为 Phabricator 代码评审工具 arcanist(arc)提供别名与函数:ard 发 diff、ardc 创建新 diff、arl 合并入库、arci 提交、arli 跑 lint、arls 列出 diff。\n函数 ardu/arpa 既接受完整评审 URL 也接受纯 revision id:ardu <URL> 更新 diff,arpa <URL> 把远端补丁应用到本地,直接粘贴浏览器地址即可。"
  },
  "archlinux": {
+  "aliases": {
+   "pacin": "sudo pacman -S:从仓库安装",
+   "paclsorphans": "pacman -Qdt:列出所有孤儿包",
+   "pacown": "pacman -Qo:查某个文件属于哪个包",
+   "pacrem": "sudo pacman -Rns:连同配置和依赖一起卸载",
+   "pacreps": "pacman -Ss:在仓库中搜索",
+   "pacrmorphans": "sudo pacman -Rs $(pacman -Qtdq):删除全部孤儿包",
+   "pacupd": "sudo pacman -Sy:只刷新软件包数据库",
+   "pacupg": "sudo pacman -Syu:同步并全量升级"
+  },
   "cat": "包管理与环境",
   "detail": "为 Arch Linux 的 pacman 包管理器提供大量简写别名,如 pacS=pacman -S 安装、pacSyu=系统更新。",
-  "summary": "Arch Linux 常用别名"
+  "summary": "Arch Linux 常用别名",
+  "usage": "pacupg = sudo pacman -Syu 全量升级;pacin 包名 = 安装,pacrem 包名 = 连配置和依赖一起删(pacre 只删包本体);pacreps 关键字 = 搜仓库,pacrep/pacloc = 查仓库/本地详情,pacown 文件路径 = 查文件属于哪个包,pacfiles = 按文件名反查包。\n维护:pacupd 刷索引,pacmir 强制重刷,paclsorphans 列孤儿包、pacrmorphans 一键清掉;upgrade 是函数,先校验 archlinux-keyring 再全量升级。\nyay/trizen/pacaur/aura 的 AUR 别名(yaupg、trin、pain、auin 等)只在对应助手已安装时才会定义;装了助手后 upgrade 也会连 AUR 一起升。"
  },
  "arduino-cli": {
   "cat": "补全增强",
   "detail": "为 Arduino 命令行工具 arduino-cli 提供命令与参数自动补全。",
-  "summary": "Arduino CLI 补全"
+  "summary": "Arduino CLI 补全",
+  "usage": "为 Arduino 官方 CLI 提供补全:arduino-cli <Tab> 补全 compile/upload/board/lib/core 等子命令及板型、端口等参数。\n补全脚本在插件加载时由 arduino-cli completion zsh 生成并缓存到 $ZSH_CACHE_DIR/completions;需先安装 arduino-cli,否则插件直接跳过。"
  },
  "argocd": {
   "cat": "容器与云运维",
@@ -60,7 +84,8 @@
  "asdf": {
   "cat": "包管理与环境",
   "detail": "为多语言版本管理器 asdf 提供命令补全。",
-  "summary": "asdf 版本管理补全"
+  "summary": "asdf 版本管理补全",
+  "usage": "启用后插件只做两件事:把 ~/.asdf/shims(ASDF_DATA_DIR/shims)插到 PATH 最前,并生成加载 asdf 的 zsh 补全;不提供别名。\n本体三件事:装 asdf plugin add nodejs && asdf install nodejs 20.10.0(或 latest);切 asdf global nodejs 20 / asdf set nodejs 20(当前目录,-p 父目录、-u 家目录);看 asdf current。新装版本命令找不到时跑 asdf reshim 重建 shims。需先安装 asdf 并在 PATH 中。"
  },
  "autoenv": {
   "aliases": {
@@ -105,14 +130,20 @@
   "summary": "Bazel 补全"
  },
  "bbedit": {
+  "aliases": {
+   "bbd": "bbdiff 的别名,在 BBEdit 中比较两个文件",
+   "bbpb": "把剪贴板内容新建为 BBEdit 文档"
+  },
   "cat": "编辑器与终端",
   "detail": "为 macOS 文本编辑器 BBEdit 提供 bbd / bburl 等命令,从终端打开文件或 URL。",
-  "summary": "BBEdit 命令行集成"
+  "summary": "BBEdit 命令行集成",
+  "usage": "需安装 BBEdit 及其命令行工具。\n`bb` 不带参数直接启动 BBEdit;`bb 目录` 打开该目录并 cd 进去;`bb 文件` 在 BBEdit 中打开文件。\n`bbpb` 把剪贴板内容新建成一个 BBEdit 文档;`bbd 旧文件 新文件` 调起 BBEdit 的 diff 窗口比较两个文件。"
  },
  "bedtools": {
   "cat": "补全增强",
   "detail": "为生物信息学工具 bedtools(基因组区间运算)提供子命令补全。",
-  "summary": "bedtools 补全"
+  "summary": "bedtools 补全",
+  "usage": "为基因组区间分析套件 bedtools 提供补全:bedtools <Tab> 列出 intersect/merge/sort/getfasta/genomecov 等全部子命令,每项附一句功能说明;选中子命令后的参数位置自动回退为文件补全。\n纯补全插件,不定义别名。"
  },
  "bgnotify": {
   "cat": "快捷键与效率",
@@ -121,14 +152,23 @@
   "usage": "挂着编译/训练切去别的窗口?命令结束且耗时超过阈值时,系统弹桌面通知(可带声音)。BGNOTIFY_THRESHOLD 设秒数。"
  },
  "bower": {
+  "aliases": {
+   "bi": "bower install:安装 bower.json 依赖",
+   "bis": "bower install --save:安装并写入 dependencies",
+   "bisd": "bower install --save-dev:安装并写入 devDependencies",
+   "bl": "bower list:列出本地包及可用更新",
+   "bs": "bower search:搜索包"
+  },
   "cat": "包管理与环境",
   "detail": "为前端包管理器 bower 提供补全和 bi=install、bu=update 等别名。",
-  "summary": "Bower 补全与别名"
+  "summary": "Bower 补全与别名",
+  "usage": "bi = 按 bower.json 装依赖,bis = 安装并写入 dependencies,bisd = 写入 devDependencies;bl = 列本地包及可用更新,bs 关键字 = 搜索包。附 bower 子命令与已装包补全(uninstall/update 也能 Tab 选包)。需 npm i -g bower。"
  },
  "branch": {
   "cat": "版本控制",
   "detail": "提供 branch 命令,快速打印当前 Git 或 Mercurial 仓库的分支名(Mercurial 还会显示书签),适合放进提示符。",
-  "summary": "快速显示当前分支名"
+  "summary": "快速显示当前分支名",
+  "usage": "无命令无别名,只提供一个速度极快的 branch_prompt_info 函数:直接读 .git/HEAD 或 .hg/branch 文件显示当前分支,不调用 git/hg 进程,比 hg branch 快一个数量级。git 仓库显示「± 分支名」,hg 仓库显示「☿ 分支/书签」。\n用法:把主题复制到 $ZSH_CUSTOM/themes/,将 PROMPT 中的 $(git_prompt_info) 换成 $(branch_prompt_info),即可同时兼容 git 与 mercurial 仓库。"
  },
  "brew": {
   "aliases": {
@@ -151,7 +191,8 @@
  "buf": {
   "cat": "补全增强",
   "detail": "为 Protobuf 工具链 buf 提供命令与参数补全。",
-  "summary": "Buf 补全"
+  "summary": "Buf 补全",
+  "usage": "为 Protocol Buffers 工具 Buf CLI 提供补全:buf <Tab> 补全 build/lint/format/generate 等子命令与参数。\n插件加载时调用 buf completion zsh 生成补全脚本并缓存,之后不再重复生成;需先安装 buf。"
  },
  "bun": {
   "cat": "编程语言与框架",
@@ -186,7 +227,8 @@
  "cask": {
   "cat": "包管理与环境",
   "detail": "为 Homebrew Cask(GUI 应用安装)提供 caski=安装、caskl=列表等别名。",
-  "summary": "Homebrew Cask 别名"
+  "summary": "Homebrew Cask 别名",
+  "usage": "注意:这是 Emacs 项目管理工具 Cask,不是 Homebrew Cask;插件不含任何别名,只在检测到 cask 命令后,从 Homebrew 等非标准位置加载 cask_completion.zsh 补全。需先安装 Cask,并保证加载 OMZ 之前 cask 已在 PATH(否则启动报 command not found);之后 cask install、cask exec 等子命令均可 Tab 补全。"
  },
  "catimg": {
   "aliases": {
@@ -198,9 +240,20 @@
   "usage": "catimg 图片.png 直接在终端里把图片渲染成彩色字符画(可加第二参数调分辨率)。依赖 ImageMagick 的 magick/convert。"
  },
  "cdk": {
+  "aliases": {
+   "cdkboot": "cdk bootstrap:引导 CDK 环境",
+   "cdkdeploy": "cdk deploy:将栈部署到 AWS",
+   "cdkdestroy": "cdk destroy:销毁已部署的栈",
+   "cdkdiff": "cdk diff:比较已部署栈与本地栈的差异",
+   "cdkdoc": "cdk docs:打开 CDK 文档",
+   "cdkl": "cdk list:列出应用中的所有栈",
+   "cdksynth": "cdk synth:合成 CloudFormation 模板",
+   "cdkwatch": "cdk watch:监视变更并自动部署"
+  },
   "cat": "补全增强",
   "detail": "为 AWS 云开发工具包 cdk 命令提供补全。",
-  "summary": "AWS CDK 补全"
+  "summary": "AWS CDK 补全",
+  "usage": "为 AWS CDK CLI 提供别名与补全:cdk <Tab> 由 cdk --get-yargs-completions 实时补全子命令与参数。\n日常循环:cdkl 看栈列表 → cdkdiff 比对变更 → cdkdeploy 部署 → cdkdestroy 销毁;cdksynth 生成 CloudFormation 模板,cdkboot 做一次性引导。\n需先 npm install -g aws-cdk。"
  },
  "celery": {
   "cat": "编程语言与框架",
@@ -210,17 +263,23 @@
  "charm": {
   "cat": "补全增强",
   "detail": "为 Charm 生态(tools like glow、charm 等)的命令提供补全。",
-  "summary": "Charm 工具集补全"
+  "summary": "Charm 工具集补全",
+  "usage": "为 Charm 生态的命令行工具 charm 提供补全:charm <Tab> 补全子命令与参数,补全脚本由 charm completion zsh 生成并缓存。\n需先安装 charm,未安装则插件不生效;纯补全,不定义别名。"
  },
  "chezmoi": {
   "cat": "补全增强",
   "detail": "为 dotfiles 管理工具 chezmoi 提供命令补全。",
-  "summary": "chezmoi 补全"
+  "summary": "chezmoi 补全",
+  "usage": "为 dotfiles 管理器 chezmoi 提供补全:chezmoi <Tab> 补全 init/add/apply/edit/diff/update 等子命令及参数。\n补全脚本由 chezmoi completion zsh 在加载时生成并缓存;需先安装 chezmoi,纯补全、无别名。"
  },
  "chruby": {
+  "aliases": {
+   "rubies": "chruby 本体:列出并切换已安装的 Ruby"
+  },
   "cat": "包管理与环境",
   "detail": "自动加载 chruby 并默认切换到指定的 Ruby 版本(通过 CHRUBY_DEFAULT 配置)。",
-  "summary": "chruby Ruby 版本切换"
+  "summary": "chruby Ruby 版本切换",
+  "usage": "自动加载 chruby 及 auto.sh(查找顺序:zstyle :omz:plugins:chruby path/auto 指定 → /usr/local/share/chruby → Homebrew),cd 进带 .ruby-version 的目录自动切 Ruby。\nrubies = chruby 列出全部已装 Ruby,chruby ruby-3.3 切换,chruby system 回系统 Ruby;提供 chruby_prompt_info 给主题显示当前版本,另附 chruby 与 ruby-build 定义的补全。需安装 chruby(brew install chruby)。"
  },
  "chucknorris": {
   "aliases": {
@@ -246,7 +305,8 @@
  "codex": {
   "cat": "补全增强",
   "detail": "为 OpenAI 的编程助手命令行工具 codex 提供补全。",
-  "summary": "OpenAI Codex CLI 补全"
+  "summary": "OpenAI Codex CLI 补全",
+  "usage": "为 OpenAI Codex CLI 提供补全:codex <Tab> 补全子命令与参数。\n加载时后台执行 codex completion zsh 生成补全脚本并缓存(生成失败会静默跳过);需先安装 codex,纯补全、无别名。"
  },
  "coffee": {
   "cat": "编程语言与框架",
@@ -370,9 +430,20 @@
   "usage": "数据分析工具 dbt 的别名集,围绕「只处理改动过的模型」:dbtrtm 一条命令跑完 改动模型+测试;dbtfrt 全量重建;dbtcds 生成并本地预览文档站点。"
  },
  "debian": {
+  "aliases": {
+   "aar": "sudo $apt_pref autoremove:清理不再需要的包",
+   "acs": "apt-cache search:搜索包",
+   "ad": "sudo $apt_pref update:刷新软件包索引",
+   "adg": "sudo $apt_pref update && upgrade:更新并升级一条龙",
+   "ai": "sudo $apt_pref install:安装包",
+   "ap": "sudo $apt_pref purge:卸载并清配置",
+   "au": "sudo $apt_pref $apt_upgr:只升级",
+   "di": "sudo dpkg -i:安装本地 .deb"
+  },
   "cat": "包管理与环境",
   "detail": "为 apt/aptdpkg 提供简写别名:agu=apt 更新、ai=安装、ap=清除等。",
-  "summary": "Debian/Ubuntu apt 别名"
+  "summary": "Debian/Ubuntu apt 别名",
+  "usage": "后端自动选:装了 aptitude 用 aptitude(safe-upgrade),否则 apt,再退 apt-get(可预设 apt_pref/apt_upgr 覆盖);无 sudo 的环境别名自动改用 su。\nai 包名 = 安装,ad = 刷索引,adg = update+upgrade 一条龙,ap = purge 连配置卸载,aar = autoremove;acs 关键字 = 搜索,app 包名 = 看版本来源,di x.deb = 装 local deb(dia 装当前目录全部 .deb),ail 可管道批量装(每行取第一个词)。\n函数:apt-history install/remove 查 dpkg 日志历史,apt-list-packages 按体积排已装包,apt-copy 生成复刻系统的安装脚本。"
  },
  "deno": {
   "cat": "编程语言与框架",
@@ -404,9 +475,20 @@
   "usage": "全自动,无需操作:每次 cd 都把最近 20 个不重复目录持久化到 ~/.zdirs,新开终端自动还原 dirstack。\n效果:刚登录 shell 也能 cd - 回到上次所在目录,cd -<n> 直接回到第 n 个最近访问的目录,cd - 后按 Tab 还能列出候选。"
  },
  "dnf": {
+  "aliases": {
+   "dnfc": "sudo dnf clean all:清缓存",
+   "dnfi": "sudo dnf install:安装包",
+   "dnfli": "dnf list --installed:列已装包",
+   "dnfmc": "dnf makecache:重建元数据缓存",
+   "dnfp": "dnf info:显示包详情",
+   "dnfr": "sudo dnf remove:卸载包",
+   "dnfs": "dnf search:搜索包",
+   "dnfu": "sudo dnf upgrade:升级包"
+  },
   "cat": "包管理与环境",
   "detail": "为 Fedora/RHEL 的 dnf 提供别名:duds=搜索、dnfs=安装、dnfu=升级等。",
-  "summary": "DNF 包管理别名"
+  "summary": "DNF 包管理别名",
+  "usage": "dnfi 包名 = 安装,dnfr = 卸载,dnfu = 升级,dnfur = 刷新元数据再升级;dnfs 关键字 = 搜索,dnfp 包名 = 详情,dnfli = 列已装,dnfmc = 重建缓存,dnfc = 清缓存。\n包组:dnfgl 列出 / dnfgi 安装 / dnfgr 卸载;系统装有 dnf5 时所有别名自动指向 dnf5(组命令语法随之切换为 group list/install/remove)。"
  },
  "dnote": {
   "cat": "文档与笔记",
@@ -446,9 +528,20 @@
   "usage": "项目目录里放 .env 文件,cd 进来自动加载其中环境变量(export 形式),离开自动卸载;敏感项目可用 source_if_not_found? 关闭提示。"
  },
  "dotnet": {
+  "aliases": {
+   "db": "dotnet build:构建项目",
+   "dn": "dotnet new:创建新项目或文件",
+   "dp": "dotnet pack:创建 NuGet 包",
+   "dr": "dotnet run:构建并运行项目",
+   "dres": "dotnet restore:还原依赖项",
+   "dt": "dotnet test:运行单元测试",
+   "dw": "dotnet watch:监视源码变更并重启命令",
+   "dwr": "dotnet watch run:变更后自动重启运行"
+  },
   "cat": "补全增强",
   "detail": "为 .NET 的 dotnet 命令提供补全。",
-  "summary": ".NET CLI 补全"
+  "summary": ".NET CLI 补全",
+  "usage": "为 .NET CLI 提供补全与别名:补全实时调用 dotnet complete 计算,dotnet <Tab> 可补全 build/run/test/publish 等子命令与参数(机制与 node 插件的 npm 补全同款)。\n常用别名:db 构建、dr 运行、dt 测试、dwr 改代码自动重启运行、dp 打 NuGet 包。"
  },
  "droplr": {
   "aliases": {
@@ -470,9 +563,17 @@
   "summary": "ExpressionEngine CLI 补全"
  },
  "emacs": {
+  "aliases": {
+   "e": "用 emacsclient 快速打开文件,打开后立即返回",
+   "eeval": "在 Emacs 外部执行 elisp 表达式",
+   "eframe": "新建一个图形 frame",
+   "emacs": "emacsclient 启动器加 --no-wait,与 e 等价",
+   "te": "在终端里打开 emacsclient(-nw)"
+  },
   "cat": "编辑器与终端",
   "detail": "为 emacsclient 提供一系列别名(当前窗口打开、新窗口打开、终端态打开等),配合 Emacs 守护进程秒开文件。",
-  "summary": "Emacs 客户端别名"
+  "summary": "Emacs 客户端别名",
+  "usage": "利用 Emacs daemon 能力,一个常驻 Emacs 进程接管所有 frame,打开文件秒开、多 frame 共享缓冲区(需 Emacs 24+)。\n`e 文件` 用 emacsclient 快速打开(已有图形 frame 就复用,没有则新建);`te 文件` 在终端里打开(-nw);`eframe` 另开一个图形 frame。\n`eeval '(表达式)'` 相当于在 Emacs 外执行 M-x eval;`efile`/`ecd` 打印当前 buffer 打开的文件路径/所在目录。\n未自定义 EDITOR 时,插件会把 EDITOR 设为 emacsclient 启动器,git commit 等直接落到 Emacs。"
  },
  "ember-cli": {
   "cat": "编程语言与框架",
@@ -521,9 +622,20 @@
   "usage": "一条命令解压一切:extract 压缩包.tar.gz、extract xxx.zip、extract xxx.rar…格式自动识别,参数不用记;加到 PATH 的 unar/7z 等越多支持的格式越全。"
  },
  "eza": {
+  "aliases": {
+   "lD": "仅列出目录(不含点目录)的长列表",
+   "lS": "长列表并按大小排序",
+   "lT": "长列表并按时间排序(最新在后)",
+   "la": "长列表列出所有文件(不含 . 和 ..)",
+   "ldot": "仅列出点文件(目录作为条目显示)",
+   "ll": "长列表列出文件",
+   "ls": "直接调用 eza 代替原 ls",
+   "lsd": "网格列出指定文件,目录作为条目显示"
+  },
   "cat": "版本控制",
   "detail": "把 ls 替换为现代化的 eza(原 exa),带图标、git 状态和彩色输出。需安装 eza。",
-  "summary": "eza 替代 ls"
+  "summary": "eza 替代 ls",
+  "usage": "需先安装 eza(brew install eza),否则插件启动即报错退出。启用后常用列表命令全部换成 eza:ll 长列表、la 含隐藏文件、ldot 只看点文件、lS 按大小排、lT 按时间排。\n可在加载 OMZ 之前用 zstyle 统一定制所有别名,如:zstyle ':omz:plugins:eza' 'icons' yes 加图标、'git-status' yes 附带 git 状态列、'dirs-first' yes 目录排前、'header' yes 显示表头。"
  },
  "fabric": {
   "cat": "容器与云运维",
@@ -551,7 +663,8 @@
  "fbterm": {
   "cat": "编辑器与终端",
   "detail": "在真实终端(/dev/tty*)环境下自动启动帧缓冲终端 fbterm,获得更好的中文与字体支持。",
-  "summary": "TTY 自动启动 fbterm"
+  "summary": "TTY 自动启动 fbterm",
+  "usage": "需安装 fbterm(帧缓冲终端,可在无 X 的 tty 下显示中文)。\n仅当登录在真实终端(/dev/tty*)时生效:自动启动 `fbterm`,退出 fbterm 即注销会话。\n在 X/图形终端里启用后无任何影响。"
  },
  "firewalld": {
   "aliases": {
@@ -579,22 +692,26 @@
  "fnm": {
   "cat": "包管理与环境",
   "detail": "为快速 Node.js 版本管理器 fnm 加载 shell 集成,自动切换项目 Node 版本。",
-  "summary": "fnm Node 版本管理"
+  "summary": "fnm Node 版本管理",
+  "usage": "生成 fnm 的 zsh 补全;写 zstyle ':omz:plugins:fnm' autostart yes(默认关)后,启动即执行 fnm env 注入环境,配合默认开启的 use-on-cd,cd 进含 .node-version/.nvmrc 的目录自动切 node。\n本体三件事:装 fnm install 20;切 fnm use 20 / fnm default 20;看 fnm list。需先安装 fnm。"
  },
  "foot": {
   "cat": "编辑器与终端",
   "detail": "为 Wayland 终端模拟器 foot 提供 shell 集成,支持提示符通知等特性。",
-  "summary": "foot 终端集成"
+  "summary": "foot 终端集成",
+  "usage": "给 Wayland 终端 foot 提供 shell 集成,自动在提示符前后输出 OSC 133 标记(需在 foot 终端里使用)。\n之后按 ctrl+shift+n 新开的 foot 实例会落在当前工作目录;ctrl+shift+z / ctrl+shift+x 在历史命令的提示符之间上下跳转。\n再在 foot 配置里绑定 pipe-command-output(如 ctrl+shift+g),可把上一条命令的输出管道给指定程序(例如临时存文件后用 emacsclient 打开)。"
  },
  "forklift": {
   "cat": "编辑器与终端",
   "detail": "为 macOS 文件传输应用 ForkLift 提供 fltl 打开当前目录等别名。",
-  "summary": "ForkLift 命令行集成"
+  "summary": "ForkLift 命令行集成",
+  "usage": "需 macOS + ForkLift 文件管理器。\n`fl` 在 ForkLift 中打开当前目录;`fl 目录` 打开指定目录;`fl 文件` 打开它所在的目录。\n靠 AppleScript 模拟 Shift+Cmd+G 前往文件夹,首次使用需在系统设置里给终端授予「辅助功能」权限。"
  },
  "fossil": {
   "cat": "版本控制",
   "detail": "为版本控制系统 fossil 提供命令补全。",
-  "summary": "Fossil 补全"
+  "summary": "Fossil 补全",
+  "usage": "需安装 fossil。提供 fossil 子命令补全和 fossil_prompt_info 提示符函数:显示当前分支及工作区状态(✔ 干净 / ✖ 有改动)。\n加载后会通过 precmd 钩子自动把 $(fossil_prompt_info) 追加到 PROMPT 或 RPROMPT(主题 PROMPT 含 git 信息时挂 PROMPT,否则挂 RPROMPT),无需手改主题;可用 ZSH_THEME_FOSSIL_PROMPT_PREFIX/SUFFIX/DIRTY/CLEAN 变量定制外观。"
  },
  "frontend-search": {
   "cat": "历史与搜索",
@@ -611,7 +728,8 @@
  "gas": {
   "cat": "版本控制",
   "detail": "为 gas(git author switcher)提供补全,方便多身份提交时切换 git 用户信息。",
-  "summary": "git 作者身份切换"
+  "summary": "git 作者身份切换",
+  "usage": "需安装 gas(Ruby 编写的 Git 作者切换工具)。启用后为 gas 命令提供 zsh 补全:Tab 可列出全部子命令——add(添加作者)、list(列出作者)、use(切换作者,如 gas use <名字>)、delete、import、ssh、show、version,子命令参数同样可补全。"
  },
  "gatsby": {
   "cat": "编程语言与框架",
@@ -646,7 +764,8 @@
  "gh": {
   "cat": "版本控制",
   "detail": "为 GitHub 官方 CLI gh 提供补全和 gco=pr checkout、gpv=pr view、gv=repo view 等常用别名。",
-  "summary": "GitHub CLI 别名与补全"
+  "summary": "GitHub CLI 别名与补全",
+  "usage": "需安装 GitHub CLI(gh),未安装时插件静默跳过。启用后获得 gh 命令的完整 zsh 补全:gh pr/issue/repo/run 等子命令、flag 与参数均可 Tab 补全。\n补全脚本缓存在 $ZSH_CACHE_DIR/completions/_gh,每次加载插件(通常是新开终端)时在后台跑 gh completion --shell zsh 自动更新;插件不添加任何别名。"
  },
  "git": {
   "aliases": {
@@ -679,62 +798,111 @@
  "git-auto-fetch": {
   "cat": "版本控制",
   "detail": "每次回到终端提示符时自动在后台 fetch 远程仓库,保持远程分支状态最新(默认 60 秒内不重复)。",
-  "summary": "后台自动 git fetch"
+  "summary": "后台自动 git fetch",
+  "usage": "启用后在 git 仓库里每次显示提示符时自动后台执行 git fetch --all --recurse-submodules=yes,默认 60 秒内只跑一次,可用 GIT_AUTO_FETCH_INTERVAL=1200 调整间隔(单位秒);抓取日志写入 .git/FETCH_LOG。\n在仓库里运行 git-auto-fetch 可切换该目录的自动抓取开关(输出 enabled/disabled,靠 .git/NO_AUTO_FETCH 标记文件实现),流量敏感场景按仓库禁用。\n注意:自动抓取会让 git push --force-with-lease 失去保护意义,强推前留意。"
  },
  "git-commit": {
+  "aliases": {
+   "chore": "git chore \"msg\" → chore: msg(杂务提交)",
+   "docs": "git docs \"msg\" → docs: msg(文档提交)",
+   "feat": "git feat [-s 范围] [-a] \"msg\" → feat: msg,新功能提交",
+   "fix": "git fix -s router \"msg\" → fix(router): msg,修 bug 提交",
+   "perf": "git perf \"msg\" → perf: msg(性能优化提交)",
+   "rev": "git rev [-s 范围] \"msg\" → revert: msg(回滚提交)",
+   "style": "git style \"msg\" → style: msg(格式调整提交)",
+   "test": "git test \"msg\" → test: msg(测试提交)"
+  },
   "cat": "版本控制",
   "detail": "提供 _git_commit 辅助,快速按 Conventional Commits 规范写 commit 类型(feat/fix/chore 等)。",
-  "summary": "Conventional Commits 快捷命令"
+  "summary": "Conventional Commits 快捷命令",
+  "usage": "启用后自动写入一组 git config 全局别名,按 conventional commits 风格提交:git fix -s router \"correct redirect link\" 提交为 fix(router): correct redirect link;加 -a 生成感叹号标记破坏性改动,如 git feat -a \"新 API\" → feat!: 新 API。\n支持 build/chore/ci/docs/feat/fix/perf/refactor/style/test/wip 共 12 类(revert 用 rev,避免与 git revert 冲突)。\n注意:会覆盖你手动配置的同名 alias.<type>。"
  },
  "git-escape-magic": {
   "cat": "版本控制",
   "detail": "在命令行输入类 URL 文本时自动为点和斜杠加转义,方便直接粘贴文件路径到 git 等命令。",
-  "summary": "自动转义 URL 特殊字符"
+  "summary": "自动转义 URL 特殊字符",
+  "usage": "纯 zle 输入增强:在 git 命令行上输入 ~ ^ { } 等 git 对象元字符时自动按需加反斜杠转义,免去手动转义。例如直接输 git diff HEAD^、git show v1.0^{}、git log topic~2 不会再被 zsh 当作通配/替换语法报错。\n若同时使用 url-quote-magic,必须先加载它再加载本插件,避免冲突。"
  },
  "git-extras": {
   "cat": "版本控制",
   "detail": "为 git-extras 扩展命令集(git-summary、git-effort 等)提供补全。",
-  "summary": "git-extras 补全"
+  "summary": "git-extras 补全",
+  "usage": "需安装 git-extras(tj/git-extras)。启用后为其几十个子命令提供 zsh 补全,如 git summary(仓库概况)、git changelog(按 tag 生成变更日志)、git effort(文件改动热度)、git standup(看我昨天的提交)、git undo(撤销上次提交)、git release / git squash / git delete-branch 等,命令名、分支名、tag 名均可 Tab 补全。\n补全基于 zsh 自带的 _git 实现,Homebrew 装的 git 需卸载其捆绑补全才生效;不添加任何别名。"
  },
  "git-flow": {
+  "aliases": {
+   "gcd": "检出 develop 分支",
+   "gflff": "完成指定 feature(gflff <name>)",
+   "gflffc": "完成当前 feature,自动填分支名",
+   "gflfpc": "发布当前 feature,自动填分支名",
+   "gflfs": "开始一个新 feature(gflfs <name>)",
+   "gflhf": "完成指定 hotfix(gflhf <version>)",
+   "gflhs": "开始一个新 hotfix(gflhs <version>)",
+   "gfli": "初始化 git-flow 仓库"
+  },
   "cat": "版本控制",
   "detail": "为 git-flow 分支模型插件的命令提供补全(原版仓库)。",
-  "summary": "git-flow 补全(HV)"
+  "summary": "git-flow 补全(HV)",
+  "usage": "需安装 git-flow(nvie 版)。启用后获得 git flow 全套补全和别名:gfli 初始化 → gflfs <name> 开功能分支 → gflff <name> 完成;gflhs <ver>/gflhf <ver> 开/收热修复,gflrs <ver>/gflrf <ver> 开/收发布分支;gcd 直达 develop。\n带 c 的别名一步操作当前分支:gflffc 完成当前 feature、gflfpc 发布当前 feature、gflhfc/gflrfc 同理;gflfpll <remote> <name> 拉别人的 feature。"
  },
  "git-flow-avh": {
   "cat": "版本控制",
   "detail": "为广泛使用的 AVH 版 git-flow 提供补全(推荐用这个,比原版更活跃)。",
-  "summary": "git-flow (AVH) 补全"
+  "summary": "git-flow (AVH) 补全",
+  "usage": "需安装 git-flow (AVH Edition)(brew install git-flow-avh)。启用后为 git flow 提供完整 zsh 补全,覆盖 init/feature/bugfix/release/hotfix/config 子命令:git flow feature finish <Tab> 直接列出所有 feature 分支,分支名、远程名、版本号均可补全。\n要求使用 zsh 自带的 _git 补全(默认即是,Homebrew 安装的 git 需卸载其捆绑补全);不添加任何别名。"
  },
  "git-hubflow": {
+  "aliases": {
+   "ghf": "打印 git hf 命令总览",
+   "ghff": "管理 feature 分支(git hf feature)",
+   "ghfh": "管理 hotfix 分支(git hf hotfix)",
+   "ghfr": "管理 release 分支(git hf release)",
+   "ghfs": "管理 support 分支(git hf support)",
+   "ghfu": "把上游变更拉取到 master 和 develop"
+  },
   "cat": "版本控制",
   "detail": "为 GitHub Flow 工作流工具 git-hubflow 提供补全。",
-  "summary": "git-hubflow 补全"
+  "summary": "git-hubflow 补全",
+  "usage": "需安装 HubFlow(datasift 的 git hf 命令,面向 GitHub 的 GitFlow)。启用后获得 git hf 补全和 6 个别名:ghf 看命令总览,ghff/ghfr/ghfh/ghfs 分别管理 feature/release/hotfix/support 分支,ghfu 同步上游。\n例如 ghff start <name> 即 git hf feature start <name>,ghff finish <name> 完成功能分支;所有子命令与分支名均可 Tab 补全。"
  },
  "git-lfs": {
+  "aliases": {
+   "glfsi": "安装 git-lfs 钩子(git lfs install)",
+   "glfsls": "列出被 LFS 管理的文件(git lfs ls-files)",
+   "glfsmi": "把历史中的指定文件迁移进 LFS(git lfs migrate import --include=<路径>)",
+   "glfst": "跟踪大文件类型(git lfs track,如 glfst \"*.psd\")"
+  },
   "cat": "版本控制",
   "detail": "为大文件存储扩展 git lfs 提供命令补全。",
-  "summary": "Git LFS 补全"
+  "summary": "Git LFS 补全",
+  "usage": "需安装 git-lfs。启用后 4 个别名覆盖常用操作:glfsi 初始化仓库钩子 → glfst \"*.psd\" 把类型写入 .gitattributes 开始跟踪 → glfsls 查看 LFS 管理的文件;glfsmi 后接路径可把历史提交里的大文件迁移进 LFS。\n另有函数 gplfs:把当前分支的全部 LFS 对象推送到 origin(等价 git lfs push origin <当前分支> --all),推送超时后可用它补推。"
  },
  "git-prompt": {
   "cat": "版本控制",
   "detail": "在 zsh 提示符中显示当前分支名和详细仓库状态(可显示 ahead/behind、暂存状态等),是 OMZ git 主题的基础。需 bash 的 __git_ps1 风格配置。",
-  "summary": "提示符显示 git 状态"
+  "summary": "提示符显示 git 状态",
+  "usage": "依赖 python3。启用后在主题里调用 git_super_status 函数即可显示富 git 状态,如 (master↑3|✚1):领先远程 3 个提交、1 个文件未暂存;(experimental↓2↑3|✔):与远程分叉但工作区干净。\n本地状态符号:●n 已暂存、✚n 未暂存、-n 已删除、✖n 冲突、⚑n 条 stash、… 有未跟踪文件、✔ 干净。\n设 ZSH_THEME_GIT_PROMPT_CACHE 启用缓存提速,设 ZSH_THEME_GIT_SHOW_UPSTREAM 显示上游分支名;提示符外观可用 ZSH_THEME_GIT_PROMPT_* 变量微调。"
  },
  "gitfast": {
   "cat": "版本控制",
   "detail": "用优化过的缓存脚本提供 git 命令补全,在大仓库中比默认补全更快。",
-  "summary": "高性能 git 补全"
+  "summary": "高性能 git 补全",
+  "usage": "用 git 官方团队维护的补全替换 zsh 自带的 _git:分支、远程、文件路径、提交哈希等补全在大仓库里明显更快、更健壮,并跟随最新 git 上游更新(代价是不支持参数中文描述等 zsh 特性)。\n同时用 git 的 __git_ps1 重定义 git_prompt_info,主题提示符也比 OMZ 默认实现快。装完即生效,无需配置,不添加别名。"
  },
  "github": {
+  "aliases": {
+   "git": "安装了 hub 时用 hub 包装 git,解锁 git pull-request、git compare 等 hub 扩展命令"
+  },
   "cat": "版本控制",
   "detail": "提供 gh 的社区版别名:gho=打开仓库页面、ghpr=查看 PR 等(官方 gh 插件更常用)。",
-  "summary": "gh 命令别名(社区)"
+  "summary": "gh 命令别名(社区)",
+  "usage": "装了 hub(brew install hub)时自动 alias git=hub,hub 的 pull-request/compare 等扩展子命令直接可用,补全也会生效;github Ruby gem 的补全同理(需先 gem 安装)。\n内置三个一键函数:empty_gh <name> 新建带 README.md 的仓库并推上 GitHub;new_gh <dir> 把现有目录 git init 后创建远程仓库并推送;exist_gh <dir> 给已有仓库建远程并推送(均依赖 hub create,需先完成 GitHub 认证)。"
  },
  "gitignore": {
   "cat": "版本控制",
   "detail": "提供 gi 命令,按模板组合生成 .gitignore:gi macos,python >> .gitignore 即可得两套模板合集,模板来自 gitignore.io 在线服务。",
-  "summary": "gitignore.io 模板生成 .gitignore"
+  "summary": "gitignore.io 模板生成 .gitignore",
+  "usage": "提供 gi 函数从 gitignore.io 拉取忽略规则模板(需联网):gi list 列出全部支持模板;gi java 预览对应规则;gi java,maven,macos >> .gitignore 把多套模板一次追加进项目 .gitignore。\n模板名支持 Tab 补全,列表有本地缓存并自动刷新。"
  },
  "glassfish": {
   "cat": "编程语言与框架",
@@ -783,12 +951,14 @@
  "grunt": {
   "cat": "补全增强",
   "detail": "为前端构建工具 grunt 提供任务名自动补全。",
-  "summary": "Grunt 任务补全"
+  "summary": "Grunt 任务补全",
+  "usage": "为 Grunt 任务运行器提供智能补全:grunt <Tab> 会向上级目录查找 Gruntfile.js/.coffee,解析出任务名与 --help 选项一并补全,结果缓存(gruntfile 变更即失效,默认 7 天过期)。\n缓存需在 .zshrc 中设置 zstyle ':completion:*' use-cache yes;另可用 zstyle 把 show_grunt_path 设为 yes,在补全提示里显示所用 gruntfile 的路径。"
  },
  "gulp": {
   "cat": "补全增强",
   "detail": "为流式构建工具 gulp 提供任务名自动补全。",
-  "summary": "Gulp 任务补全"
+  "summary": "Gulp 任务补全",
+  "usage": "为 gulp.js 提供任务补全:gulp <Tab> 执行 gulp --tasks-simple,把当前目录 gulpfile.js 中注册的所有任务名列出来供选择。\n需项目本地装有 gulp;纯补全插件,不定义别名。"
  },
  "hanami": {
   "cat": "编程语言与框架",
@@ -898,7 +1068,8 @@
  "iterm2": {
   "cat": "编辑器与终端",
   "detail": "为 macOS 终端 iTerm2 提供Shell 集成:命令状态提示、最近目录列表 iterm2_print_user_vars 等配套工具。",
-  "summary": "iTerm2 集成"
+  "summary": "iTerm2 集成",
+  "usage": "仅 macOS 的 iTerm2(检测到 ITERM_SESSION_ID)时生效。\n`iterm2_profile 名称` 一键切换当前窗口的 profile(配色/字体等);`iterm2_tab_color 255 100 0` 给当前标签页上色,`iterm2_tab_color_reset` 恢复默认。\n在 source oh-my-zsh 之前写 zstyle ':omz:plugins:iterm2' shell-integration yes 可加载官方 shell 集成:每条命令都会被标记,支持点命令选中其全部输出、查看命令耗时等 iTerm2 特性。"
  },
  "jake-node": {
   "cat": "编程语言与框架",
@@ -908,7 +1079,8 @@
  "jenv": {
   "cat": "包管理与环境",
   "detail": "加载 Java 版本管理器 jenv 的 shell 集成,按目录自动切换 JDK。",
-  "summary": "jenv Java 环境集成"
+  "summary": "jenv Java 环境集成",
+  "usage": "自动找到 jenv(认 ~/.jenv、/usr/local、/opt 及 brew --prefix jenv)并执行 jenv init - zsh,启用 shims 与自动切换;未装 jenv 时 jenv_prompt_info 回退显示 system: 版本。\n提示符:jenv_prompt_info 输出当前 Java 版本名,挂进 PROMPT/RPROMPT 即可,如 RPROMPT='$(jenv_prompt_info)';另会导出 JENV_ROOT。本体:jenv add $JAVA_HOME 注册 JDK,jenv versions 看,jenv global 17 / jenv local 11 切。需先安装 jenv。"
  },
  "jfrog": {
   "cat": "容器与云运维",
@@ -916,9 +1088,20 @@
   "summary": "JFrog CLI 补全"
  },
  "jhbuild": {
+  "aliases": {
+   "jh": "jhbuild 本体",
+   "jhb": "build:按依赖关系构建模块",
+   "jhbo": "buildone:只构建单个模块",
+   "jhi": "info:显示模块信息",
+   "jhl": "list:列出将要构建的模块",
+   "jht": "tinderbox:构建并生成网页测试报告",
+   "jhu": "update:更新模块源码",
+   "jhuo": "updateone:只更新单个模块源码"
+  },
   "cat": "补全增强",
   "detail": "为 GNOME 模块构建系统 jhbuild 提供补全。",
-  "summary": "JHBuild 补全"
+  "summary": "JHBuild 补全",
+  "usage": "为 GNOME 源码构建工具 JHBuild 提供一组别名:jhb 全量构建、jhbo 单模块构建、jhu 更新源码、jhuo 单模块更新、jhi 查看模块信息、jht 跑 tinderbox(构建并生成网页报告)。\n要进入构建出的开发环境,用 jhsh(等于 jhbuild shell)。"
  },
  "jira": {
   "cat": "版本控制",
@@ -926,9 +1109,20 @@
   "summary": "Jira CLI 集成"
  },
  "jj": {
+  "aliases": {
+   "jjc": "提交当前 change 的描述修改(jj commit)",
+   "jjd": "查看差异(jj diff)",
+   "jjgcl": "克隆 jj 仓库(jj git clone <url>)",
+   "jjgp": "推送(jj git push)",
+   "jjl": "查看提交图(jj log)",
+   "jjn": "新建 change(jj new)",
+   "jjrt": "跳转到 jj 仓库根目录",
+   "jjst": "查看工作区状态(jj status)"
+  },
   "cat": "版本控制",
   "detail": "为新一代分布式版本控制工具 jj(Jujutsu)提供命令补全。",
-  "summary": "Jujutsu 补全"
+  "summary": "Jujutsu 补全",
+  "usage": "需安装 jujutsu(jj)。启用后 38 个别名加补全:jjst 看状态 → jjd 看差异 → jjds 写描述 → jjn 开新 change;jjgcl <url> 克隆、jjgf/jjgfa 拉取、jjgp 推送(jjnt 在 trunk() 上新建,jjrbm 变基到 trunk);jjrt 跳仓库根。\n主题里可用 jj_prompt_template '模板' 读取当前 change 信息(如 change id 短哈希);提示符卡顿可配 zstyle :omz:plugins:jj ignore-working-copy yes 提速。"
  },
  "jruby": {
   "cat": "编程语言与框架",
@@ -942,9 +1136,20 @@
   "usage": "管道式 JSON 工具,搭配 curl 食用:curl .../api | pp_json 美化输出;echo '{\"a\":1}' | isjson 校验合法性;另有 urlencode 系列、to_json/from_json 等,接口调试不再裸看一行长 JSON。"
  },
  "juju": {
+  "aliases": {
+   "j": "juju 本体",
+   "jb": "bootstrap:初始化一个 Juju 云环境",
+   "jctl": "controllers:列出所有控制器",
+   "jd": "deploy:部署新的应用或 bundle",
+   "jdm": "destroy-model:不可恢复地删除一个模型",
+   "jssh": "ssh:在 Juju 目标上发起 SSH 会话",
+   "jst": "status --relations --color:彩色显示状态(含关系)",
+   "jsw": "switch:切换或查看当前控制器与模型"
+  },
   "cat": "补全增强",
   "detail": "为 Canonical 的编排工具 juju 提供命令补全。",
-  "summary": "Juju 补全"
+  "summary": "Juju 补全",
+  "usage": "为 Canonical Juju 提供别名、函数与补全:juju <Tab> 补全子命令与选项,-c/-m 的值及 destroy-model 等位置参数还能补全已有控制器、模型名(依赖 jq)。\n别名命名约定:! 后缀等于 --force --no-wait -y,ds 后缀等于 --destroy-storage,jsh 前缀对应 juju show-*。\n常用组合:jst 看彩色状态、jb 引导环境、jd 部署应用、jsw 切换模型;jaddr karma 0 查单元 IP,wjst 2 每两秒刷新状态。"
  },
  "jump": {
   "cat": "目录与跳转",
@@ -963,9 +1168,13 @@
   "summary": "Kamal 部署补全"
  },
  "kate": {
+  "aliases": {
+   "kate": "静默启动 Kate,不向终端输出任何信息"
+  },
   "cat": "编辑器与终端",
   "detail": "为 KDE 文本编辑器 Kate 提供别名:kt=kate、ktn= Kate -n 定位行号。",
-  "summary": "Kate 编辑器别名"
+  "summary": "Kate 编辑器别名",
+  "usage": "需安装 Kate 编辑器。\n`kt 目录` 先 cd 进该目录再启动 Kate,终端与编辑器同步到位。\n别名 `kate` 被改为静默启动(输出全部丢弃),不会再在终端里刷警告信息。"
  },
  "keychain": {
   "cat": "网络与远程",
@@ -985,9 +1194,15 @@
   "usage": "为基础设施测试框架 Test Kitchen 提供补全:kitchen<Tab> 可补全 list/create/converge/verify/destroy/login 等子命令与套件名。需安装 kitchen。"
  },
  "kitty": {
+  "aliases": {
+   "kitty-theme": "交互式浏览并更换 Kitty 配色主题",
+   "kssh": "以 kitten ssh 方式登录远程机,自动同步 terminfo",
+   "kssh-slow": "kssh 失败时的兜底,手动把 xterm-kitty terminfo 编译进远程机"
+  },
   "cat": "编辑器与终端",
   "detail": "为 kitty 终端模拟器提供 shell 集成(自动重载配置、提示符通知等)。",
-  "summary": "kitty 终端集成"
+  "summary": "kitty 终端集成",
+  "usage": "只在 Kitty 终端里($TERM 为 xterm-kitty)生效。\nssh 到远程机报 terminal unknown 时改用 `kssh 主机`,它会用 kitten ssh 自动把 terminfo 带过去;kssh 仍失败就用 `kssh-slow` 手动编译 terminfo 到远程机。\n`kitty-theme` 交互式浏览并更换 Kitty 配色主题。"
  },
  "kn": {
   "cat": "容器与云运维",
@@ -1042,7 +1257,8 @@
  "lando": {
   "cat": "补全增强",
   "detail": "为本地开发环境工具 Lando 的 lando 命令提供补全。",
-  "summary": "Lando 补全"
+  "summary": "Lando 补全",
+  "usage": "为 Lando(Docker 本地开发环境)自动包装常用命令:只要当前目录或其在 ~/Sites 内的任一父目录存在 .lando.yml,artisan/composer/drush/gulp/npm/php/wp/yarn 就会自动以 lando <命令> 执行;确认不是 lando 任务时原样运行,免去手敲 lando 前缀。\n可用 LANDO_ZSH_SITES_DIRECTORY(默认 ~/Sites)、LANDO_ZSH_CONFIG_FILE(默认 .lando.yml)、LANDO_ZSH_WRAPPED_COMMANDS 自定义,须在插件加载前设置。"
  },
  "laravel": {
   "cat": "编程语言与框架",
@@ -1071,9 +1287,13 @@
   "summary": "Leiningen 补全"
  },
  "lighthouse": {
+  "aliases": {
+   "lho": "open_lighthouse_ticket:用浏览器打开指定编号的 Lighthouse 工单"
+  },
   "cat": "补全增强",
   "detail": "为 Google Lighthouse 的 lhci / lighthouse 命令提供补全。",
-  "summary": "Lighthouse CLI 补全"
+  "summary": "Lighthouse CLI 补全",
+  "usage": "为 Lighthouse 缺陷跟踪系统提供快捷命令:先在项目根目录放一个 .lighthouse-url 文件(内容为项目 URL),之后 lho 23 即用浏览器打开 23 号工单,不用再拼 URL。\n实际执行的是 open_lighthouse_ticket 函数,lho 是其唯一别名。"
  },
  "localstack": {
   "cat": "容器与云运维",
@@ -1119,9 +1339,20 @@
   "usage": "常用别名:showfiles / hidefiles 开关 Finder 隐藏文件;preview 文件 用「预览」打开;cdf 跳到 Finder 当前正打开的目录;music 系列控制音乐播放。"
  },
  "macports": {
+  "aliases": {
+   "pc": "sudo port clean --all installed:清理编译中间文件",
+   "pi": "sudo port install:安装 port",
+   "pli": "port livecheck installed:检查已装 port 更新",
+   "plm": "port-livecheck-maintainer:按维护者检查 port 更新",
+   "psu": "sudo port selfupdate:更新 MacPorts 与 ports 树",
+   "puni": "sudo port uninstall inactive:卸载非激活旧版本",
+   "puo": "sudo port upgrade outdated:升级全部过期 port",
+   "pup": "sudo port selfupdate && sudo port upgrade outdated:全量更新一条龙"
+  },
   "cat": "包管理与环境",
   "detail": "为 MacPorts 包管理器提供简写别名:porti=安装、portsu=自更新、porto=过期包列表等。",
-  "summary": "MacPorts 别名"
+  "summary": "MacPorts 别名",
+  "usage": "pi 包名 = 安装,pup = selfupdate + 升级全部过期 port 一条龙(psu 只更新 MacPorts 自身/ports 树,puo 只升级过期 port);puni = 清掉 inactive 旧版本,pc = 清理已装 port 的编译中间文件。\npli = 检查已装 port 有无新版;plm [维护者] = 查维护者名下 port 的更新(不传参默认取 $MACPORTS_MAINTAINER 或 $USER)。需安装 MacPorts。"
  },
  "magic-enter": {
   "cat": "快捷键与效率",
@@ -1138,17 +1369,30 @@
  "marked2": {
   "cat": "编辑器与终端",
   "detail": "为 macOS Markdown 预览应用 Marked 2 提供命令,从终端打开 Markdown 预览。",
-  "summary": "Marked 2 集成"
+  "summary": "Marked 2 集成",
+  "usage": "需 macOS + Marked 2(Markdown 预览器)。\n`marked README.md` 在 Marked 2 中打开并实时预览;不带参数直接启动 Marked 2。"
  },
  "marktext": {
   "cat": "编辑器与终端",
   "detail": "为开源 Markdown 编辑器 MarkText 提供命令,从终端打开 Markdown 文件预览。",
-  "summary": "MarkText 集成"
+  "summary": "MarkText 集成",
+  "usage": "需 macOS + MarkText(Markdown 编辑器)。\n`marktext README.md` 打开指定文件编辑预览;不带参数直接启动 MarkText。"
  },
  "mercurial": {
+  "aliases": {
+   "hga": "添加文件纳入版本管理(hg add)",
+   "hgb": "显示当前分支(hg branch)",
+   "hgc": "提交(hg commit)",
+   "hgd": "查看差异(hg diff)",
+   "hgl": "拉取并更新到最新(hg pull -u)",
+   "hgp": "推送(hg push)",
+   "hgs": "查看工作区状态(hg status)",
+   "hgsl": "最近 20 条单行日志(节点|日期|作者: 描述)"
+  },
   "cat": "版本控制",
   "detail": "为分布式版本控制 Mercurial 提供别名(hgst=status、hgo=outgoing 等)和补全。",
-  "summary": "hg(Mercurial)别名与补全"
+  "summary": "hg(Mercurial)别名与补全",
+  "usage": "需安装 hg(Mercurial)。启用后 20 个别名覆盖日常:hgs 看状态 → hga 加文件 → hgc 提交 → hgp 推送;hgl 拉取并更新、hglr 拉取并变基、hgi/hgo 查看未拉入/未推出的变更集,hgca 修补上次提交。\n函数 hgic/hgoc 直接统计入/出 changeset 条数;hg_prompt_info 可挂进主题显示分支与脏状态(把 $(hg_prompt_info) 加进 PROMPT 即可)。"
  },
  "meteor": {
   "cat": "编程语言与框架",
@@ -1168,7 +1412,8 @@
  "mise": {
   "cat": "包管理与环境",
   "detail": "为多语言版本/任务管理器 mise(原 rtx)加载 shell 集成,按项目自动切换工具版本。",
-  "summary": "mise 版本管理集成"
+  "summary": "mise 版本管理集成",
+  "usage": "启动即执行 mise activate zsh:钩子按 mise.toml/.tool-versions 在 cd 时自动切版本,并生成加载 mise 补全;不提供别名。\n本体三件事:装 mise install node@20 或 mise install(按配置文件);切 mise use -g node@20 设全局、mise use node@20 只管当前项目;看 mise ls / mise current。兼容 asdf 插件与 .tool-versions,可直接替代。需先安装 mise(curl https://mise.jdx.dev/install.sh | sh)。"
  },
  "mix": {
   "cat": "编程语言与框架",
@@ -1240,9 +1485,20 @@
   "usage": "MacPorts 安装的 MySQL 服务管理四件套:mysqlstart / mysqlstop / mysqlrestart / mysqlstatus(status 会提示输 root 密码)。仅适合 MacPorts 安装方式。"
  },
  "n98-magerun": {
+  "aliases": {
+   "mage": "同 n98,指向 n98-magerun.phar",
+   "mage-get": "wget 下载 n98-magerun.phar 到当前目录",
+   "mage2": "同 n98-2,指向 n98-magerun2.phar",
+   "mage2-get": "wget 下载 n98-magerun2.phar 到当前目录",
+   "magerun": "同 n98,指向 n98-magerun.phar",
+   "magerun2": "同 n98-2,指向 n98-magerun2.phar",
+   "n98": "指向 n98-magerun.phar(v1)",
+   "n98-2": "指向 n98-magerun2.phar(v2)"
+  },
   "cat": "补全增强",
   "detail": "为 Magento 电商系统的命令行工具 n98-magerun(phar)提供命令与模块补全。",
-  "summary": "Magento CLI 补全"
+  "summary": "Magento CLI 补全",
+  "usage": "为 Magento 运维工具 n98-magerun 提供补全与别名:n98-magerun <Tab>(对 v1/v2 的带 phar 与不带 phar 共四种命令名均生效)实时解析命令输出,补全全部子命令。\n别名:mage/magerun/n98 都指向 n98-magerun.phar,mage2 系列指向 v2;mage-get/mage2-get 用 wget 把最新 phar 下载到当前目录。"
  },
  "nanoc": {
   "cat": "编程语言与框架",
@@ -1252,7 +1508,8 @@
  "nats": {
   "cat": "补全增强",
   "detail": "为云原生消息队列 NATS 的命令行工具提供补全。",
-  "summary": "NATS CLI 补全"
+  "summary": "NATS CLI 补全",
+  "usage": "为 NATS 生态两个 CLI 提供补全:nats <Tab> 补全 natscli 的子命令与参数(由 nats --completion-script-zsh 生成),nsc <Tab> 补全账户/证书管理工具 nsc 的子命令(由 nsc completion zsh 生成)。\n两个工具装了哪个就启用哪个、互不依赖,补全脚本均缓存;纯补全,不定义别名。"
  },
  "nestjs": {
   "cat": "编程语言与框架",
@@ -1309,7 +1566,8 @@
  "nvm": {
   "cat": "包管理与环境",
   "detail": "加载 Node 版本管理器 nvm,默认立即加载,可设置 NVM_LAZY_LOAD=true 改为首次用到才加载;支持 NVM_AUTOLOAD 切目录自动切版本。",
-  "summary": "nvm 加载与优化"
+  "summary": "nvm 加载与优化",
+  "usage": "自动定位并 source nvm(依次找 $NVM_DIR、~/.nvm、XDG 目录、Homebrew 前缀),并加载补全。\n提速/自动化(zstyle 写在加载 OMZ 之前):':omz:plugins:nvm' lazy yes 懒加载,首次调 nvm/node/npm/yarn/corepack 等才真正载入(_omz_nvm_load 手动触发);':omz:plugins:nvm' autoload yes 后 cd 进含 .nvmrc 的目录自动 nvm use/install,离开回退 default(再加 silent-autoload yes 静默切换)。\n本体:nvm install 20 / nvm use 20 / nvm ls。需先安装 nvm。"
  },
  "oc": {
   "cat": "容器与云运维",
@@ -1418,9 +1676,15 @@
   "usage": "先在 ~/.zshrc 设 PROJECT_PATHS=(~/src ~/work),之后 pj <项目名> 直接 cd 到这些目录下的同名项目,支持 Tab 补全项目名;多个重名时取 PROJECT_PATHS 中靠前的目录。\npjo <项目名> 用 $EDITOR 打开项目目录而不切换过去。"
  },
  "please": {
+  "aliases": {
+   "pb": "plz build:构建指定目标",
+   "pt": "plz test:运行测试",
+   "pw": "plz watch:监视变更并持续重建"
+  },
   "cat": "补全增强",
   "detail": "为高性能跨语言构建工具 Please(plz)提供补全和常用别名。",
-  "summary": "please 构建工具别名与补全"
+  "summary": "please 构建工具别名与补全",
+  "usage": "为 Please 构建系统提供补全与别名:安装 plz 后,插件加载其自带补全脚本,plz <Tab> 补全子命令与构建目标。\n三个别名:pb 构建目标、pt 跑测试、pw 持续 watch,例如 pb //tools:formatter。"
  },
  "pm2": {
   "cat": "编程语言与框架",
@@ -1481,7 +1745,8 @@
  "powify": {
   "cat": "补全增强",
   "detail": "为 Basecamp pow 的易用包装工具 powify 提供补全。",
-  "summary": "powify 补全"
+  "summary": "powify 补全",
+  "usage": "为 Pow(Rack 本地开发服务器)管理工具 powify 提供两级补全:powify <Tab> 补全 create/destroy/restart/rename/browse/logs 等子命令,powify server <Tab> 补全 install/start/stop/status 等服务器管理动作。\ndestroy/restart/browse/logs 等还会列出 ~/.pow/ 下已存在的应用名供补全;纯补全,不定义别名。"
  },
  "pre-commit": {
   "aliases": {
@@ -1515,7 +1780,8 @@
  "pyenv": {
   "cat": "包管理与环境",
   "detail": "加载 Python 多版本管理器 pyenv(自动 init 设定 shell 环境,可用 PYENV_SHELL 定制),使全局/局部 Python 版本生效。",
-  "summary": "pyenv 集成"
+  "summary": "pyenv 集成",
+  "usage": "检测到 pyenv 自动 init(shims 进 PATH),发现 pyenv-virtualenv 一并启用;当前已处于虚拟环境(VIRTUAL_ENV)时本插件直接让位不加载。若启动报「badly configured」,把 export PYENV_ROOT/pyenv init --path 几行放进 .zprofile。\n提供 pyenv_prompt_info 给主题显示当前 Python 版本:ZSH_THEME_PYENV_PREFIX/SUFFIX 加装饰,ZSH_THEME_PYENV_NO_SYSTEM=true 不显示 system;ZSH_PYENV_VIRTUALENV=false 禁 virtualenv 加载,ZSH_PYENV_QUIET=true 静默警告。本体:pyenv install 3.12 / pyenv global 3.12 / pyenv versions。"
  },
  "pylint": {
   "cat": "编程语言与框架",
@@ -1581,7 +1847,8 @@
  "rclone": {
   "cat": "补全增强",
   "detail": "为网盘与对象存储同步工具 rclone 提供命令补全。",
-  "summary": "rclone 补全"
+  "summary": "rclone 补全",
+  "usage": "为云存储同步工具 rclone 提供补全:rclone <Tab> 补全 copy/sync/ls/mount/config 等大量子命令、选项与参数。\n补全脚本由 rclone completion zsh 生成,内容较大,加载时缓存到 $ZSH_CACHE_DIR/completions 后续直接复用;需先安装 rclone。"
  },
  "react-native": {
   "cat": "编程语言与框架",
@@ -1600,9 +1867,20 @@
   "usage": "为 redis-cli 提供命令与参数补全(基于 Homebrew 补全改造)。需本机安装 redis。"
  },
  "repo": {
+  "aliases": {
+   "r": "repo 本身",
+   "rfa": "对所有项目执行命令(repo forall -c '<命令>')",
+   "rfap": "对所有项目执行命令并带路径前缀输出(repo forall -p -c)",
+   "rinf": "查看清单与分支信息(repo info)",
+   "rs": "同步全部项目(repo sync)",
+   "rsrra": "先同步再对所有项目变基,自动暂存本地改动",
+   "rst": "查看工作区状态(repo status)",
+   "ru": "上传改动供评审(repo upload)"
+  },
   "cat": "版本控制",
   "detail": "为 Android 源码树管理工具 repo 提供一批常用子命令的简写别名。",
-  "summary": "AOSP repo 别名"
+  "summary": "AOSP repo 别名",
+  "usage": "需安装 Google 的 repo 多仓库管理工具(Android 源码等场景)。启用后别名加补全:rs 同步全部项目,rsrra 同步后逐项目 repo rebase --auto-stash,ru 上传评审,rst 看各项目改动状态(rsto 只看当前项目)。\n跨项目批量操作用 rfa -c '<shell 命令>'(rfap 输出带项目路径),rinf 查看清单与分支概况。"
  },
  "ros": {
   "cat": "系统管理",
@@ -1651,7 +1929,8 @@
  "samtools": {
   "cat": "补全增强",
   "detail": "为生物信息学中处理 SAM/BAM 测序数据的 samtools 提供子命令补全。",
-  "summary": "samtools 补全"
+  "summary": "samtools 补全",
+  "usage": "为高通量测序数据处理工具 samtools 提供补全:samtools <Tab> 列出 view/sort/index/flagstat/mpileup/merge 等子命令并附一句功能说明,子命令之后的参数位置回退为文件补全,便于选 BAM/SAM 文件。\n纯补全插件,不定义别名。"
  },
  "sbt": {
   "cat": "编程语言与框架",
@@ -1675,7 +1954,8 @@
  "screen": {
   "cat": "编辑器与终端",
   "detail": "为终端复用工具 screen 提供别名:sl=列出、sr=重连、sn=新命名会话、sfq=分离当前会话。",
-  "summary": "GNU Screen 别名"
+  "summary": "GNU Screen 别名",
+  "usage": "只在 GNU screen 会话里($TERM 为 screen*)生效:自动接管标签页标题与硬状态栏。\n空闲时标题显示「主机:当前目录」,敲命令时变成正在执行的命令名;硬状态栏带 [路径] 前缀。\n无需记新命令,`screen` 开个会话就能看到效果,多标签一眼分清各自在跑什么。"
  },
  "scw": {
   "cat": "容器与云运维",
@@ -1685,7 +1965,8 @@
  "sdk": {
   "cat": "包管理与环境",
   "detail": "加载 SDKMAN!(统一管理 Java/Gradle/Kotlin 等 JVM 工具链版本),自动初始化环境和补全。",
-  "summary": "SDKMAN! 集成"
+  "summary": "SDKMAN! 集成",
+  "usage": "纯补全插件:为 SDKMAN 的 sdk 命令提供完整 zsh 补全(命令、候选包、已装版本、offline/env 参数均可 Tab)。本体:sdk install java 17 装,sdk current 看,sdk use java 17 只切当前 shell,sdk default java 17 设默认,sdk env init 生成 .sdkmanrc。需先安装 SDKMAN(curl -s https://get.sdkman.io | bash)。"
  },
  "sfdx": {
   "cat": "容器与云运维",
@@ -1750,14 +2031,26 @@
   "summary": "Skaffold 补全"
  },
  "snap": {
+  "aliases": {
+   "se": "snap enable:启用已禁用的 snap",
+   "sf": "snap find:搜索商店",
+   "si": "snap install:安装 snap",
+   "sin": "snap info:查看 snap 详情",
+   "sl": "snap list:列出已装 snap",
+   "sr": "snap remove:卸载 snap",
+   "sref": "snap refresh:刷新(升级)snap",
+   "srev": "snap revert:回滚到上一版本"
+  },
   "cat": "包管理与环境",
   "detail": "为 Ubuntu Snap 包管理器提供简写别名:sin=安装、sinr=刷新升级、srem=卸载等。",
-  "summary": "Snap 别名"
+  "summary": "Snap 别名",
+  "usage": "si 包名 = 安装(--classic、--channel=xxx 照跟),sr = 卸载,sref = 刷新全部 snap,srev 包名 = 回滚到上一版本;sl = 列已装,sf 关键字 = 搜索商店,sin 包名 = 详情,sd/se = 禁用/启用。需系统装有 snapd。"
  },
  "spackenv": {
   "cat": "包管理与环境",
   "detail": "为科学计算包管理器 Spack 提供补全,并按目录自动激活/停用 Spack 环境(目录含 spack.yaml 时)。",
-  "summary": "Spack 环境自动激活"
+  "summary": "Spack 环境自动激活",
+  "usage": "提供 spackenv_prompt_info 函数供主题调用:显示当前 Spack 环境($SPACK_ENV 的目录名),默认渲染成 [环境名],用 ZSH_THEME_SPACKENV_PREFIX/SUFFIX 改前后缀。\n配套用法:spack env create myenv 建环境,spack env activate myenv 激活后提示符出现 myenv,spack env deactivate 退出后消失。"
  },
  "spring": {
   "cat": "编程语言与框架",
@@ -1785,7 +2078,8 @@
  "stack": {
   "cat": "补全增强",
   "detail": "为 Haskell 构建工具 stack 提供补全。",
-  "summary": "Haskell Stack 补全"
+  "summary": "Haskell Stack 补全",
+  "usage": "为 Haskell 构建工具 Stack 提供补全:通过 bashcompinit 加载 stack --bash-completion-script 输出的补全脚本,stack <Tab> 补全 build/test/bench/exec 等子命令。\n需先安装 stack,未安装则插件不加载;纯补全,不定义别名。"
  },
  "starship": {
   "cat": "提示符与外观",
@@ -1796,17 +2090,32 @@
  "stripe": {
   "cat": "补全增强",
   "detail": "为支付平台 Stripe 的官方 CLI 工具提供补全。",
-  "summary": "Stripe CLI 补全"
+  "summary": "Stripe CLI 补全",
+  "usage": "为 Stripe CLI 提供补全:stripe <Tab> 补全 listen/trigger/webhooks/logs 等子命令与参数。\n补全脚本由 stripe completion --shell zsh 生成并缓存;需先安装 Stripe CLI,纯补全、不定义别名。"
  },
  "sublime": {
+  "aliases": {
+   "sst": "以 root 权限打开 Sublime Text,编辑系统文件用",
+   "st": "subl 的别名,打开 Sublime Text(可带文件/目录参数)",
+   "stn": "为目录生成存根 .sublime-project",
+   "stp": "向上查找并打开最近的 .sublime-project",
+   "stt": "在当前目录打开 Sublime Text"
+  },
   "cat": "编辑器与终端",
   "detail": "st 命令用 Sublime Text 打开文件或当前目录,stt 定位到指定行列。macOS 下也处理了应用内命令行位置问题。",
-  "summary": "Sublime Text 命令行"
+  "summary": "Sublime Text 命令行",
+  "usage": "需安装 Sublime Text(PATH 里没有 subl 时,插件会自动搜索常见安装位置并补上别名)。\n`st 文件` 打开文件,`stt` 在当前目录打开;改系统文件用 `sst 文件` 以 root 打开。\n`stp` 自动向上查找 .sublime-project 并打开(找不到时退回 git 仓库根或当前目录);`stn [目录]` 生成存根 .sublime-project 方便配置项目。"
  },
  "sublime-merge": {
+  "aliases": {
+   "sm": "在 Sublime Merge 中打开指定目录的 git 仓库",
+   "smt": "等价于 sm .,打开当前目录的仓库",
+   "ssm": "以 sudo 运行 Sublime Merge(仅 Linux 定义)"
+  },
   "cat": "编辑器与终端",
   "detail": "sm 命令用 Sublime Merge 打开仓库查看与 diff。",
-  "summary": "Sublime Merge 命令行"
+  "summary": "Sublime Merge 命令行",
+  "usage": "需安装 Sublime Merge(macOS 下会自动定位 smerge 命令行工具)。\n`sm` 启动 Sublime Merge;`sm 目录` 打开该目录的 git 仓库;`smt` 等价于 `sm .`,直接看当前仓库。\nLinux 上另有 `ssm`,用 sudo 打开,适合仓库受权限保护的场景。"
  },
  "sudo": {
   "cat": "快捷键与效率",
@@ -1831,9 +2140,20 @@
   "usage": "supervisorctl 的 sudo 简写全家桶:sups = 看所有受管进程状态;supsr = 启动;supso = 停止;suprs = 重启;\nsupu = 改完 .ini 配置后更新生效;suprr = 只重读配置;supt = tail 进程日志;supa = 列出可用程序;sup = 进入 supervisorctl 交互控制台。"
  },
  "suse": {
+  "aliases": {
+   "z": "sudo zypper:主入口",
+   "zdup": "sudo zypper dup:发行版级全量升级",
+   "zif": "zypper if:查看包信息(--no-refresh)",
+   "zin": "sudo zypper in:安装包",
+   "zref": "sudo zypper ref:刷新软件仓库",
+   "zrm": "sudo zypper rm:卸载包",
+   "zse": "zypper se:搜索包(--no-refresh)",
+   "zup": "sudo zypper up:更新全部软件包"
+  },
   "cat": "包管理与环境",
   "detail": "为 openSUSE 的包管理器 zypper 提供大量缩写别名:zin=安装、zup=系统升级、zrm=卸载等。",
-  "summary": "openSUSE zypper 别名"
+  "summary": "openSUSE zypper 别名",
+  "usage": "z = sudo zypper 主入口;zin 包名 = 装,zrm = 卸,zup = 更新全部包,zdup = 发行版级 dup 全量升级,zpatch = 打补丁,zinr = 补装新推荐的包。\nzse 关键字 = 搜索,zif 包名 = 详情,zpa = 列包,zlr = 列仓库,zar = 加仓库,zref = 刷新;查询类别名(zpa/zse/zpch 等)自带 --no-refresh 提速,查不到新数据先跑 zref。锁定包:zal 加锁 / zll 看锁 / zrl 解锁。"
  },
  "svcat": {
   "cat": "容器与云运维",
@@ -1843,12 +2163,14 @@
  "svn": {
   "cat": "版本控制",
   "detail": "为版本控制工具 Subversion(svn)提供一批缩写别名和命令补全。",
-  "summary": "SVN 别名与补全"
+  "summary": "SVN 别名与补全",
+  "usage": "为 svn 仓库提供一组主题函数:svn_prompt_info 显示仓库信息,in_svn 判断是否在 svn 工作副本内,svn_get_repo_name/svn_get_branch_name/svn_get_rev_nr 分别取仓库名、分支名、修订号,svn_dirty/svn_dirty_pwd 判断有无未提交变更。\n注意分支名取自 URL 第一级路径,不按 trunk/branches 布局时会返回第一个路径元素;参考 agnoster 示例把 prompt_svn 函数写进主题即可在提示符显示 修订号@分支名 及脏标记 ±。"
  },
  "svn-fast-info": {
   "cat": "版本控制",
   "detail": "用一次轻量 svn info 解析出分支名/URL/修订号等字段并渲染供提示符使用,比反复调用 svn info 更快。",
-  "summary": "SVN 信息快速展示"
+  "summary": "SVN 信息快速展示",
+  "usage": "svn 插件的提速替身:每次提示符只调用一次 svn,大仓库上开销小得多;作为 drop-in 替代使用,不要与 svn 插件同时启用。主题里同样调用 svn_prompt_info,显示分支、仓库根、修订号和文件状态符号。\n状态符号默认:+=新增、✖=删除、✎=修改、∿=替换、?=未跟踪、!=脏;全部可用 ZSH_THEME_SVN_PROMPT_* 变量定制,如 ZSH_THEME_SVN_PROMPT_MODIFICATIONS='M'。"
  },
  "swiftpm": {
   "cat": "编程语言与框架",
@@ -1910,12 +2232,17 @@
  "task": {
   "cat": "补全增强",
   "detail": "为现代化任务运行器 Task(Taskfile.yml 的 task 命令)提供补全。",
-  "summary": "go-task 补全"
+  "summary": "go-task 补全",
+  "usage": "为 go-task(Taskfile.dev)任务运行器提供补全:task <Tab> 补全选项与参数,补全脚本由 task --completion zsh 生成并缓存。\n注意这是 Taskfile 构建工具的插件,与任务管理软件 TaskWarrior 无关;纯补全,不定义别名。"
  },
  "taskwarrior": {
+  "aliases": {
+   "t": "task 本体,已绑定同一套 _task 补全"
+  },
   "cat": "补全增强",
   "detail": "为 GTD 待办任务管理工具 Taskwarrior(task)提供补全。",
-  "summary": "Taskwarrior 补全"
+  "summary": "Taskwarrior 补全",
+  "usage": "为 TaskWarrior 提供深度补全:task <Tab> 补全子命令、任务 ID 与已定义的命令别名,project:/due:/priority: 等属性还能动态补出项目名、标签、H/M/L 优先级和 tomorrow/eow 等日期词。\n例如 task 66<Tab> 会列出对 66 号任务可用的操作;另设短别名 t 并绑定同一套补全。"
  },
  "term_tab": {
   "cat": "系统管理",
@@ -1926,7 +2253,8 @@
  "terminitor": {
   "cat": "编辑器与终端",
   "detail": "为开发环境自动化工具 Terminitor(自动开多个终端窗口跑常用服务)提供补全。",
-  "summary": "Terminitor 补全"
+  "summary": "Terminitor 补全",
+  "usage": "只为 Terminitor(终端工作流配置工具)提供 TAB 补全,需先安装 terminitor。\n敲 `terminitor start` 后按 TAB 会列出 ~/.config/terminitor/ 下的全部 .term 脚本;start/edit/delete/setup 也都能补全脚本名。\ncreate/init/fetch/list 等子命令同样有补全。"
  },
  "terraform": {
   "cat": "容器与云运维",
@@ -1936,12 +2264,14 @@
  "textastic": {
   "cat": "编辑器与终端",
   "detail": "用 Mac 代码编辑器 Textastic 从终端打开文件或目录。需已安装 Textastic。",
-  "summary": "Textastic 集成"
+  "summary": "Textastic 集成",
+  "usage": "需 macOS + Textastic 代码编辑器。\n`tt` 启动 Textastic;`tt 文件` 打开该文件;`tt 目录` 打开目录并 cd 进去,方便终端里继续操作。"
  },
  "textmate": {
   "cat": "编辑器与终端",
   "detail": "tm/tmca 等别名用 TextMate 编辑器打开文件或当前目录。",
-  "summary": "TextMate 命令行"
+  "summary": "TextMate 命令行",
+  "usage": "需安装 TextMate 及其 mate 命令行工具。\n`tm` 在当前目录打开 TextMate;`tm 目录` 打开该目录并 cd 进去。\n`tm a.txt b.txt` 把所有参数原样传给 mate,一次打开多个文件。"
  },
  "thefuck": {
   "cat": "快捷键与效率",
@@ -1961,9 +2291,17 @@
   "summary": "Thor 任务补全"
  },
  "tig": {
+  "aliases": {
+   "tia": "从所有引用视图启动 tig(tig --all)",
+   "tib": "对当前文件做 blame 并检测复制/重命名(tig blame -C)",
+   "tif": "查看 reflog 视图(tig reflog)",
+   "til": "查看日志视图(tig log)",
+   "tis": "打开交互式状态视图(tig status,可逐个暂存/提交)"
+  },
   "cat": "版本控制",
   "detail": "为基于 ncurses 的 Git 文本界面浏览器 tig 提供简写别名(tigs=状态视图等)。",
-  "summary": "tig 浏览器别名"
+  "summary": "tig 浏览器别名",
+  "usage": "需安装 tig(终端里的 git 文本界面)。启用后 5 个别名:tis 进交互式状态视图,在界面里逐个文件暂存、写提交;til 看提交日志;tib 对当前文件 blame(带复制/重命名追踪);tif 看 reflog;tia 覆盖所有分支与标签的视图。"
  },
  "timer": {
   "cat": "快捷键与效率",
@@ -1983,19 +2321,38 @@
   "usage": "需先安装 tldr。敲好命令后按 Esc 再依次按 t l d r,当前行自动变成 tldr 加首个词:如输入 tar -xzvf 后按 Esc+tldr 得到 tldr tar,回车即看该命令的示例速查页;当前行为空时取上一条命令;已以 tldr 开头则不动。"
  },
  "tmux": {
+  "aliases": {
+   "ta": "接入指定名称的 tmux 会话",
+   "tad": "接入会话并踢掉其他连接(attach -d)",
+   "tds": "为当前目录创建/接入专属会话",
+   "tkss": "终止指定名称的会话",
+   "tksv": "杀掉 tmux server,结束所有会话",
+   "tl": "列出正在运行的会话",
+   "to": "会话存在则接入,不存在则新建",
+   "ts": "新建指定名称的会话"
+  },
   "cat": "编辑器与终端",
   "detail": "提供 ta=attach、tls=list-sessions 等别名;设置 ZSH_TMUX_AUTOSTART=true 后每次打开终端自动进入 tmux 会话。",
-  "summary": "tmux 集成"
+  "summary": "tmux 集成",
+  "usage": "需安装 tmux。`tmux` 被包装过:已有会话自动接入、没有就新建(自动修正 $TERM;设 ZSH_TMUX_AUTOSTART=true 开终端即进 tmux,设 ZSH_TMUX_ITERM2=true 启用 iTerm2 的 tmux 集成 -CC)。\n日常:`ta 名字` 接会话、`ts 名字` 新建、`to 名字` 新建或接入、`tl` 列出会话、`tksv` 杀掉整个 server。\n`tds` 按当前目录名创建/复用专属会话(目录名+哈希),一个项目一个会话互不打扰;`tad 名字` 接入时踢掉旧连接;`tmuxconf` 用编辑器打开 tmux 配置。"
  },
  "tmux-cssh": {
   "cat": "编辑器与终端",
   "detail": "通过 tmux-cssh 脚本把多个 SSH 会话开在一个 tmux 窗口组里,输入一次同步发到所有机器。",
-  "summary": "多主机并行操作"
+  "summary": "多主机并行操作",
+  "usage": "只为 tmux-cssh 提供补全(需安装 tmux-cssh,用 tmux 多窗格同时操作多台机器)。\n`tmux-cssh -sc root@host1 -sc root@host2` 可在多机上同步执行命令;-u 用户、-f 主机列表文件、-ts 会话名等选项按 TAB 即可补全,主机名也有补全。"
  },
  "tmuxinator": {
+  "aliases": {
+   "txl": "列出全部项目",
+   "txn": "新建 tmuxinator 项目",
+   "txo": "打开项目配置文件进行编辑",
+   "txs": "启动指定项目的 tmux 工作区"
+  },
   "cat": "编辑器与终端",
   "detail": "为 tmux 多窗格布局定义工具 tmuxinator 提供补全。",
-  "summary": "tmuxinator 补全"
+  "summary": "tmuxinator 补全",
+  "usage": "需安装 tmuxinator(Ruby 工具,用 YAML 定义 tmux 多窗格工作区)。\n`txn 项目名` 生成项目配置;`txo 项目名` 打开配置编辑;`txs 项目名` 一键按配置拉起整套 tmux 窗格;`txl` 列出所有项目。\n命令与项目名都支持 TAB 补全。"
  },
  "toolbox": {
   "cat": "容器与云运维",
@@ -2032,9 +2389,20 @@
   "summary": "Tugboat(DigitalOcean)补全"
  },
  "ubuntu": {
+  "aliases": {
+   "acs": "apt-cache search:搜索包",
+   "agar": "sudo $APT autoremove:清理不再需要的包",
+   "agi": "sudo $APT install:安装包",
+   "aglu": "apt list --upgradable:列出可升级的包",
+   "agr": "sudo $APT remove:卸载包",
+   "agu": "sudo $APT update:刷新软件包列表",
+   "agug": "sudo $APT upgrade:只升级",
+   "aguu": "sudo $APT update && sudo $APT upgrade:更新并升级一条龙"
+  },
   "cat": "包管理与环境",
   "detail": "apt 全套缩写:au=更新索引、ag=升级、ai=安装、ar=卸载、aa=清理无依赖包等。",
-  "summary": "Ubuntu apt 别名"
+  "summary": "Ubuntu apt 别名",
+  "usage": "后端自动选:apt-fast > apt > apt-get($APT);agi 包名 = 装,agu = 刷索引,aguu = update+upgrade 一条龙,agud = update+dist-upgrade,agr = 卸载,agar = autoremove 清孤儿。\nacs 关键字 = 搜索,acp = 看来源优先级,agli = 列已装,aglu = 列可升级,ags 包名 = 拉源码;函数 aar ppa:用户/ppa [包名] = 加 PPA 并自动装,apt-history install 查安装历史,ppap ppa = 回滚移除 PPA(需装 ppa-purge)。"
  },
  "ufw": {
   "cat": "系统管理",
@@ -2082,9 +2450,19 @@
   "usage": "命令行变成 vi:默认插入态照常打字;按 ESC 进普通态——h/l 移动、w/b 跳词、dd 删整行、cw 改词、/ 搜历史,和 vim 手感一致。"
  },
  "vim-interaction": {
+  "aliases": {
+   "v": "callvim 的简写,把文件送进运行中的 gvim",
+   "vh": "先把焦点移到左边窗口再载入文件",
+   "vhsp": "先水平分屏再打开文件",
+   "vj": "先把焦点移到下方窗口再载入文件",
+   "vk": "先把焦点移到上方窗口再载入文件",
+   "vl": "先把焦点移到右边窗口再载入文件",
+   "vvsp": "先垂直分屏再打开文件"
+  },
   "cat": "编辑器与终端",
   "detail": "与常驻的 Vim 服务端交互(--remote 系列参数包装),从其它进程直接把文件送进正在编辑的 Vim 打开。",
-  "summary": "Vim 远程会话联动"
+  "summary": "Vim 远程会话联动",
+  "usage": "需 gvim(带 +clientserver)。\n`v 文件` 把文件送进最近的 gvim 实例的参数列表(没有运行实例会自动启动一个);`v *.txt` 批量装入。\n`vvsp 文件`/`vhsp 文件` 先垂直/水平分屏再打开;`vh/vj/vk/vl 文件` 先把焦点切到左/下/上/右窗口再载入。\n还可用 `v -b':vsp' 文件` 在打开前执行 Ex 命令(-a 在打开后执行);定义 postCallVim 函数可在加载后回调,比如用 osascript 把 MacVim 调到前台。"
  },
  "virtualenv": {
   "cat": "编程语言与框架",
@@ -2110,7 +2488,8 @@
  "vundle": {
   "cat": "编辑器与终端",
   "detail": "ve=vim 配置、vi=PluginInstall!、vu=PluginUpdate 等,一条别名完成 vim 插件安装升级。",
-  "summary": "Vundle vim 插件管理别名"
+  "summary": "Vundle vim 插件管理别名",
+  "usage": "为 Vundle(Vim 插件管理器)提供免进 vim 的一键操作。\n`vundle` 安装 .vimrc 里声明的插件(等价 :PluginInstall);`vundle-update` 更新全部插件;`vundle-clean` 删除已从 .vimrc 移除的插件。\n首次运行会自动 git clone Vundle 本体到 ~/.vim/bundle/Vundle.vim,命令执行完自动退出 vim。"
  },
  "wakeonlan": {
   "aliases": {
@@ -2124,7 +2503,8 @@
  "watson": {
   "cat": "补全增强",
   "detail": "为工作时段记录工具 watson(watson start/stop 项目计时)提供补全。",
-  "summary": "watson 时间追踪补全"
+  "summary": "watson 时间追踪补全",
+  "usage": "为时间跟踪工具 Watson 提供补全:watson <Tab> 时实时调用 watson 自身的补全接口(_WATSON_COMPLETE=zsh_complete),按当前输入返回子命令、项目名等候选,也支持目录/文件补全。\n需先安装 watson CLI;纯补全,不定义别名。"
  },
  "wd": {
   "cat": "目录与跳转",
@@ -2139,9 +2519,20 @@
   "usage": "google rust book、ddg zsh array、github omz、wiki 北京…回车即打开浏览器进入对应站点搜索页,省去开浏览器敲网址。"
  },
  "wp-cli": {
+  "aliases": {
+   "wpdbe": "wp db export:导出数据库",
+   "wpdbi": "wp db import:导入数据库",
+   "wppi": "wp plugin install:安装插件",
+   "wppl": "wp plugin list:列出插件",
+   "wppu": "wp plugin update:更新插件",
+   "wpti": "wp theme install:安装主题",
+   "wpuc": "wp user create:创建用户",
+   "wpul": "wp user list:列出用户"
+  },
   "cat": "补全增强",
   "detail": "为 WordPress 站点管理工具 wp-cli(wp 命令)提供子命令补全。",
-  "summary": "WordPress CLI 补全"
+  "summary": "WordPress CLI 补全",
+  "usage": "为 WordPress 命令行工具 WP-CLI 提供补全与 80 多个别名:wp <Tab> 通过 wp cli completions 补全子命令与参数。\n别名按功能域分组:插件类如 wppi 安装插件、wppl 列出插件、wppu 更新插件;数据库类如 wpdbe 导出、wpdbi 导入;主题类如 wpti 安装、wptl 列表;用户类如 wpuc 创建、wpul 列表。"
  },
  "xcode": {
   "cat": "编程语言与框架",
@@ -2164,9 +2555,20 @@
   "summary": "Yii2 补全与别名"
  },
  "yum": {
+  "aliases": {
+   "yc": "sudo yum clean all:清缓存",
+   "ygl": "yum grouplist:列出包组",
+   "yi": "sudo yum install:安装包",
+   "yli": "yum list installed:列出已装包",
+   "yp": "yum info:查看包详情",
+   "yr": "sudo yum remove:卸载包",
+   "ys": "yum search:搜索包",
+   "yu": "sudo yum update:全量升级"
+  },
   "cat": "包管理与环境",
   "detail": "覆盖 CentOS/RHEL yum 常见操作的别名集:搜索、安装、更新、卸载、清理缓存等一应俱全。",
-  "summary": "yum 缩写别名"
+  "summary": "yum 缩写别名",
+  "usage": "yi 包名 = 安装,yu = 全量升级,yr = 卸载;ys 关键字 = 搜索,yp 包名 = 详情,yli = 列已装,yl = 列包。\n包组:ygl 列出、ygi 安装、ygr 卸载;yrl 卸包并清叶子依赖,ymc 重建元数据缓存,yc = yum clean all 清缓存。"
  },
  "z": {
   "cat": "目录与跳转",
@@ -2177,7 +2579,8 @@
  "zbell": {
   "cat": "编辑器与终端",
   "detail": "对你指定的慢命令(编辑 ~/.zshrc 注册)设定阈值,ZBELL 时长超限的命令结束时发出终端响铃,切走窗口也不错过。",
-  "summary": "长命令结束铃声提醒"
+  "summary": "长命令结束铃声提醒",
+  "usage": "长命令结束提醒:命令运行超过阈值才响铃,默认 15 秒,可在 source oh-my-zsh 前设 `zbell_duration=60` 调整。\n明知很慢的命令加进 zbell_ignore 数组免打扰(默认忽略 $EDITOR、$PAGER);Linux 上若可用会调 notify-send 弹桌面通知,不想要就设 zbell_use_notify_send=false。\n纯 zsh 内建实现,无额外依赖,通知本体就是一个终端响铃(\\a)。"
  },
  "zeus": {
   "cat": "编程语言与框架",
