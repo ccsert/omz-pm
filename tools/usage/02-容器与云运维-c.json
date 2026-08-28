@@ -1,0 +1,147 @@
+{
+ "kube-ps1": {
+  "usage": "Kubernetes 提示符:启用后在 .zshrc 里把 $(kube_ps1) 挂进 PROMPT 或 RPROMPT,显示 (⎈|上下文:命名空间)。\nkubeon/kubeoff 临时开、关显示,加 -g 全局生效;默认依赖 kubectl,配 OpenShift 可设 KUBE_PS1_BINARY=oc。\n定制:KUBE_PS1_SYMBOL_CUSTOM=img|k8s|oc 换符号,KUBE_PS1_CTX_COLOR/KUBE_PS1_NS_COLOR 改颜色(默认红/青),KUBE_PS1_HIDE_IF_NOCONTEXT=true 无上下文时整段隐藏。\n进阶:KUBE_PS1_CLUSTER_FUNCTION/KUBE_PS1_NAMESPACE_FUNCTION 指向自定义函数精简显示,如 get_cluster_short 只取集群域名第一段。"
+ },
+ "kubectx": {
+  "usage": "在提示符显示当前 kubectl context(取自 kubectl config current-context):把 $(kubectx_prompt_info) 挂进 PROMPT 或 RPROMPT,如 RPS1='$(kubectx_prompt_info)'。\nkubectx_mapping 关联数组可重命名显示:kubectx_mapping[production_cluster]=\"%{$fg[yellow]%}prod!%{$reset_color%}\"。\n新版 zsh 默认异步加载不阻塞提示符;主题间接调用时用 zstyle ':omz:alpha:plugins:kubectx' async-prompt force 强制注册。\n注意:本插件只是提示符,不含 kctx/kns 命令,切换 context/namespace 需另装 kubectx、kubens 工具。"
+ },
+ "localstack": {
+  "usage": "LocalStack(本地 AWS 模拟环境)辅助函数:lsk sqs-send <队列名> <消息.json> 向本地 SQS 队列发消息。\n实际通过 curl POST 到 http://localhost:4566/000000000000/<队列>,消息体取文件内容,如 sqs-send user user.json。\n需本地已运行 LocalStack(默认 4566 端口)。"
+ },
+ "lxd": {
+  "usage": "为 LXD 的 lxc 命令提供动态补全:lxc <Tab> 实时解析 lxc 帮助输出补全子命令(如 launch/list/exec),lxc launch <Tab> 再补二级子命令。\n需安装 LXD(lxc)。"
+ },
+ "microk8s": {
+  "aliases": {
+   "mdi": "microk8s.disable:禁用 addon(带补全)",
+   "mco": "microk8s.config:查看 Kubernetes 配置",
+   "me": "microk8s.enable:启用 addon(带补全)",
+   "mh": "microk8s.helm:调用 Helm CLI",
+   "mk": "microk8s.kubectl:与集群交互,如 mk get pods",
+   "msp": "microk8s.stop:停止 MicroK8s 服务",
+   "mst": "microk8s.start:启动 MicroK8s",
+   "msts": "microk8s.status:查看运行状态与已启用 addon"
+  },
+  "usage": "MicroK8s 别名与补全:mk=microk8s.kubectl(mk get pods)、me/mdi 启用/禁用 addon 且带 addon 列表补全、mh=microk8s.helm。\nmsts 查看状态、mst/msp 启动/停止、mco 看配置、mct 用 containerd CLI。\nkubectl、helm、enable、disable 的补全首次使用时自动生成并缓存到 ZSH_CACHE_DIR。需安装 microk8s。"
+ },
+ "minikube": {
+  "usage": "为 minikube 提供自动补全:安装 minikube 后 minikube <Tab> 补全 start/stop/profile/service 等子命令与 flag。\n补全脚本由 minikube completion zsh 首次加载时生成并缓存到 $ZSH_CACHE_DIR/completions。需安装 minikube。"
+ },
+ "multipass": {
+  "aliases": {
+   "mpl": "multipass list:列出实例",
+   "mpla": "multipass launch:创建新实例",
+   "mpln": "以 en0 + bridge0 双网络启动新实例",
+   "mp": "multipass 本体",
+   "mps": "multipass shell:进入实例 shell",
+   "mpsp": "multipass stop:停止实例",
+   "mpst": "multipass start:启动实例"
+  },
+  "usage": "Multipass Ubuntu 虚拟机别名与补全:mpl 列出实例、mpla 创建新实例、mps 进入实例 shell(mps <实例名>)、mpsp/mpst 停止/启动实例。\nmpln 以 en0 + bridge0 双网络启动实例(macOS 多网卡场景)。需安装 multipass。"
+ },
+ "nomad": {
+  "usage": "为 HashiCorp Nomad 提供子命令补全:nomad <Tab> 补全 run/plan/stop/status/logs/init/node-status/node-drain 等命令,各子命令的 -json/-verbose 等 flag 亦可补全。\n需安装 nomad。"
+ },
+ "oc": {
+  "usage": "为 OpenShift CLI(oc)提供自动补全:检测到 oc 命令即加载 oc completion zsh 并绑定,oc <Tab> 补全 new-app/get/project/login/logs 等子命令与参数。\n需安装 oc(如 brew install openshift-cli)。"
+ },
+ "opentofu": {
+  "aliases": {
+   "tt": "tofu 本体",
+   "tta": "tofu apply:应用变更",
+   "tta!": "tofu apply -auto-approve:免确认直接应用",
+   "ttd!": "tofu destroy -auto-approve:免确认销毁",
+   "tti": "tofu init:初始化工作目录",
+   "ttp": "tofu plan:预览变更计划",
+   "ttpo": "tofu plan -out tfplan:把计划保存到 tfplan",
+   "ttws": "tofu workspace:管理工作区"
+  },
+  "usage": "OpenTofu(tofu)别名、补全与提示符:tti 初始化、ttp 计划、ttpo 存计划到 tfplan、tta 应用、tta! 跳过确认、ttd! 销毁、ttf/ttfr 格式化、ttws 管理工作区。\n提示符:tofu_prompt_info 在 OpenTofu 项目内显示当前 workspace,tofu_version_prompt_info 显示版本,挂进 PROMPT/RPROMPT 使用。\n前后缀用 ZSH_THEME_TOFU_PROMPT_PREFIX/SUFFIX、ZSH_THEME_TOFU_VERSION_PROMPT_PREFIX/SUFFIX 定制(默认方括号)。需安装 opentofu。"
+ },
+ "operator-sdk": {
+  "usage": "为 Operator SDK 提供自动补全:检测到 operator-sdk 命令即加载 operator-sdk completion zsh,operator-sdk <Tab> 补全 init/create api/run 等子命令。\n需安装 operator-sdk。"
+ },
+ "podman": {
+  "aliases": {
+   "pclsa": "podman container ls --all:列出全部容器(含已停止)",
+   "pcls": "podman container ls:列出运行中容器",
+   "plo": "podman container logs:查看容器日志",
+   "pr": "podman container run:创建并启动容器",
+   "prit": "podman container run -it:交互式运行容器",
+   "prm!": "podman container rm --force:强制删除运行中容器",
+   "psta": "podman stop $(podman ps -q):停止全部运行中容器",
+   "pxc": "podman container exec:在容器内执行命令"
+  },
+  "usage": "Podman 别名与补全:pcls 列容器(加 a 含已停止)、pr 运行容器、prit 交互式运行、prm!/prm 删除(强制删)容器、plo 看日志、pxc/pxcit 容器内执行命令。\n镜像操作:pils 列镜像、ppu 拉取、pbl 构建、pipu 推送、pit 打标签;psta 一键停止全部运行中容器、pvprune 清理悬空卷。\n补全由 podman completion zsh 自动生成并缓存。需安装 podman。"
+ },
+ "pulumi": {
+  "aliases": {
+   "pul": "pulumi 本体",
+   "puld": "pulumi destroy:销毁全部资源",
+   "pullog": "pulumi logs -f:实时跟踪日志",
+   "pulp": "pulumi preview:预览变更",
+   "puls": "pulumi stack:查看当前 stack 详情",
+   "pulso": "pulumi stack output:查看 stack 输出",
+   "pulss": "pulumi stack select:切换 stack",
+   "pulu": "pulumi up:部署基础设施"
+  },
+  "usage": "Pulumi IaC 别名与补全:pul=pulumi、pulu 部署(pulumi up)、pulp 预览变更、puld 销毁资源。\nstack 操作:puls 看当前 stack、pulsl 列出、pulss 切换、pulsi 新建、pulso 看输出;pulcs 设配置、pulr 刷新状态、pullog 跟踪日志。\n补全由 pulumi gen-completion zsh 自动生成。需安装 pulumi。"
+ },
+ "salt": {
+  "usage": "为 SaltStack 的 salt、salt-call、salt-cp、salt-run、salt-key 五个命令提供补全:可补子命令、minion 名、执行模块(经 salt-call sys.list_functions 获取)与 runner 函数。\nminion/模块列表默认缓存,可用 zstyle ':completion:*:salt(|-cp|-call|-run|-key):*' use-cache true 开启缓存。\n缓存有效期用 cache-ttl 调整,如 zstyle ':completion::complete:salt(|-cp|-call):minions:' cache-ttl 4 days。需安装 salt。"
+ },
+ "scw": {
+  "usage": "为 Scaleway CLI(scw)提供动态补全:scw <Tab> 时调用 scw autocomplete complete zsh 实时返回候选词,子命令、参数及 = 形式赋值均可补全。\n需安装 scw。"
+ },
+ "sfdx": {
+  "usage": "为 Salesforce DX CLI(sfdx)提供补全:sfdx <Tab> 补全全部 force: 系列命令,如 force:auth:web:login 网页授权、force:org:list 列 org、force:org:open 浏览器打开 org、force:apex:test:run 跑 Apex 测试、force:data:soql:query 执行 SOQL 查询。\n需安装 sfdx。"
+ },
+ "skaffold": {
+  "usage": "为 Skaffold(Kubernetes 开发流水线工具)提供自动补全:skaffold <Tab> 补全 dev/build/deploy/run 等子命令与 flag,补全脚本由 skaffold completion zsh 首次加载时生成并缓存。\n需安装 skaffold。"
+ },
+ "svcat": {
+  "usage": "为 Kubernetes Service Catalog CLI(svcat)提供自动补全:检测到 svcat 命令即加载 svcat completion zsh,svcat <Tab> 补全 bind/broker/class/instance/plan 等子命令。\n需安装 svcat。"
+ },
+ "terraform": {
+  "aliases": {
+   "tf": "terraform 本体",
+   "tfa": "terraform apply:应用变更",
+   "tfa!": "terraform apply -auto-approve:免确认直接应用",
+   "tfd!": "terraform destroy -auto-approve:免确认销毁",
+   "tfi": "terraform init:初始化工作目录",
+   "tfp": "terraform plan:预览变更计划",
+   "tfpo": "terraform plan -out tfplan:把计划保存到 tfplan",
+   "tfws": "terraform workspace select:切换工作区"
+  },
+  "usage": "Terraform 别名、补全与提示符:tfi 初始化、tfp 计划、tfpo 存计划到 tfplan、tfa 应用(用 tfapp 应用已存计划)、tfa! 跳过确认、tfd!/tfd 销毁、tff/tffr 格式化。\n工作区:tfwl 列出、tfws 切换;tf_prompt_info 显示当前 workspace(家目录及 default 不显示),tf_version_prompt_info 显示版本,挂进 PROMPT/RPROMPT 使用。\n前后缀用 ZSH_THEME_TF_PROMPT_PREFIX/SUFFIX、ZSH_THEME_TF_VERSION_PROMPT_PREFIX/SUFFIX 定制(默认方括号)。需安装 terraform。"
+ },
+ "timoni": {
+  "usage": "为 Timoni(CUE 驱动、类 Helm 的 Kubernetes 包管理器)提供自动补全:timoni <Tab> 补全 install/upgrade/uninstall/list 等模块管理子命令与 flag,补全脚本由 timoni completion zsh 生成并缓存。\n需安装 timoni。"
+ },
+ "toolbox": {
+  "aliases": {
+   "tbe": "toolbox enter:进入 toolbox 环境",
+   "tbr": "toolbox run:在 toolbox 中执行命令"
+  },
+  "usage": "toolbox(容器化 CLI 环境)提示符与别名:在 toolbox 容器内时 $(toolbox_prompt_info) 显示 ⬢ 指示符、$(toolbox_prompt_name) 显示容器名,挂进 PROMPT/RPROMPT 使用。\ntbe 进入 toolbox 环境,tbr 在 toolbox 中执行命令,如 tbr <命令>。需安装 toolbox。"
+ },
+ "tugboat": {
+  "usage": "为 DigitalOcean 命令行工具 tugboat 提供补全:tugboat <Tab> 补全 droplets/images/ssh/create/destroy/start/halt/restart/snapshot/resize 等子命令,create 可补 -s 规格、-i 镜像、-r 地区、-k SSH 密钥等参数。\n需安装 tugboat,并先 tugboat authorize 授权 DigitalOcean 账号。"
+ },
+ "vagrant": {
+  "aliases": {
+   "vd": "vagrant destroy:销毁虚拟机",
+   "vgs": "vagrant global-status:查看所有项目的虚拟机",
+   "vh": "vagrant halt:关机",
+   "vbl": "vagrant box list:列出本地 box",
+   "vrp": "vagrant reload --provision:重启并重新执行 provision",
+   "vssh": "vagrant ssh:SSH 进入虚拟机",
+   "vst": "vagrant status:查看虚拟机状态",
+   "vup": "vagrant up:启动虚拟机"
+  },
+  "usage": "Vagrant 别名与补全:vup 启动、vst 看状态、vssh 进虚拟机、vh 关机、vssp 挂起、vre 恢复、vr 重载、vrp 重载并重新 provision、vd/vdf 销毁(强制)、vgs 查全局实例、vpr 单独跑 provision。\nbox 管理:vbl 列出、vba 添加、vbr 删除、vbo 查过时、vbu 更新;补全覆盖命令、任务名与 box 名。需安装 vagrant。"
+ },
+ "vagrant-prompt": {
+  "usage": "Vagrant 状态提示符:在含 Vagrantfile 和 .vagrant 目录的项目里,把 $(vagrant_prompt_info) 挂进 PROMPT 或 RPROMPT,按 vagrant status 显示每台虚拟机的状态符号。\nrunning 绿●、not running/poweroff 红●、paused/saved/suspended 黄●、not created 白○。\n符号与前后缀用 ZSH_THEME_VAGRANT_PROMPT_RUNNING/POWEROFF/SUSPENDED/NOT_CREATED 及 PREFIX/SUFFIX 变量定制。需安装 vagrant。"
+ }
+}

@@ -1,0 +1,147 @@
+{
+  "ansible": {
+    "usage": "需已安装 ansible。\naver 查看本机版本;arinit <角色名> 按 Ansible Galaxy 标准结构初始化新 Role 并用 tree 展示(需 tree 命令)。\n日常缩写:a=ansible(别名含尾随空格,可直接续写子命令)、aplaybook=ansible-playbook(如 aplaybook -i hosts site.yml)、ainv=ansible-inventory、agal=ansible-galaxy、apull=ansible-pull。\naval 做 vault 加解密、adoc 查模块文档、aconf/acon 对应 ansible-config 与 ansible-console。",
+    "aliases": {
+      "a": "ansible 本体",
+      "aplaybook": "执行 playbook",
+      "agal": "管理 Galaxy 角色/集合",
+      "aval": "ansible-vault 加解密",
+      "adoc": "查看模块文档",
+      "ainv": "查看/解析 inventory",
+      "aver": "显示本机 ansible 版本",
+      "arinit": "初始化标准 Role 目录结构"
+    }
+  },
+  "argocd": {
+    "usage": "纯补全插件,为 Argo CD CLI 提供补全,需已安装 argocd。\n首次补全时后台执行 argocd completion zsh,脚本缓存于 $ZSH_CACHE_DIR/completions/_argocd,之后启动新 shell 时异步更新。\n覆盖应用、项目、仓库等子命令与参数,如 argocd app list 后按 Tab 补全。"
+  },
+  "azure": {
+    "usage": "需已安装 azure cli(az 命令)。\nazgs 查看当前默认订阅名;azss <订阅名> 切换订阅,按 Tab 会列出全部可选订阅(来自 az account list)。\n提供 azure_prompt_info 函数供主题调用,在提示符显示 <az:订阅名>,依赖 jq 解析 ~/.azure/azureProfile.json,可用 ZSH_THEME_AZURE_PREFIX/SUFFIX 定制前后缀。\n同时自动探测并加载 az 的官方补全脚本(homebrew 等路径)。",
+    "aliases": {
+      "azss": "切换 az 订阅(带订阅名 Tab 补全)"
+    }
+  },
+  "capistrano": {
+    "usage": "为 Capistrano 部署工具提供补全与 capit 包装函数,需已安装 cap。\n因 cap 是 zsh 保留字、直接补全失效,请用 capit:项目里有 Gemfile 时自动执行 bundle exec cap,否则直接跑 cap,如 capit production deploy。\n补全会解析 config/deploy.rb 或 Capfile 列出部署任务并缓存到 .cap_tasks~。"
+  },
+  "cloudfoundry": {
+    "usage": "需已安装 Cloud Foundry CLI(cf)。\n登录定位:cfl=cf login、cft=cf target;查询:cfa=列应用、cfs=列服务、cfm=列服务市场、cfr=列路由、cfsp=列空间。\n部署运维:cfp=cf push、cfpm <manifest> 按 manifest 推送、cfsc 扩缩容、cflg 跟踪日志、cflr <app> 看最近日志、cfev 查事件。\n生命周期:cfsrt/cfstp/cfstg/cfdel 启动/停止/重建/删除应用,cfsrtall、cfstpall 一键启停全部应用。\ncfh. 把 CF_HOME 指向当前目录、cfh~ 指回主目录、cfhu 取消设置。",
+    "aliases": {
+      "cfl": "登录 Cloud Foundry",
+      "cft": "切换目标 Org/Space",
+      "cfa": "列出应用",
+      "cfp": "推送部署应用",
+      "cfs": "列出服务",
+      "cfm": "列出服务市场",
+      "cflg": "跟踪应用日志",
+      "cfdel": "删除应用"
+    }
+  },
+  "docker-compose": {
+    "usage": "自动在旧版 docker-compose 与 Compose v2(docker compose)之间选择,两者都可用时优先前者(需安装其一),并附带 docker-compose 补全。\n常用:dcps=查容器、dcup=启动、dcupd=后台启动、dcupb=先构建再启动、dcupdb=后台+构建、dcdn=停止并删除。\n其他:dcb 构建、dce 进入容器执行命令、dcr run、dcl 看日志、dclf 跟踪日志、dclF 只看新增日志、dck 强杀、dcrestart/dcrm/dcstart/dcstop/dcpull 同字面义。",
+    "aliases": {
+      "dco": "docker-compose 主命令",
+      "dcup": "启动服务",
+      "dcupd": "后台方式启动(-d)",
+      "dcupdb": "后台启动并先构建镜像",
+      "dcdn": "停止并移除容器",
+      "dcps": "列出容器",
+      "dcl": "查看容器日志",
+      "dclf": "持续跟踪日志输出"
+    }
+  },
+  "doctl": {
+    "usage": "纯补全插件,为 DigitalOcean 的 doctl 提供补全,需已安装 doctl。\n首次补全时后台执行 doctl completion zsh,脚本缓存于 $ZSH_CACHE_DIR/completions/_doctl。\n如 doctl compute droplet list 处按 Tab 可补全子命令与参数。"
+  },
+  "fabric": {
+    "usage": "纯补全插件,为 Python 部署工具 Fabric 的 fab 命令提供补全,需已安装 fabric。\n按 Tab 时会执行 fab -l 解析当前 fabfile,把任务名连同 docstring 一起作为候选展示。\n如在 fab 后按 Tab 直接列出所有可用任务。"
+  },
+  "fluxcd": {
+    "usage": "纯补全插件,为 GitOps 工具 Flux CD 的 flux 命令提供补全,需已安装 flux。\n首次补全时后台执行 flux completion zsh,脚本缓存于 $ZSH_CACHE_DIR/completions/_flux 并在新 shell 中异步更新。\n覆盖 flux bootstrap、flux create/delete/get 等子命令与资源参数补全。"
+  },
+  "gcloud": {
+    "usage": "需已安装 Google Cloud SDK;插件自动在常见位置(~/google-cloud-sdk、Homebrew Cask、asdf、snap、/opt 等)探测 SDK 并导出 CLOUDSDK_HOME。\n找到后加载 SDK 自带的 path.zsh.inc 与补全脚本,获得 gcloud/gsutil/bq 等完整 Tab 补全。\nSDK 装在非标准路径时,在 .zshrc 加载 oh-my-zsh 之前设置 CLOUDSDK_HOME;PATH 里没有 python2 时还需设置 CLOUDSDK_PYTHON。\n不添加任何别名。"
+  },
+  "hcloud": {
+    "usage": "为 Hetzner Cloud CLI 提供别名与补全,需已安装 hcloud(brew install hcloud)。\nhc=hcloud;上下文:hcctxls 列出、hcctxu 切换、hcctxc 创建、hcctxa 看当前。\n服务器:hcsl 列表、hcsc 创建、hcsd 删除、hcspon/hcspoff 开关机、hcsr 重启、hcssh SSH 连接。\n另有卷 hcv*、网络 hcn*、浮动 IP hcfip*、SSH 密钥 hcsk*、镜像 hci*、防火墙 hcfw*、负载均衡 hclb*、证书 hccert* 系列;hcloc/hcdc/hcst 查位置/数据中心/机型,hcit 列系统镜像。",
+    "aliases": {
+      "hc": "hcloud 本体",
+      "hcsl": "列出服务器",
+      "hcspon": "开机",
+      "hcspoff": "关机",
+      "hcsr": "重启服务器",
+      "hcssh": "SSH 连接到服务器",
+      "hcctxu": "切换上下文(项目)",
+      "hcil": "列出镜像"
+    }
+  },
+  "helm": {
+    "usage": "为 Kubernetes 包管理器 Helm 提供补全与别名,需已安装 helm。\n补全脚本缓存于 $ZSH_CACHE_DIR/completions/_helm,首次即时生效,之后每次启动在后台静默重新生成。\nh=helm;hin=helm install、hun=helm uninstall、hup=helm upgrade、hse=helm search,如 hse redis、hin my-nginx bitnami/nginx。",
+    "aliases": {
+      "h": "helm 本体",
+      "hin": "安装 chart",
+      "hun": "卸载 release",
+      "hse": "搜索 chart",
+      "hup": "升级 release"
+    }
+  },
+  "heroku": {
+    "usage": "纯补全插件,加载 Heroku CLI 自带的 zsh 补全脚本(macOS 位于 ~/Library/Caches/heroku/autocomplete/zsh_setup,Linux 位于 ~/.cache 同名路径)。\n该文件需先由 Heroku CLI 生成(运行 heroku autocomplete zsh),不存在时插件不做任何事。\n不添加别名;需要常用别名请另启用 heroku-alias 插件。"
+  },
+  "heroku-alias": {
+    "usage": "Heroku CLI 别名大全(纯别名集,不含补全;需已安装 heroku)。\nh=heroku;登录:hin 登录、hi 交互登录、hout 登出、hwho 查看当前账号;应用:ha 列应用、hpop 创建、hkill 销毁、hai 看信息。\n配置:hc 查看配置、hcs 设置变量(如 hcs KEY=val -a app)、hcu 删除;hcfile 函数可从文件逐行批量设置配置。\n日志 hg/hgt;Postgres:hpg、hpsql 进控制台、hpbc 备份、hpbr 恢复;附加组件 hads/hadc/hadel;证书 hssl 系列。\n注意 h、hin、hup 与 helm 等插件同名,同时启用时按 plugins 中加载顺序后者覆盖。",
+    "aliases": {
+      "h": "heroku 本体",
+      "ha": "列出应用",
+      "hcs": "设置配置变量",
+      "hg": "查看应用日志",
+      "hgt": "实时跟踪日志",
+      "hpsql": "进入 Postgres 控制台",
+      "hin": "登录 Heroku",
+      "hout": "退出登录"
+    }
+  },
+  "istioctl": {
+    "usage": "纯补全插件,为 Istio 服务网格的 istioctl 提供补全,需已安装 istioctl。\n启用后自动加载 istioctl completion zsh 并注册 compdef。\n如 istioctl analyze、istioctl x describe pod 处按 Tab 可补全子命令与参数。"
+  },
+  "jfrog": {
+    "usage": "纯补全插件,为 JFrog CLI(操作 Artifactory/Xray 等)提供动态补全,需已安装 jfrog。\n补全时实时调用 CLI 的 --generate-bash-completion 生成候选,无匹配时回退为文件名补全。\njfrog 与短名 jf 两个命令都已注册,如 jfrog rt upload 处按 Tab 补全。"
+  },
+  "k9s": {
+    "usage": "纯补全插件,为 Kubernetes 终端 UI k9s 提供补全,需已安装 k9s。\n补全脚本缓存于 $ZSH_CACHE_DIR/completions/_k9s,首次补全即时加载,同时后台执行 k9s completion zsh 异步刷新。\n仅提供补全,不添加别名;日常直接 k9s 启动,k9s -n <namespace> 指定命名空间。"
+  },
+  "kamal": {
+    "usage": "为 Kamal 部署工具提供包装函数与补全,需已安装 kamal(Ruby gem)。\nkamal 被包装为函数:项目里存在可执行的 ./bin/kamal 时优先使用(bundler 版本),否则回退全局 kamal;which-kamal 可查看当前用的是哪个。\nkad=kamal deploy 一键部署。\n补全已挂接到 kamal 命令,可补全子命令。",
+    "aliases": {
+      "kamal": "智能选择 ./bin/kamal 或全局 kamal",
+      "kad": "执行 kamal deploy 部署"
+    }
+  },
+  "kind": {
+    "usage": "为本地 Kubernetes 集群工具 Kind 提供别名与补全,需已安装 kind(及 Docker)。\nkicc 创建默认集群、kiccn <名字> 创建指定名集群、kigc 列出集群、kigk 获取 kubeconfig。\nkidc/kidcn 删除集群,kidca 一键删除全部集群(kind delete clusters -A)。\n补全脚本后台缓存到 $ZSH_CACHE_DIR/completions/_kind。",
+    "aliases": {
+      "kicc": "创建默认集群",
+      "kiccn": "创建指定名称的集群",
+      "kigc": "列出本地集群",
+      "kidc": "删除集群",
+      "kidcn": "删除指定名称集群",
+      "kidca": "删除所有集群",
+      "kigk": "获取集群 kubeconfig"
+    }
+  },
+  "kn": {
+    "usage": "纯补全插件,为 Knative 的 kn 命令行提供补全,需已安装 kn。\n启用时通过 kn completion zsh 动态加载并注册。\n覆盖 service、revision、broker 等子命令,如 kn service create 处按 Tab 补全。"
+  },
+  "knife": {
+    "usage": "纯补全插件,为 Chef 的 knife 提供逐级补全(knife cookbook/role/data bag 等子命令与对象名),需已安装 knife。\n可用环境变量定制:KNIFE_CONF_PATH 指向 knife.rb(默认先找 $PWD/.chef/knife.rb,再找 $HOME/.chef/knife.rb)、KNIFE_COOKBOOK_PATH 指定本地 cookbook 目录、KNIFE_RELATIVE_PATH=true 时相对 chef 根目录查找 cookbooks。\n不添加任何别名。"
+  },
+  "knife_ssh": {
+    "usage": "需已安装 knife(Chef)。\n提供 knife_ssh <节点名> 函数:自动用 knife node show 查出节点 IP 并直接 ssh 过去,如 knife_ssh web01。\n节点名支持 Tab 补全:首次补全时执行 knife node list 生成缓存文件 ~/.knife_comp~,之后从缓存读取。"
+  },
+  "kompose": {
+    "usage": "纯补全插件,为 kompose(把 docker-compose.yml 转换为 Kubernetes 资源定义)提供补全,需已安装 kompose。\n启用时加载 kompose completion zsh。\n如 kompose convert 处按 Tab 可补全子命令与选项。"
+  },
+  "kops": {
+    "usage": "纯补全插件,为 kops(Kubernetes Operations,生产级 K8s 集群搭建工具)提供补全,需已安装 kops。\n启用时加载 kops completion zsh。\n覆盖 create cluster、delete instancegroup 等子命令与参数补全。"
+  }
+}
