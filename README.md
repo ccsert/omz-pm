@@ -72,7 +72,7 @@ so you can see exactly what's slowing your startup down.
 | --- | --- |
 | <img src="docs/screenshots/themes.png" width="100%"> | <img src="docs/screenshots/diff.png" width="100%"> |
 
-| README reader (full Chinese translation) | — |
+| README reader (rendered markdown, full Chinese translation) | — |
 | --- | --- |
 | <img src="docs/screenshots/readme.png" width="100%"> | |
 

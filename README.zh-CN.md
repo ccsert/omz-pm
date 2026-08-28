@@ -66,7 +66,7 @@ omz-pm 把这些全部搬进终端界面:
 | --- | --- |
 | <img src="docs/screenshots/themes.png" width="100%"> | <img src="docs/screenshots/diff.png" width="100%"> |
 
-| README 阅读器(整篇中文译文) | — |
+| README 阅读器(markdown 渲染 + 整篇中文译文) | — |
 | --- | --- |
 | <img src="docs/screenshots/readme.png" width="100%"> | |
 
