@@ -1,0 +1,32 @@
+{
+ "aws": {
+  "usage": "提供 aws 补全外,还有两个实用函数:aws_change_access_key 更新访问密钥;aws_profiles 列出 ~/.aws/config 里的全部 profile,ap <名> 切换 AWS_PROFILE。"
+ },
+ "docker": {
+  "aliases": {
+   "dcls": "docker container ls:列出容器",
+   "dlo": "docker container logs:查看容器日志",
+   "dps": "列出运行中容器",
+   "dpsa": "列出全部容器(含已停止)",
+   "drm": "docker container rm:删除容器",
+   "dsta": "docker stop $(docker ps -q):停止全部运行中容器",
+   "dxc": "docker container exec:在容器内执行命令"
+  },
+  "usage": "别名均为 docker 子命令缩写:dps 一屏看运行中容器(加 a 含已停止);dcls 列容器、drm 删容器、dlo 容器名 看日志;dxc 容器名 <命令> 在容器内执行(dxcit 交互式 shell);dsta 一键停止全部运行中容器。"
+ },
+ "kubectl": {
+  "aliases": {
+   "k": "kubectl 本体",
+   "kdel": "删除资源",
+   "kdp": "描述某个 Pod 详情",
+   "kgd": "列出 Deployment",
+   "kgp": "列出 Pod",
+   "kgs": "列出 Service",
+   "kl": "查看 Pod 日志"
+  },
+  "usage": "k 等于 kubectl;k get 别名 kg 系列;kgp=查 pods、kgs=查 services、kdp=描述 pod、kdel=删除;上下文/命名空间切换建议搭配 kubectx 插件。"
+ },
+ "vault": {
+  "usage": "为 HashiCorp Vault 密钥管理 CLI 提供子命令与路径补全(vault kv get secret/foo <Tab>)。需安装 vault。"
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "catimg": {
+  "aliases": {
+   "catimg": "终端显示图片"
+  },
+  "usage": "catimg 图片.png 直接在终端里把图片渲染成彩色字符画(可加第二参数调分辨率)。依赖 ImageMagick 的 magick/convert。"
+ },
+ "chucknorris": {
+  "aliases": {
+   "chuck": "随机查克·诺里斯笑话",
+   "chuck_cow": "笑话装进奶牛气泡"
+  },
+  "usage": "chuck 随机来一条查克·诺里斯式程序员笑话;chuck_cow 让笑话装进 cowthink 的奶牛气泡里。依赖系统 fortune/strfile(缺 strfile 时首次会报提示),适合当 MOTD。"
+ },
+ "hitchhiker": {
+  "aliases": {
+   "hitchhiker": "随机语录",
+   "hitchhiker_cow": "语录 + cowthink 气泡"
+  },
+  "usage": "hitchhiker 随机输出《银河系漫游指南》语录;hitchhiker_cow 同样配奶牛气泡。依赖 fortune。"
+ },
+ "hitokoto": {
+  "aliases": {
+   "hitokoto": "随机一言(联网)"
+  },
+  "usage": "hitokoto 从 hitokoto.cn 随机拉一句中文「一言」(需联网)。可以塞进 .zshrc 末尾,让每次开终端都有新句子。"
+ },
+ "lol": {
+  "aliases": {
+   "icanhas": "mkdir:建目录",
+   "moar": "more:翻页",
+   "nomnom": "killall 杀进程",
+   "rtfm": "man:打开手册",
+   "tldr": "less:分页查看",
+   "wtf": "dmesg 内核日志"
+  },
+  "usage": "猫语别名包,纯属好玩:wtf 看内核日志、nomnom 杀进程、icanhas 建目录、rtfm 打开手册、moar 翻页、visible/invisible 是 echo/cat。装上后同事看你屏幕会困惑。"
+ },
+ "octozen": {
+  "aliases": {
+   "display_octozen": "显示 GitHub 禅语(联网)"
+  },
+  "usage": "display_octozen 从 GitHub 拉一条 Octocat 禅语显示在终端(需联网,2 秒超时不阻塞)。可加进 .zshrc 当开机禅语。"
+ },
+ "rand-quote": {
+  "aliases": {
+   "quote": "随机英文名言(联网)"
+  },
+  "usage": "quote 从 quotationspage.com 随机拉一条英文名人名言(需联网),适合随手放在提示信息里。"
+ }
+}

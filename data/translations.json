@@ -382,18 +382,18 @@
  },
  "docker": {
   "aliases": {
-   "d": "docker 本体",
-   "dex": "进入容器内 shell(exec)",
-   "di": "docker images",
-   "dip": "查看容器 IP",
+   "dcls": "docker container ls:列出容器",
+   "dlo": "docker container logs:查看容器日志",
    "dps": "列出运行中容器",
    "dpsa": "列出全部容器(含已停止)",
-   "drmf": "删除全部已停止容器"
+   "drm": "docker container rm:删除容器",
+   "dsta": "docker stop $(docker ps -q):停止全部运行中容器",
+   "dxc": "docker container exec:在容器内执行命令"
   },
   "cat": "容器与云运维",
   "detail": "为 Docker 提供大量别名和补全:dps=容器列表、dpsa=含已停止容器、dbu/dbd=启动停止、drm=删除容器、d=docker 本身等。",
   "summary": "Docker 别名与补全",
-  "usage": "d = docker;dps 一屏看容器(名称/镜像/端口);dcu=compose up、dcd=down(需配合 docker-compose 插件);dip 容器名 查它的 IP。"
+  "usage": "别名均为 docker 子命令缩写:dps 一屏看运行中容器(加 a 含已停止);dcls 列容器、drm 删容器、dlo 容器名 看日志;dxc 容器名 <命令> 在容器内执行(dxcit 交互式 shell);dsta 一键停止全部运行中容器。"
  },
  "docker-compose": {
   "cat": "容器与云运维",
@@ -601,14 +601,14 @@
    "gds": "差异 + 暂存区对比",
    "gf": "拉取远程更新(fetch)",
    "gfa": "拉取所有远程并清理已删分支",
+   "ggpull": "拉取当前分支(git pull origin <当前分支>)",
+   "ggpur": "变基方式拉取当前分支(pull --rebase)",
+   "ggpush": "推送当前分支(git push origin <当前分支>)",
    "glg": "简洁提交历史(带改动统计)",
    "gm": "合并分支(merge)",
-   "gpl": "拉取并合并(pull)",
-   "gps": "推送到远程(push)",
    "grb": "变基(rebase)",
    "gss": "简洁模式的状态(一行一个文件)",
-   "gst": "查看工作区状态",
-   "gup": "变基方式拉取(pull --rebase)"
+   "gst": "查看工作区状态"
   },
   "cat": "版本控制",
   "detail": "最常用的插件:提供 100 多个 git 缩写别名(g=git、gst=status、gco=checkout、gb=branch、gpl=pull、gps=push 等)和当前分支等辅助函数。",
@@ -1009,11 +1009,11 @@
  },
  "lol": {
   "aliases": {
-   "icanhas": "mkdir",
-   "moar": "more",
+   "icanhas": "mkdir:建目录",
+   "moar": "more:翻页",
    "nomnom": "killall 杀进程",
-   "rtfm": "man",
-   "tldr": "less",
+   "rtfm": "man:打开手册",
+   "tldr": "less:分页查看",
    "wtf": "dmesg 内核日志"
   },
   "cat": "趣味与语录",
@@ -1036,9 +1036,9 @@
   "aliases": {
    "cdf": "cd 到 Finder 当前目录",
    "hidefiles": "Finder 隐藏隐藏文件",
-   "preview": "用「预览」打开文件",
-   "showfiles": "Finder 显示隐藏文件",
-   "spot": "用 Spotlight 搜索文件"
+   "music": "控制 Apple Music(music -h 看用法)",
+   "quick-look": "对文件快速预览(Quick Look)",
+   "showfiles": "Finder 显示隐藏文件"
   },
   "cat": "系统管理",
   "detail": "提供 macOS 常用操作别名:showfiles/hidefiles 显示隐藏文件、preview 用预览打开、btrestart 蓝牙重启、cdf 跳到 Finder 当前目录等。",
@@ -1127,10 +1127,10 @@
  },
  "mongocli": {
   "aliases": {
-   "ma": "mongocli atlas",
-   "mcm": "mongocli cloud-manager",
-   "miam": "mongocli iam",
-   "mom": "mongocli ops-manager"
+   "ma": "mongocli atlas:进 Atlas 子命令",
+   "mcm": "mongocli cloud-manager:进 Cloud Manager",
+   "miam": "mongocli iam:进 IAM 子命令",
+   "mom": "mongocli ops-manager:进 Ops Manager"
   },
   "cat": "数据库与数据",
   "detail": "为 MongoDB 云 CLI mongocli 提供补全。",

@@ -1,0 +1,11 @@
+{
+ "keychain": {
+  "usage": "需先安装 keychain。比 ssh-agent 更省心:跨会话复用已解密密钥,重启后也只需输一次口令;支持 gpg-agent 一并托管。"
+ },
+ "ssh": {
+  "usage": "启用后 ssh <Tab> 自动补全主机名,来源是 ~/.ssh/config 的 Host 条目与 known_hosts。配合 config 文件给服务器起别名,不用再记 IP。"
+ },
+ "ssh-agent": {
+  "usage": "开机后第一个 zsh 会自动拉起 ssh-agent 并加载你的密钥,之后所有终端窗口共享,不用每次输密钥口令。配置风格:zstyle ':omz:plugins:ssh-agent' identities id_ed25519。"
+ }
+}

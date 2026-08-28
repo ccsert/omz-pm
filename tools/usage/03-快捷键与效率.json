@@ -1,0 +1,53 @@
+{
+ "bgnotify": {
+  "usage": "挂着编译/训练切去别的窗口?命令结束且耗时超过阈值时,系统弹桌面通知(可带声音)。BGNOTIFY_THRESHOLD 设秒数。"
+ },
+ "copybuffer": {
+  "usage": "命令行里正在输入一条很长的命令、却想先去别的窗口跑?按 Ctrl+O 把当前输入整行复制到系统剪贴板。"
+ },
+ "copyfile": {
+  "usage": "copyfile 文件.txt 把整个文件内容复制到剪贴板(等价 cat 文件 | clipcopy)。"
+ },
+ "copypath": {
+  "usage": "copypath 把当前目录绝对路径复制进剪贴板;copypath 某文件 复制该文件的绝对路径,粘到聊天里/别的终端直接可用。"
+ },
+ "encode64": {
+  "usage": "echo -n 'hello' | e64 编码;d64 解码(反向);全称 encode64 / decode64。常用于 http Basic 认证等小场景。"
+ },
+ "fancy-ctrl-z": {
+  "usage": "在 vim/less 等程序里按 Ctrl+Z 挂起;回到 shell 干点别的事后,再按一次 Ctrl+Z 直接回到刚才挂起的程序,不用敲 fg。"
+ },
+ "genpass": {
+  "usage": "genpass 32 生成 32 位随机密码(大小写+数字);genpass 32 -n 纯字母数字版(避免特殊字符转义问题),生成即复制到剪贴板。"
+ },
+ "isodate": {
+  "usage": "isodate 显示当前 ISO8601 时间与 Unix 时间戳;isodate <秒数> 把时间戳翻译成人话。写日志/对表很方便。"
+ },
+ "jsontools": {
+  "usage": "管道式 JSON 工具,搭配 curl 食用:curl .../api | pp_json 美化输出;echo '{\"a\":1}' | isjson 校验合法性;另有 urlencode 系列、to_json/from_json 等,接口调试不再裸看一行长 JSON。"
+ },
+ "magic-enter": {
+  "usage": "空行按回车不再空转:git 仓库里自动显示 git status,普通目录自动 ls;可用 MAGIC_ENTER_GIT_COMMAND / MAGIC_ENTER_OTHER_COMMAND 自定义。"
+ },
+ "qrcode": {
+  "usage": "qrcode 'https://…' 直接在终端里打出二维码(ASCII 图形),手机扫码即开。依赖 qrencode(brew install qrencode)。"
+ },
+ "safe-paste": {
+  "usage": "零学习成本:粘贴多行脚本时不会因回车符被立即执行,而是整段进入编辑区,检查无误后再回车。防呆神器。"
+ },
+ "sudo": {
+  "usage": "敲完一条命令才发现要 root?在空命令行或刚敲完的行上连按两次 Esc,自动在行首补上 sudo。"
+ },
+ "thefuck": {
+  "usage": "需先安装 thefuck 包。敲错命令(如忘了 sudo、把 apt-get 用在 mac 上)后按 ESC ESC,自动给出修正命令并执行;也可手动输入 fuck。"
+ },
+ "timer": {
+  "usage": "启用后每条命令跑完,提示符旁自动显示耗时(超阈值才显示);TIMER_THRESHOLD 控阈值秒数,TIMER_FORMAT 控样式。跑长构建时一眼看到卡在哪。"
+ },
+ "urltools": {
+  "usage": "urlencode '中文参数' 把文本转成 %XX 百分号编码;decodeurl 反向还原。拼带中文/空格/特殊字符的 URL 参数不再乱码。"
+ },
+ "vi-mode": {
+  "usage": "命令行变成 vi:默认插入态照常打字;按 ESC 进普通态——h/l 移动、w/b 跳词、dd 删整行、cw 改词、/ 搜历史,和 vim 手感一致。"
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "cp": {
+  "aliases": {
+   "cpv": "带安全参数的 rsync 拷贝(保留权限/属主/属组,覆盖前备份)"
+  },
+  "usage": "提供 cpv 函数:cpv 源文件 目标,内部走 rsync 并自动带上安全参数 —— 保留权限/属主/属组,目标已存在时先做备份而不是直接覆盖。日常覆盖式拷贝建议用它替代裸 cp。"
+ },
+ "extract": {
+  "usage": "一条命令解压一切:extract 压缩包.tar.gz、extract xxx.zip、extract xxx.rar…格式自动识别,参数不用记;加到 PATH 的 unar/7z 等越多支持的格式越全。"
+ },
+ "torrent": {
+  "aliases": {
+   "magnet_to_torrent": "磁力链接 → .torrent 种子文件"
+  },
+  "usage": "把磁力链接转成本地 .torrent 种子文件:magnet_to_torrent 'magnet:?xt=urn:btih:…'(参数加引号防 & 截断)。依赖 python3 与本机可用的 BT 工具链。"
+ },
+ "universalarchive": {
+  "usage": "一条命令压缩:ca 输出名.tar.gz 目录/ 或 ca backup.zip 文件们…输出格式的后缀决定压缩算法(zip/tar.gz/tar.xz/zstd 等都支持)。"
+ }
+}

@@ -1,0 +1,32 @@
+{
+ "autojump": {
+  "usage": "需先安装 autojump。正常使用若干目录后:j <关键词> 直接跳到最匹配的历史目录;jo <关键词> 用文件管理器打开该目录;j --stat 查看权重统计。"
+ },
+ "dircycle": {
+  "usage": "用 Ctrl+Shift+← / Ctrl+Shift+→ 在最近访问过的目录栈里循环切换(等效 pushd/popd 但一键完成)。"
+ },
+ "dirhistory": {
+  "usage": "纯键盘目录导航:\n· Alt+← / Alt+→ —— 目录历史后退 / 前进;\n· Alt+↑ —— 进入上级目录;\n· Alt+↓ —— 进入第一个子目录。"
+ },
+ "dotenv": {
+  "usage": "项目目录里放 .env 文件,cd 进来自动加载其中环境变量(export 形式),离开自动卸载;敏感项目可用 source_if_not_found? 关闭提示。"
+ },
+ "fasd": {
+  "usage": "需先安装 fasd。它会统计文件/目录的访问频率:z conf 跳目录、f conf 选文件、v conf 用编辑器打开(需先设置 $EDITOR)。"
+ },
+ "jump": {
+  "usage": "类似 wd 的书签跳转:jump mark api 把当前目录标记为 api,之后 jump api 跳回;jump list 列出标记,jump del api 删除。"
+ },
+ "last-working-dir": {
+  "usage": "零配置:重开终端时自动回到上次关闭时的目录,不用每次 cd 半天。"
+ },
+ "wd": {
+  "usage": "目录书签三步走:\n1) 在某项目目录里执行 wd add myproj 登记书签;\n2) 任何位置执行 wd myproj 秒回该目录;\n3) wd rm myproj 删除,wd list 查看全部书签。"
+ },
+ "z": {
+  "usage": "无需配置。正常 cd 使用一段时间后(它记录访问记录),直接:z proj 跳到最常去的名字含 proj 的目录;z 不带参数列出权重表。匹配的是「 frecency 」频率×最近度,用得越多越准。"
+ },
+ "zoxide": {
+  "usage": "需先安装 zoxide(brew install zoxide)。启用后 cd 被智能接管:cd proj 等价于 zoxide 智能匹配;zi 可弹出交互选择列表。"
+ }
+}

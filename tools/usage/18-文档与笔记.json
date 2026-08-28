@@ -1,0 +1,11 @@
+{
+ "dnote": {
+  "usage": "为命令行笔记工具 Dnote 提供全量补全:输入 dnote 后按 Tab 可补全子命令、书名与笔记名(如 dnote a<Tab> 补全 add)。需先安装 dnote CLI。"
+ },
+ "geeknote": {
+  "aliases": {
+   "gn": "geeknote 本体"
+  },
+  "usage": "为 Evernote 命令行客户端 Geeknote 提供补全,并定义 gn 别名替代冗长的 geeknote 命令(gn login、gn create --title …)。"
+ }
+}
