@@ -62,26 +62,38 @@ pub fn bench_plugin(dir: &Path, name: &str, runs: u32) -> BenchResult {
     let mut times: Vec<f64> = Vec::new();
     for i in 0..=runs {
         // i=0 为热身(冷缓存),不计入
-        let start = Instant::now();
-        let status = Command::new("zsh")
+        let mut child = match Command::new("zsh")
             .arg("-f")
             .arg("-c")
             .arg(&code)
             .stdin(Stdio::null())
             .stdout(Stdio::null())
             .stderr(Stdio::null())
-            .status();
+            .spawn()
+        {
+            Ok(c) => c,
+            Err(_) => {
+                res.errored = true;
+                break;
+            }
+        };
+        let start = Instant::now();
+        let status = wait_with_timeout(&mut child, Duration::from_secs(10));
         let elapsed = start.elapsed();
-        if i > 0 {
-            times.push(elapsed.as_secs_f64() * 1000.0);
-        }
-        if status.is_err() {
-            res.errored = true;
-            break;
-        }
-        if start.elapsed() > Duration::from_secs(10) {
-            res.errored = true;
-            break;
+        match status {
+            // 挂起超时:杀掉并标记,不让 bench 卡死
+            None => {
+                let _ = child.kill();
+                let _ = child.wait();
+                res.errored = true;
+                break;
+            }
+            Some(s) if !s.success() => {
+                res.errored = true;
+                break;
+            }
+            Some(_) if i > 0 => times.push(elapsed.as_secs_f64() * 1000.0),
+            Some(_) => {}
         }
     }
     if !times.is_empty() {
@@ -89,6 +101,22 @@ pub fn bench_plugin(dir: &Path, name: &str, runs: u32) -> BenchResult {
         res.ms = times[times.len() / 2];
     }
     res
+}
+
+/// 带超时地等待子进程;超时返回 None(调用方负责 kill)。
+fn wait_with_timeout(
+    child: &mut std::process::Child,
+    timeout: Duration,
+) -> Option<std::process::ExitStatus> {
+    let start = Instant::now();
+    loop {
+        match child.try_wait() {
+            Ok(Some(status)) => return Some(status),
+            Ok(None) if start.elapsed() > timeout => return None,
+            Ok(None) => std::thread::sleep(Duration::from_millis(5)),
+            Err(_) => return None,
+        }
+    }
 }
 
 /// 中位数格式化:小于 1ms 显示两位小数,否则一位。

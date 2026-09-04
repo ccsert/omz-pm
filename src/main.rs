@@ -81,7 +81,7 @@ fn run(args: &[String]) -> Result<(), String> {
         "readme" => cmd_readme(sub),
         "themes" => cmd_themes(&zshrc_path),
         "theme" => cmd_theme(sub, &zshrc_path),
-        "bench" => cmd_bench(sub),
+        "bench" => cmd_bench(sub, &zshrc_path),
         "backups" => cmd_backups(sub, &zshrc_path),
         "restore" => cmd_restore(sub, &zshrc_path),
         "enable" | "disable" => cmd_toggle(cmd, sub, &zshrc_path),
@@ -461,7 +461,7 @@ fn cmd_theme(args: &[&String], zshrc_path: &Path) -> Result<(), String> {
 }
 
 /// omz-pm bench [--runs N] [--all]:已启用插件加载耗时。
-fn cmd_bench(args: &[&String]) -> Result<(), String> {
+fn cmd_bench(args: &[&String], zshrc_path: &Path) -> Result<(), String> {
     let mut runs = 3u32;
     let mut all = false;
     let mut it = args.iter();
@@ -476,8 +476,7 @@ fn cmd_bench(args: &[&String]) -> Result<(), String> {
             other => return Err(format!("未知参数「{}」", other)),
         }
     }
-    let zshrc_path = zshrc::default_zshrc_path();
-    let (plugins, _c) = load_state(&zshrc_path)?;
+    let (plugins, _c) = load_state(zshrc_path)?;
     let targets: Vec<&plugin::Plugin> = plugins.iter().filter(|p| all || p.enabled).collect();
     if targets.is_empty() {
         println!("没有可分析的插件");
