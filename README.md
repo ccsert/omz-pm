@@ -39,10 +39,11 @@ omz-pm puts all of that in a terminal UI:
 
 | | |
 | --- | --- |
-| **Browse & search** | All built-in + custom plugins, with live search (names, Chinese descriptions, categories) and 18 category filters |
+| **Browse & search** | All built-in + custom plugins, with live search (names, Chinese descriptions, categories, aliases — type `gst` to jump to the git plugin) and 18 category filters |
 | **Toggle & save** | `Space` to stage enable/disable changes, `s` to preview a diff, `Enter` to write — atomic, always backed up |
 | **Chinese dictionary** | 359 curated entries baked into the binary: summary, usage guide, and annotated aliases for every plugin |
 | **Alias index** | Aliases are extracted from each plugin's source code — works for custom plugins too |
+| **Ghost cleanup** | Plugins still listed in `plugins=(…)` but missing on disk are flagged in the header, listed via `x`, and removed through the same diff-confirm-backup pipeline (`omz-pm list` warns about them too) |
 | **README reader** | Read any plugin's README in-TUI with markdown rendered (aligned tables, styled headings, links, code blocks) — all 359 built-in plugins ship with a complete curated Chinese translation; custom plugins fall back to light on-the-fly localization |
 
 ### 🎨 Theme management (`T`)
@@ -64,7 +65,8 @@ omz-pm puts all of that in a terminal UI:
 ### ⏱️ Benchmarks
 
 `omz-pm bench` times each enabled plugin in an isolated zsh (median of N runs, warm-up excluded)
-so you can see exactly what's slowing your startup down.
+so you can see exactly what's slowing your startup down. Press `B` in the TUI to run the same
+analysis without leaving it (live progress plus a per-plugin time distribution).
 
 ## Screenshots
 
@@ -105,10 +107,12 @@ omz-pm bench      # which plugins slow down your startup?
 | `Space` / `Enter` | Toggle enable ↔ disable |
 | `Tab` / `Shift+Tab` | Filter: all → enabled → disabled |
 | `c` / `C` | Cycle 18 category filters |
-| `/` | Search (names, Chinese text, categories) |
+| `/` | Search (names, Chinese text, categories, aliases) |
 | `r` | Read plugin README (full Chinese translation) |
 | `s` | Save — opens diff preview first |
 | `b` | Backup browser & restore |
+| `B` | Bench enabled plugins' load time without leaving the TUI |
+| `x` | Detect & clean up ghost plugins (enabled in zshrc, missing on disk) |
 | `T` | Switch plugin ↔ theme view |
 | `i` / `p` | (themes) try-on in a live zsh / flash colored preview |
 | `?` / `q` | Help / quit |
@@ -173,7 +177,7 @@ data/translations.json  ─┘ (baked in) └───────────�
 ## Development
 
 ```bash
-cargo test      # 75 unit tests (zshrc round-trips, alias parser, diff, dictionary, README bundle, layout)
+cargo test      # 80 unit tests (zshrc round-trips, alias parser, diff, dictionary, README bundle, layout)
 cargo clippy    # zero warnings
 ```
 
