@@ -7,6 +7,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Ghost plugin detection & cleanup** (`x`): plugins still listed in `plugins=(…)`
+  but missing on disk (renamed, deleted, or mistyped) are flagged in the TUI header,
+  listed in a dedicated modal, and staged for removal through the usual
+  diff-confirm-backup pipeline. `omz-pm list` warns about ghosts with a cleanup
+  hint, and `omz-pm disable <name>` now accepts ghost names so cleanup is
+  scriptable too.
+- **In-TUI load-time bench** (`B`): analyze all enabled plugins without leaving the
+  TUI — a live progress overlay shows the plugin being timed, and results open in a
+  browsable modal with per-plugin time distribution bars and a total.
+- **Search now covers aliases**: typing an alias such as `gst` in the `/` search
+  jumps to the plugin that defines it (matching the CLI `which` command); alias
+  matching is case-insensitive like name search.
 - **Markdown rendering in the README reader** (`r`): headings, bold/italic,
   inline code, links (label only), `<kbd>` keys, fenced code blocks with a
   gutter, blockquotes, rules and lists are rendered instead of shown raw;

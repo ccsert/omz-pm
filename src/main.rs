@@ -93,13 +93,17 @@ fn run(args: &[String]) -> Result<(), String> {
     }
 }
 
-fn load_state(zshrc_path: &std::path::Path) -> Result<(Vec<plugin::Plugin>, Catalog), String> {
+/// 返回 (插件列表, 词典, 幽灵插件名)。
+fn load_state(
+    zshrc_path: &std::path::Path,
+) -> Result<(Vec<plugin::Plugin>, Catalog, Vec<String>), String> {
     let content = fs::read_to_string(zshrc_path)
         .map_err(|e| format!("读取 {} 失败: {}", zshrc_path.display(), e))?;
     let (enabled, _) = zshrc::read_enabled(&content);
     let plugins = plugin::scan(&enabled);
+    let ghosts = plugin::ghost_names(&enabled, &plugins);
     let catalog = Catalog::load();
-    Ok((plugins, catalog))
+    Ok((plugins, catalog, ghosts))
 }
 
 fn find<'a>(plugins: &'a [plugin::Plugin], name: &str) -> Result<&'a plugin::Plugin, String> {
@@ -131,7 +135,7 @@ fn suggest_near(names: &[&str], q: &str) -> String {
 fn cmd_list(args: &[&String], zshrc_path: &Path) -> Result<(), String> {
     let only_enabled = args.iter().any(|a| a.as_str() == "--enabled");
     let only_disabled = args.iter().any(|a| a.as_str() == "--disabled");
-    let (plugins, catalog) = load_state(zshrc_path)?;
+    let (plugins, catalog, ghosts) = load_state(zshrc_path)?;
 
     let enabled_n = plugins.iter().filter(|p| p.enabled).count();
     println!(
@@ -142,6 +146,14 @@ fn cmd_list(args: &[&String], zshrc_path: &Path) -> Result<(), String> {
         enabled_n,
         plugins.len()
     );
+    if !ghosts.is_empty() {
+        println!(
+            "⚠ {} 个幽灵插件(zshrc 启用但磁盘上不存在): {}",
+            ghosts.len(),
+            ghosts.join(", ")
+        );
+        println!("  清理: `{} disable <名称>`,或进 TUI 按 x 一键标记", BIN);
+    }
     println!();
 
     let name_w = 26.max(
@@ -186,7 +198,7 @@ fn cmd_info(args: &[&String], zshrc_path: &Path) -> Result<(), String> {
     let Some(name) = args.first() else {
         return Err(format!("用法: {} info <插件名>", BIN));
     };
-    let (plugins, catalog) = load_state(zshrc_path)?;
+    let (plugins, catalog, _ghosts) = load_state(zshrc_path)?;
     let p = find(&plugins, name)?;
     let status = if p.enabled {
         "已启用 ✓"
@@ -269,7 +281,7 @@ fn cmd_which(args: &[&String], zshrc_path: &Path) -> Result<(), String> {
     let Some(token) = args.first() else {
         return Err(format!("用法: {} which <别名或命令>", BIN));
     };
-    let (plugins, catalog) = load_state(zshrc_path)?;
+    let (plugins, catalog, _ghosts) = load_state(zshrc_path)?;
     let index = aliases::build_index(&plugins);
     let tok = token.as_str();
 
@@ -307,7 +319,7 @@ fn cmd_aliases(args: &[&String], zshrc_path: &Path) -> Result<(), String> {
     let Some(name) = args.first() else {
         return Err(format!("用法: {} aliases <插件名>", BIN));
     };
-    let (plugins, catalog) = load_state(zshrc_path)?;
+    let (plugins, catalog, _ghosts) = load_state(zshrc_path)?;
     let p = find(&plugins, name)?;
     let defs = aliases::extract_from_dir(&p.dir);
     if defs.is_empty() {
@@ -476,7 +488,7 @@ fn cmd_bench(args: &[&String], zshrc_path: &Path) -> Result<(), String> {
             other => return Err(format!("未知参数「{}」", other)),
         }
     }
-    let (plugins, _c) = load_state(zshrc_path)?;
+    let (plugins, _c, _ghosts) = load_state(zshrc_path)?;
     let targets: Vec<&plugin::Plugin> = plugins.iter().filter(|p| all || p.enabled).collect();
     if targets.is_empty() {
         println!("没有可分析的插件");
@@ -613,14 +625,17 @@ fn cmd_toggle(action: &str, args: &[&String], zshrc_path: &Path) -> Result<(), S
     if args.is_empty() {
         return Err(format!("用法: {} {} <插件名>...", BIN, action));
     }
-    let (plugins, _catalog) = load_state(zshrc_path)?;
+    let (plugins, _catalog, ghosts) = load_state(zshrc_path)?;
     let mut enable: Vec<String> = Vec::new();
     let mut disable: Vec<String> = Vec::new();
 
-    // 先校验全部名字存在再动手
+    // 先校验全部名字存在再动手;幽灵插件(启用但磁盘上没有)允许 disable,
+    // 这样能脚本化清理 zshrc 里的残留条目
     let valid: HashSet<&str> = plugins.iter().map(|p| p.name.as_str()).collect();
+    let ghost_set: HashSet<&str> = ghosts.iter().map(|s| s.as_str()).collect();
     for name in args {
-        if !valid.contains(name.as_str()) {
+        let disablable_ghost = action == "disable" && ghost_set.contains(name.as_str());
+        if !valid.contains(name.as_str()) && !disablable_ghost {
             return Err(find(&plugins, name).unwrap_err());
         }
         if action == "enable" {
@@ -643,7 +658,11 @@ fn cmd_toggle(action: &str, args: &[&String], zshrc_path: &Path) -> Result<(), S
         println!("✓ 已启用 {}(重开终端生效)", name);
     }
     for name in disable {
-        println!("✓ 已禁用 {}(重开终端生效)", name);
+        if ghost_set.contains(name.as_str()) {
+            println!("✓ 已移除幽灵插件 {}(重开终端生效)", name);
+        } else {
+            println!("✓ 已禁用 {}(重开终端生效)", name);
+        }
     }
     println!("备份已保存到: {}", bak.display());
     Ok(())
