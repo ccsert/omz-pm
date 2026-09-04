@@ -1,5 +1,6 @@
 //! ratatui TUI:插件列表 + 中文详情(用法/别名)+ 搜索/分类筛选 + diff 保存确认。
 
+use std::cell::RefCell;
 use std::collections::HashMap;
 use std::fs;
 use std::io;
@@ -69,6 +70,7 @@ enum Modal {
     },
     /// README 阅读器
     Readme {
+        plugin: String,
         title: String,
         lines: Vec<Line<'static>>,
         scroll: u16,
@@ -118,6 +120,8 @@ struct App {
     theme_selected: usize,
     /// 当前生效主题(read_theme 的结果)
     current_theme: Option<String>,
+    /// 主题预览缓存:preview_ansi 每次起 zsh 子进程,渲染路径不能每帧调用
+    preview_cache: RefCell<HashMap<String, Option<String>>>,
 }
 
 impl App {
@@ -148,7 +152,7 @@ impl App {
             catalog,
             categories,
             excerpts,
-            aliases_cache: HashMap::new(),
+            aliases_cache,
             pending: HashMap::new(),
             filter: Filter::All,
             cat_idx: None,
@@ -164,6 +168,7 @@ impl App {
             themes,
             theme_selected: 0,
             current_theme,
+            preview_cache: RefCell::new(HashMap::new()),
         }
     }
 
@@ -217,9 +222,9 @@ impl App {
                     .catalog
                     .get(&p.name)
                     .map(|e| {
-                        e.summary.contains(&self.search)
-                            || e.detail.contains(&self.search)
-                            || e.category().contains(&self.search)
+                        e.summary.to_lowercase().contains(&q)
+                            || e.detail.to_lowercase().contains(&q)
+                            || e.category().to_lowercase().contains(&q)
                     })
                     .unwrap_or(false);
                 in_name || in_dict
@@ -240,6 +245,18 @@ impl App {
     /// 该插件源码里定义的别名(启动时已全部提取)。
     fn aliases_of(&self, name: &str) -> Vec<aliases::AliasDef> {
         self.aliases_cache.get(name).cloned().unwrap_or_default()
+    }
+
+    /// 选中主题的真实提示符渲染结果(带缓存;每次计算都要起 zsh 子进程)。
+    fn theme_preview(&self, t: &ThemeInfo) -> Option<String> {
+        if let Some(cached) = self.preview_cache.borrow().get(&t.name) {
+            return cached.clone();
+        }
+        let v = theme::preview_ansi(t);
+        self.preview_cache
+            .borrow_mut()
+            .insert(t.name.clone(), v.clone());
+        v
     }
 
     fn toggle_current(&mut self) {
@@ -385,18 +402,18 @@ impl App {
         Ok(())
     }
 
-    /// 打开当前插件的 README 阅读器。
-    fn open_readme(&mut self) {
+    /// 打开当前插件的 README 阅读器(按弹窗实际内容区宽度渲染)。
+    fn open_readme(&mut self, term_w: usize) {
         let Some(p) = self.current() else {
             self.message = Some("没有选中的插件".to_string());
             return;
         };
         match readme::read_translated(&p.name, &p.dir) {
             Some(text) => {
-                let lines = markdown::render(&text, 100);
-                let title = format!(" README · {} ", p.name);
+                let lines = markdown::render(&text, readme_modal_inner_width(term_w));
                 self.modal = Modal::Readme {
-                    title,
+                    plugin: p.name.clone(),
+                    title: readme_title(&p.name),
                     lines,
                     scroll: 0,
                 };
@@ -405,14 +422,48 @@ impl App {
         }
     }
 
+    /// 终端尺寸变化时,按新宽度重排已打开的 README。
+    fn rewrap_readme(&mut self, term_w: usize) {
+        let (name, scroll) = match &self.modal {
+            Modal::Readme { plugin, scroll, .. } => (plugin.clone(), *scroll),
+            _ => return,
+        };
+        let Some(p) = self.plugins.iter().find(|p| p.name == name) else {
+            return;
+        };
+        let Some(text) = readme::read_translated(&p.name, &p.dir) else {
+            return;
+        };
+        let lines = markdown::render(&text, readme_modal_inner_width(term_w));
+        let max = lines.len().saturating_sub(1) as u16;
+        self.modal = Modal::Readme {
+            plugin: name,
+            title: readme_title(&p.name),
+            lines,
+            scroll: scroll.min(max),
+        };
+    }
+
     /// 恢复指定备份(会先快照当前 zshrc)。
     fn do_restore(&mut self, backup: &std::path::Path) {
         match zshrc::restore_backup(&self.zshrc_path, backup) {
             Ok(snapshot) => {
+                self.reload_state();
                 self.message = Some(format!("已恢复 ✓ 恢复前内容已另存: {}", snapshot.display()));
             }
             Err(e) => self.message = Some(format!("恢复失败: {}", e)),
         }
+    }
+
+    /// zshrc 被外部改动(恢复备份)后,重读启用集并刷新插件/主题状态。
+    fn reload_state(&mut self) {
+        let (enabled, _) = read_enabled_of(&self.zshrc_path);
+        self.plugins = crate::plugin::scan(&enabled);
+        self.current_theme = fs::read_to_string(&self.zshrc_path)
+            .ok()
+            .and_then(|c| zshrc::read_theme(&c));
+        self.pending.clear();
+        self.refresh_filtered();
     }
 }
 
@@ -432,20 +483,12 @@ pub fn run(zshrc_path: PathBuf) -> io::Result<()> {
 fn init_terminal() -> io::Result<Terminal<CrosstermBackend<io::Stdout>>> {
     crossterm::terminal::enable_raw_mode()?;
     let mut stdout = io::stdout();
-    crossterm::execute!(
-        stdout,
-        crossterm::terminal::EnterAlternateScreen,
-        crossterm::event::EnableMouseCapture
-    )?;
+    crossterm::execute!(stdout, crossterm::terminal::EnterAlternateScreen)?;
     Terminal::new(CrosstermBackend::new(stdout))
 }
 
 fn restore_terminal() -> io::Result<()> {
-    crossterm::execute!(
-        io::stdout(),
-        crossterm::event::DisableMouseCapture,
-        crossterm::terminal::LeaveAlternateScreen
-    )?;
+    crossterm::execute!(io::stdout(), crossterm::terminal::LeaveAlternateScreen)?;
     crossterm::terminal::disable_raw_mode()?;
     Ok(())
 }
@@ -459,204 +502,155 @@ fn event_loop(terminal: &mut Term, zshrc_path: PathBuf) -> io::Result<()> {
 
     loop {
         terminal.draw(|f| draw(f, &app))?;
-        if let Event::Key(key) = crossterm::event::read()? {
-            if key.kind != KeyEventKind::Press {
-                continue;
-            }
-            app.message = None;
-            match &mut app.modal {
-                Modal::Help => match key.code {
-                    KeyCode::Esc | KeyCode::Char('?') | KeyCode::Char('q') => {
-                        app.modal = Modal::None;
-                    }
-                    _ => {}
-                },
-                Modal::Readme { lines, scroll, .. } => {
-                    let max = lines.len().saturating_sub(1) as u16;
-                    match key.code {
-                        KeyCode::Esc | KeyCode::Char('q') | KeyCode::Char('r') => {
-                            app.modal = Modal::None;
-                        }
-                        KeyCode::Down | KeyCode::Char('j') => {
-                            *scroll = (*scroll + 1).min(max);
-                        }
-                        KeyCode::Up | KeyCode::Char('k') => {
-                            *scroll = scroll.saturating_sub(1);
-                        }
-                        KeyCode::PageDown => *scroll = (*scroll + 20).min(max),
-                        KeyCode::PageUp => *scroll = scroll.saturating_sub(20),
-                        _ => {}
-                    }
+        let ev = crossterm::event::read()?;
+        if let Event::Resize(cols, _rows) = ev {
+            app.rewrap_readme(cols as usize);
+        }
+        let Event::Key(key) = ev else {
+            continue;
+        };
+        if key.kind != KeyEventKind::Press {
+            continue;
+        }
+        app.message = None;
+        match &mut app.modal {
+            Modal::Help => match key.code {
+                KeyCode::Esc | KeyCode::Char('?') | KeyCode::Char('q') => {
+                    app.modal = Modal::None;
                 }
-                Modal::Backups { items, selected } => match key.code {
-                    KeyCode::Esc | KeyCode::Char('q') | KeyCode::Char('b') => {
+                _ => {}
+            },
+            Modal::Readme { lines, scroll, .. } => {
+                let max = lines.len().saturating_sub(1) as u16;
+                match key.code {
+                    KeyCode::Esc | KeyCode::Char('q') | KeyCode::Char('r') => {
                         app.modal = Modal::None;
                     }
                     KeyCode::Down | KeyCode::Char('j') => {
-                        if *selected + 1 < items.len() {
-                            *selected += 1;
-                        }
+                        *scroll = (*scroll + 1).min(max);
                     }
                     KeyCode::Up | KeyCode::Char('k') => {
-                        *selected = selected.saturating_sub(1);
+                        *scroll = scroll.saturating_sub(1);
                     }
-                    KeyCode::Enter => {
-                        let path = items[*selected].clone();
-                        app.modal = Modal::RestoreConfirm { backup: path };
-                    }
+                    KeyCode::PageDown => *scroll = (*scroll + 20).min(max),
+                    KeyCode::PageUp => *scroll = scroll.saturating_sub(20),
                     _ => {}
-                },
-                Modal::RestoreConfirm { backup } => match key.code {
-                    KeyCode::Enter | KeyCode::Char('y') => {
-                        let path = backup.clone();
-                        app.do_restore(&path);
-                        app.modal = Modal::None;
+                }
+            }
+            Modal::Backups { items, selected } => match key.code {
+                KeyCode::Esc | KeyCode::Char('q') | KeyCode::Char('b') => {
+                    app.modal = Modal::None;
+                }
+                KeyCode::Down | KeyCode::Char('j') => {
+                    if *selected + 1 < items.len() {
+                        *selected += 1;
                     }
+                }
+                KeyCode::Up | KeyCode::Char('k') => {
+                    *selected = selected.saturating_sub(1);
+                }
+                KeyCode::Enter => {
+                    let path = items[*selected].clone();
+                    app.modal = Modal::RestoreConfirm { backup: path };
+                }
+                _ => {}
+            },
+            Modal::RestoreConfirm { backup } => match key.code {
+                KeyCode::Enter | KeyCode::Char('y') => {
+                    let path = backup.clone();
+                    app.do_restore(&path);
+                    app.modal = Modal::None;
+                }
+                KeyCode::Esc | KeyCode::Char('n') | KeyCode::Char('q') => {
+                    app.modal = Modal::None;
+                }
+                _ => {}
+            },
+            Modal::QuitConfirm => match key.code {
+                KeyCode::Char('q') => app.should_quit = true,
+                KeyCode::Esc | KeyCode::Char('n') => app.modal = Modal::None,
+                KeyCode::Char('s') => match app.save() {
+                    Ok(_) => app.should_quit = true,
+                    Err(e) => app.message = Some(format!("保存失败: {}", e)),
+                },
+                _ => {}
+            },
+            Modal::Diff {
+                lines,
+                scroll,
+                action,
+            } => {
+                let max = lines.len().saturating_sub(1) as u16;
+                match key.code {
                     KeyCode::Esc | KeyCode::Char('n') | KeyCode::Char('q') => {
                         app.modal = Modal::None;
                     }
-                    _ => {}
-                },
-                Modal::QuitConfirm => match key.code {
-                    KeyCode::Char('q') => app.should_quit = true,
-                    KeyCode::Esc | KeyCode::Char('n') => app.modal = Modal::None,
-                    KeyCode::Char('s') => match app.save() {
-                        Ok(_) => app.should_quit = true,
-                        Err(e) => app.message = Some(format!("保存失败: {}", e)),
-                    },
-                    _ => {}
-                },
-                Modal::Diff {
-                    lines,
-                    scroll,
-                    action,
-                } => {
-                    let max = lines.len().saturating_sub(1) as u16;
-                    match key.code {
-                        KeyCode::Esc | KeyCode::Char('n') | KeyCode::Char('q') => {
-                            app.modal = Modal::None;
-                        }
-                        KeyCode::Enter | KeyCode::Char('y') => {
-                            let res = match &action {
-                                SaveAction::Plugins => app.save().map(|_| ()),
-                                SaveAction::Theme(name) => {
-                                    let name = name.clone();
-                                    app.save_theme(&name)
-                                }
-                            };
-                            match res {
-                                Ok(_) => {
-                                    app.refresh_filtered();
-                                    app.modal = Modal::None;
-                                }
-                                Err(e) => {
-                                    app.message = Some(e);
-                                    app.modal = Modal::None;
-                                }
+                    KeyCode::Enter | KeyCode::Char('y') => {
+                        let res = match &action {
+                            SaveAction::Plugins => app.save().map(|_| ()),
+                            SaveAction::Theme(name) => {
+                                let name = name.clone();
+                                app.save_theme(&name)
+                            }
+                        };
+                        match res {
+                            Ok(_) => {
+                                app.refresh_filtered();
+                                app.modal = Modal::None;
+                            }
+                            Err(e) => {
+                                app.message = Some(e);
+                                app.modal = Modal::None;
                             }
                         }
-                        KeyCode::Down | KeyCode::Char('j') => {
-                            *scroll = (*scroll + 1).min(max);
+                    }
+                    KeyCode::Down | KeyCode::Char('j') => {
+                        *scroll = (*scroll + 1).min(max);
+                    }
+                    KeyCode::Up | KeyCode::Char('k') => {
+                        *scroll = scroll.saturating_sub(1);
+                    }
+                    KeyCode::PageDown => {
+                        *scroll = (*scroll + 15).min(max);
+                    }
+                    KeyCode::PageUp => {
+                        *scroll = scroll.saturating_sub(15);
+                    }
+                    KeyCode::Char('c') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+                        app.should_quit = true;
+                    }
+                    _ => {}
+                }
+            }
+            Modal::None => {
+                if app.searching {
+                    match key.code {
+                        KeyCode::Esc => {
+                            app.searching = false;
+                            app.search.clear();
+                            app.refresh_filtered();
                         }
-                        KeyCode::Up | KeyCode::Char('k') => {
-                            *scroll = scroll.saturating_sub(1);
+                        KeyCode::Enter => app.searching = false,
+                        KeyCode::Backspace => {
+                            app.search.pop();
+                            app.refresh_filtered();
                         }
-                        KeyCode::PageDown => {
-                            *scroll = (*scroll + 15).min(max);
-                        }
-                        KeyCode::PageUp => {
-                            *scroll = scroll.saturating_sub(15);
-                        }
-                        KeyCode::Char('c') if key.modifiers.contains(KeyModifiers::CONTROL) => {
-                            app.should_quit = true;
+                        KeyCode::Char(c) => {
+                            app.search.push(c);
+                            app.refresh_filtered();
                         }
                         _ => {}
                     }
+                    continue;
                 }
-                Modal::None => {
-                    if app.searching {
-                        match key.code {
-                            KeyCode::Esc => {
-                                app.searching = false;
-                                app.search.clear();
-                                app.refresh_filtered();
-                            }
-                            KeyCode::Enter => app.searching = false,
-                            KeyCode::Backspace => {
-                                app.search.pop();
-                                app.refresh_filtered();
-                            }
-                            KeyCode::Char(c) => {
-                                app.search.push(c);
-                                app.refresh_filtered();
-                            }
-                            _ => {}
-                        }
-                        continue;
-                    }
-                    if key.code == KeyCode::Char('T') {
-                        app.view = match app.view {
-                            View::Plugins => View::Themes,
-                            View::Themes => View::Plugins,
-                        };
-                        continue;
-                    }
-                    if app.view == View::Themes {
-                        match key.code {
-                            KeyCode::Char('q') => {
-                                app.should_quit = true;
-                            }
-                            KeyCode::Char('c') if key.modifiers.contains(KeyModifiers::CONTROL) => {
-                                app.should_quit = true;
-                            }
-                            KeyCode::Char('j') | KeyCode::Down => {
-                                if app.theme_selected + 1 < app.themes.len() {
-                                    app.theme_selected += 1;
-                                }
-                            }
-                            KeyCode::Char('k') | KeyCode::Up => {
-                                app.theme_selected = app.theme_selected.saturating_sub(1);
-                            }
-                            KeyCode::Char('i') => {
-                                if let Some(t) = app.themes.get(app.theme_selected) {
-                                    let name = t.name.clone();
-                                    let res = theme::try_on(&name);
-                                    terminal.clear()?;
-                                    if let Err(e) = res {
-                                        app.message = Some(format!("试穿失败: {}", e));
-                                    }
-                                }
-                            }
-                            KeyCode::Char('p') => {
-                                if let Some(t) = app.themes.get(app.theme_selected) {
-                                    let t = t.clone();
-                                    let res = theme::flash_preview(&t);
-                                    terminal.clear()?;
-                                    if let Err(e) = res {
-                                        app.message = Some(format!("预览失败: {}", e));
-                                    }
-                                }
-                            }
-                            KeyCode::Enter => {
-                                if let Some(t) = app.themes.get(app.theme_selected) {
-                                    let name = t.name.clone();
-                                    match app.prepare_theme_save(&name) {
-                                        Ok(lines) => {
-                                            app.modal = Modal::Diff {
-                                                lines,
-                                                scroll: 0,
-                                                action: SaveAction::Theme(name),
-                                            }
-                                        }
-                                        Err(e) => app.message = Some(e),
-                                    }
-                                }
-                            }
-                            KeyCode::Char('?') => app.modal = Modal::Help,
-                            _ => {}
-                        }
-                        continue;
-                    }
+                if key.code == KeyCode::Char('T') {
+                    app.view = match app.view {
+                        View::Plugins => View::Themes,
+                        View::Themes => View::Plugins,
+                    };
+                    continue;
+                }
+                if app.view == View::Themes {
                     match key.code {
                         KeyCode::Char('q') => {
                             if app.dirty_count() > 0 {
@@ -669,70 +663,131 @@ fn event_loop(terminal: &mut Term, zshrc_path: PathBuf) -> io::Result<()> {
                             app.should_quit = true;
                         }
                         KeyCode::Char('j') | KeyCode::Down => {
-                            if app.selected + 1 < app.filtered.len() {
-                                app.selected += 1;
-                                app.detail_scroll = 0;
+                            if app.theme_selected + 1 < app.themes.len() {
+                                app.theme_selected += 1;
                             }
                         }
                         KeyCode::Char('k') | KeyCode::Up => {
-                            app.selected = app.selected.saturating_sub(1);
-                            app.detail_scroll = 0;
+                            app.theme_selected = app.theme_selected.saturating_sub(1);
                         }
-                        KeyCode::Char('g') | KeyCode::Home => {
-                            app.selected = 0;
-                            app.detail_scroll = 0;
-                        }
-                        KeyCode::Char('G') | KeyCode::End => {
-                            app.selected = app.filtered.len().saturating_sub(1);
-                            app.detail_scroll = 0;
-                        }
-                        KeyCode::Char(' ') | KeyCode::Enter => app.toggle_current(),
-                        KeyCode::Tab => {
-                            app.filter = app.filter.next();
-                            app.selected = 0;
-                            app.refresh_filtered();
-                        }
-                        KeyCode::BackTab => {
-                            app.filter = app.filter.prev();
-                            app.selected = 0;
-                            app.refresh_filtered();
-                        }
-                        KeyCode::Char('c') => {
-                            app.cycle_category(Direction_::Next);
-                        }
-                        KeyCode::Char('C') => {
-                            app.cycle_category(Direction_::Prev);
-                        }
-                        KeyCode::Char('/') => {
-                            app.searching = true;
-                        }
-                        KeyCode::Char('s') => match app.prepare_save() {
-                            Ok(Some(lines)) => {
-                                app.modal = Modal::Diff {
-                                    lines,
-                                    scroll: 0,
-                                    action: SaveAction::Plugins,
+                        KeyCode::Char('i') => {
+                            if let Some(t) = app.themes.get(app.theme_selected) {
+                                let name = t.name.clone();
+                                let res = theme::try_on(&name);
+                                terminal.clear()?;
+                                if let Err(e) = res {
+                                    app.message = Some(format!("试穿失败: {}", e));
                                 }
                             }
-                            Ok(None) => {
-                                app.message = Some("没有待保存的更改".to_string());
-                            }
-                            Err(e) => app.message = Some(e),
-                        },
-                        KeyCode::Char('r') => app.open_readme(),
-                        KeyCode::Char('b') => {
-                            let items = zshrc::list_backups(&app.zshrc_path);
-                            if items.is_empty() {
-                                app.message = Some("还没有任何备份".to_string());
-                            } else {
-                                app.modal = Modal::Backups { items, selected: 0 };
+                        }
+                        KeyCode::Char('p') => {
+                            if let Some(t) = app.themes.get(app.theme_selected) {
+                                let t = t.clone();
+                                let res = theme::flash_preview(&t);
+                                terminal.clear()?;
+                                if let Err(e) = res {
+                                    app.message = Some(format!("预览失败: {}", e));
+                                }
                             }
                         }
-                        KeyCode::PageDown => app.detail_scroll += 10,
-                        KeyCode::PageUp => app.detail_scroll = app.detail_scroll.saturating_sub(10),
+                        KeyCode::Enter => {
+                            if let Some(t) = app.themes.get(app.theme_selected) {
+                                let name = t.name.clone();
+                                match app.prepare_theme_save(&name) {
+                                    Ok(lines) => {
+                                        app.modal = Modal::Diff {
+                                            lines,
+                                            scroll: 0,
+                                            action: SaveAction::Theme(name),
+                                        }
+                                    }
+                                    Err(e) => app.message = Some(e),
+                                }
+                            }
+                        }
                         KeyCode::Char('?') => app.modal = Modal::Help,
                         _ => {}
                     }
+                    continue;
+                }
+                match key.code {
+                    KeyCode::Char('q') => {
+                        if app.dirty_count() > 0 {
+                            app.modal = Modal::QuitConfirm;
+                        } else {
+                            app.should_quit = true;
+                        }
+                    }
+                    KeyCode::Char('c') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+                        app.should_quit = true;
+                    }
+                    KeyCode::Char('j') | KeyCode::Down => {
+                        if app.selected + 1 < app.filtered.len() {
+                            app.selected += 1;
+                            app.detail_scroll = 0;
+                        }
+                    }
+                    KeyCode::Char('k') | KeyCode::Up => {
+                        app.selected = app.selected.saturating_sub(1);
+                        app.detail_scroll = 0;
+                    }
+                    KeyCode::Char('g') | KeyCode::Home => {
+                        app.selected = 0;
+                        app.detail_scroll = 0;
+                    }
+                    KeyCode::Char('G') | KeyCode::End => {
+                        app.selected = app.filtered.len().saturating_sub(1);
+                        app.detail_scroll = 0;
+                    }
+                    KeyCode::Char(' ') | KeyCode::Enter => app.toggle_current(),
+                    KeyCode::Tab => {
+                        app.filter = app.filter.next();
+                        app.selected = 0;
+                        app.refresh_filtered();
+                    }
+                    KeyCode::BackTab => {
+                        app.filter = app.filter.prev();
+                        app.selected = 0;
+                        app.refresh_filtered();
+                    }
+                    KeyCode::Char('c') => {
+                        app.cycle_category(Direction_::Next);
+                    }
+                    KeyCode::Char('C') => {
+                        app.cycle_category(Direction_::Prev);
+                    }
+                    KeyCode::Char('/') => {
+                        app.searching = true;
+                    }
+                    KeyCode::Char('s') => match app.prepare_save() {
+                        Ok(Some(lines)) => {
+                            app.modal = Modal::Diff {
+                                lines,
+                                scroll: 0,
+                                action: SaveAction::Plugins,
+                            }
+                        }
+                        Ok(None) => {
+                            app.message = Some("没有待保存的更改".to_string());
+                        }
+                        Err(e) => app.message = Some(e),
+                    },
+                    KeyCode::Char('r') => {
+                        let term_w = terminal.size().map(|s| s.width as usize).unwrap_or(100);
+                        app.open_readme(term_w);
+                    }
+                    KeyCode::Char('b') => {
+                        let items = zshrc::list_backups(&app.zshrc_path);
+                        if items.is_empty() {
+                            app.message = Some("还没有任何备份".to_string());
+                        } else {
+                            app.modal = Modal::Backups { items, selected: 0 };
+                        }
+                    }
+                    KeyCode::PageDown => app.detail_scroll += 10,
+                    KeyCode::PageUp => app.detail_scroll = app.detail_scroll.saturating_sub(10),
+                    KeyCode::Char('?') => app.modal = Modal::Help,
+                    _ => {}
                 }
             }
         }
@@ -775,8 +830,11 @@ fn draw(f: &mut Frame, app: &App) {
             title,
             lines,
             scroll,
+            ..
         } => draw_readme_modal(f, title, lines, *scroll),
-        Modal::Backups { items, selected } => draw_backups_modal(f, items, *selected),
+        Modal::Backups { items, selected } => {
+            draw_backups_modal(f, items, *selected, &app.zshrc_path)
+        }
         Modal::RestoreConfirm { backup } => draw_restore_confirm(f, backup),
         Modal::None => {}
     }
@@ -1278,7 +1336,7 @@ fn draw_themes_body(f: &mut Frame, app: &App, area: Rect) {
         );
         lines.push(Line::from(""));
         section(&mut lines, inner.width as usize, "提示符模板预览");
-        match theme::preview_ansi(t) {
+        match app.theme_preview(t) {
             Some(ansi) => {
                 let plain = theme::strip_ansi(&ansi);
                 for l in textwrap::wrap(&plain, inner.width as usize) {
@@ -1542,7 +1600,12 @@ fn draw_readme_modal(f: &mut Frame, title: &str, lines: &[Line<'static>], scroll
     );
 }
 
-fn draw_backups_modal(f: &mut Frame, items: &[std::path::PathBuf], selected: usize) {
+fn draw_backups_modal(
+    f: &mut Frame,
+    items: &[std::path::PathBuf],
+    selected: usize,
+    zshrc_path: &std::path::Path,
+) {
     let area = centered_rect(f, 80, 70, 100, 22);
     f.render_widget(Clear, area);
     let block = Block::default()
@@ -1571,7 +1634,7 @@ fn draw_backups_modal(f: &mut Frame, items: &[std::path::PathBuf], selected: usi
         height: hint_h,
         ..inner
     };
-    let zshrc_disp = crate::zshrc::default_zshrc_path().display().to_string();
+    let zshrc_disp = zshrc_path.display().to_string();
     let mut lines: Vec<Line> = Vec::new();
     for (i, p) in items.iter().enumerate() {
         let name = p
@@ -1686,4 +1749,46 @@ pub fn suspend_tui() -> io::Result<()> {
 pub fn resume_tui() -> io::Result<()> {
     init_terminal()?;
     Ok(())
+}
+
+fn readme_title(name: &str) -> String {
+    format!(" README · {name} ")
+}
+
+/// README 弹窗内容区宽度(与 centered_rect(f, 90, 90, 130, 45) 的宽度公式保持一致,
+/// 保证渲染宽度不超过弹窗,窄终端下不裁字)。
+fn readme_modal_inner_width(term_w: usize) -> usize {
+    let modal_w = (term_w * 90 / 100).clamp(10, 130);
+    modal_w.saturating_sub(2)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn aliases_cache_is_actually_populated() {
+        if !crate::plugin::zsh_root().join("plugins").exists() {
+            return; // CI 上没有安装 OMZ,跳过
+        }
+        let path = std::env::temp_dir().join(format!("omz-pm-ui-{}.zshrc", std::process::id()));
+        std::fs::write(&path, "plugins=(git)\n").unwrap();
+        let app = App::new(path.clone());
+        let _ = std::fs::remove_file(path);
+        assert!(
+            app.aliases_of("git").iter().any(|d| d.name == "gst"),
+            "TUI 详情面板应能提取 git 插件的源码别名"
+        );
+    }
+
+    #[test]
+    fn readme_modal_width_matches_layout() {
+        // 与居中弹窗的宽度公式一致:窄终端时收窄,宽终端封顶 128
+        assert_eq!(readme_modal_inner_width(80), 70);
+        assert_eq!(readme_modal_inner_width(160), 128);
+        assert!(
+            readme_modal_inner_width(60) < readme_modal_inner_width(160),
+            "窄终端应得到更窄的渲染宽度"
+        );
+    }
 }

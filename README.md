@@ -173,7 +173,7 @@ data/translations.json  ─┘ (baked in) └───────────�
 ## Development
 
 ```bash
-cargo test      # 52 unit tests (zshrc round-trips, alias parser, diff, dictionary, README bundle, layout)
+cargo test      # 75 unit tests (zshrc round-trips, alias parser, diff, dictionary, README bundle, layout)
 cargo clippy    # zero warnings
 ```
 

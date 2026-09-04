@@ -28,6 +28,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   README (heading/table/fence parity, coverage of all dictionary entries) and
   regenerates the bundle; style guide in `docs/readme-translation-guide.md`.
 
+### Fixed
+
+- **TUI: the source-alias index now actually renders** — the alias cache built at
+  startup was silently discarded, so the "aliases extracted from source" section
+  never appeared in the detail panel (custom plugins were affected most).
+- **TUI: theme prompt preview is cached** — it used to spawn a zsh subprocess on
+  every frame, so navigating the theme list could stall for up to the 3 s preview
+  timeout per keypress.
+- **`apply_theme` no longer clobbers `ZSH_THEME_*` variables** — a line such as
+  `ZSH_THEME_DISABLE_CORRECTION="true"` used to be rewritten into `ZSH_THEME="…"`.
+- **README reader re-wraps to the real terminal width** — it rendered at a fixed
+  100 columns and clipped text on terminals narrower than ~104 columns; it now
+  re-renders on window resize as well.
+- **`omz-pm bench` respects `--zshrc`** (it silently analyzed the default zshrc).
+- **TUI: restoring a backup refreshes plugin/theme state** (previously stale until
+  restart), and `q` in the theme view now asks before discarding unsaved changes.
+- **`save_with_backup` preserves file permissions and follows symlinks** — saving
+  used to reset a 0600 zshrc to 0644 and replace a symlinked zshrc with a plain file.
+- **Diff preview scales to large files** — common prefix/suffix lines are trimmed
+  before the LCS and the DP table is size-capped, so pathological zshrc sizes no
+  longer risk an O(n·m) memory blowup.
+- **Bench kills hung plugins** after a 10 s timeout instead of only labeling them
+  after the fact.
+- Search now matches dictionary text case-insensitively; the TUI backup dialog
+  shows the actual `--zshrc` path; unused mouse capture is no longer requested.
+
 ## [0.3.0] - 2026-08-27
 
 ### Added
