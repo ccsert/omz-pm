@@ -153,7 +153,7 @@ README 整篇译文同理:把 `~/.config/omz-pm/readmes-zh/<插件名>.md` 放�
 ## 开发
 
 ```bash
-cargo test      # 52 个单元测试(zshrc 往返 / 别名解析 / diff / 词典 / README 译文包 / 排版)
+cargo test      # 75 个单元测试(zshrc 往返 / 别名解析 / diff / 词典 / README 译文包 / 排版)
 cargo clippy    # 零警告
 ```
 
