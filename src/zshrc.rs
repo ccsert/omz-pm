@@ -447,11 +447,21 @@ pub fn restore_backup(path: &Path, bak_file: &Path) -> io::Result<PathBuf> {
 }
 
 /// 备份并原子写入(先写临时文件再 rename)。
+/// 保留原文件的权限位;目标是符号链接时写入其指向的真实文件,
+/// 避免用普通文件替换掉用户的 zshrc 软链。
 pub fn save_with_backup(path: &Path, new_content: &str) -> io::Result<PathBuf> {
     let bak = backup(path)?;
-    let tmp = PathBuf::from(format!("{}.omz-pm.tmp", path.display()));
+    let target = fs::canonicalize(path).unwrap_or_else(|_| path.to_path_buf());
+    let tmp = PathBuf::from(format!("{}.omz-pm.tmp", target.display()));
     fs::write(&tmp, new_content)?;
-    fs::rename(&tmp, path)?;
+    // 临时文件以默认权限创建;rename 覆盖前拷贝原文件权限位,避免 600 → 644 回退
+    if let Ok(meta) = fs::metadata(&target) {
+        if let Err(e) = fs::set_permissions(&tmp, meta.permissions()) {
+            let _ = fs::remove_file(&tmp);
+            return Err(e);
+        }
+    }
+    fs::rename(&tmp, &target)?;
     Ok(bak)
 }
 
@@ -465,6 +475,13 @@ pub fn default_zshrc_path() -> PathBuf {
     home_dir().join(".zshrc")
 }
 
+/// 若该行(已去前导空白、非注释)是 `ZSH_THEME=…` 赋值,返回 `=` 之后的原始值。
+/// `ZSH_THEME_*` 等同名前缀变量不算,避免改主题时误伤。
+fn theme_value_raw(t: &str) -> Option<&str> {
+    let rest = t.strip_prefix("ZSH_THEME")?;
+    rest.trim_start().strip_prefix('=')
+}
+
 /// 读取 `ZSH_THEME=` 设置的当前主题名(空串 = 使用默认提示符)。
 pub fn read_theme(content: &str) -> Option<String> {
     for line in content.lines() {
@@ -472,17 +489,14 @@ pub fn read_theme(content: &str) -> Option<String> {
         if t.starts_with('#') {
             continue;
         }
-        if let Some(rest) = t.strip_prefix("ZSH_THEME") {
-            let rest = rest.trim_start();
-            if let Some(v) = rest.strip_prefix('=') {
-                let v = v.trim();
-                let v = v
-                    .strip_prefix('"')
-                    .and_then(|s| s.strip_suffix('"'))
-                    .or_else(|| v.strip_prefix('\'').and_then(|s| s.strip_suffix('\'')))
-                    .unwrap_or(v);
-                return Some(v.to_string());
-            }
+        if let Some(v) = theme_value_raw(t) {
+            let v = v.trim();
+            let v = v
+                .strip_prefix('"')
+                .and_then(|s| s.strip_suffix('"'))
+                .or_else(|| v.strip_prefix('\'').and_then(|s| s.strip_suffix('\'')))
+                .unwrap_or(v);
+            return Some(v.to_string());
         }
     }
     None
@@ -497,7 +511,7 @@ pub fn apply_theme(content: &str, new_theme: &str) -> (String, Vec<String>) {
     let mut out: Vec<String> = Vec::with_capacity(lines.len() + 2);
     for line in &lines {
         let t = line.trim_start();
-        if !replaced && !t.starts_with('#') && t.starts_with("ZSH_THEME") {
+        if !replaced && !t.starts_with('#') && theme_value_raw(t).is_some() {
             out.push(format!("ZSH_THEME=\"{}\"", new_theme));
             replaced = true;
         } else {
@@ -722,5 +736,54 @@ mod tests {
         let ts = local_timestamp();
         assert_eq!(ts.len(), 15);
         assert!(ts.contains('-'));
+    }
+
+    #[test]
+    fn theme_apply_skips_same_prefix_vars() {
+        let c = "ZSH_THEME_DISABLE_CORRECTION=\"true\"\nZSH_THEME=\"robbyrussell\"\n";
+        assert_eq!(read_theme(c).as_deref(), Some("robbyrussell"));
+        let (new, w) = apply_theme(c, "agnoster");
+        assert!(w.is_empty());
+        assert!(
+            new.contains("ZSH_THEME_DISABLE_CORRECTION=\"true\""),
+            "同名前缀变量不应被改写: {new}"
+        );
+        assert!(new.contains("ZSH_THEME=\"agnoster\""));
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn save_preserves_permissions() {
+        use std::os::unix::fs::PermissionsExt;
+        let dir = std::env::temp_dir().join(format!("omz-pm-perm-{}", std::process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let p = dir.join("zshrc");
+        fs::write(&p, "plugins=(git)\n").unwrap();
+        fs::set_permissions(&p, fs::Permissions::from_mode(0o600)).unwrap();
+        save_with_backup(&p, "plugins=(git z)\n").unwrap();
+        let mode = fs::metadata(&p).unwrap().permissions().mode() & 0o777;
+        assert_eq!(mode, 0o600, "权限位不应丢失");
+        let _ = fs::remove_dir_all(dir);
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn save_follows_symlinked_zshrc() {
+        let dir = std::env::temp_dir().join(format!("omz-pm-link-{}", std::process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let real = dir.join("real-zshrc");
+        fs::write(&real, "plugins=(git)\n").unwrap();
+        let link = dir.join("zshrc");
+        std::os::unix::fs::symlink(&real, &link).unwrap();
+        save_with_backup(&link, "plugins=(git z)\n").unwrap();
+        assert!(
+            fs::symlink_metadata(&link)
+                .unwrap()
+                .file_type()
+                .is_symlink(),
+            "zshrc 符号链接不应被替换成普通文件"
+        );
+        assert_eq!(fs::read_to_string(&real).unwrap(), "plugins=(git z)\n");
+        let _ = fs::remove_dir_all(dir);
     }
 }
