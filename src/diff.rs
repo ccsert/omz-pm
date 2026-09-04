@@ -15,17 +15,6 @@ pub fn unified(a: &str, b: &str, label_a: &str, label_b: &str) -> Vec<String> {
     let n = old.len();
     let m = new.len();
 
-    // LCS 长度表(滚动数组还原路径)
-    let mut dp = vec![vec![0usize; m + 1]; n + 1];
-    for i in (0..n).rev() {
-        for j in (0..m).rev() {
-            dp[i][j] = if old[i] == new[j] {
-                dp[i + 1][j + 1] + 1
-            } else {
-                dp[i + 1][j].max(dp[i][j + 1])
-            };
-        }
-    }
     // 编辑脚本:(op, 行内容),op ∈ {=, -, +}
     #[derive(PartialEq, Clone, Copy)]
     enum Op {
@@ -34,19 +23,75 @@ pub fn unified(a: &str, b: &str, label_a: &str, label_b: &str) -> Vec<String> {
         Ins,
     }
     let mut script: Vec<(Op, &str)> = Vec::new();
-    let (mut i, mut j) = (0, 0);
-    while i < n && j < m {
-        if old[i] == new[j] {
-            script.push((Op::Eq, old[i]));
-            i += 1;
-            j += 1;
-        } else if dp[i + 1][j] >= dp[i][j + 1] {
-            script.push((Op::Del, old[i]));
-            i += 1;
-        } else {
-            script.push((Op::Ins, new[j]));
-            j += 1;
+    let (mut i, mut j) = (0usize, 0usize);
+
+    // 先裁掉公共前后缀:zshrc 变更通常集中在一处,DP 规模可骤降
+    while i < n && j < m && old[i] == new[j] {
+        script.push((Op::Eq, old[i]));
+        i += 1;
+        j += 1;
+    }
+    let (mut ei, mut ej) = (n, m);
+    while ei > i && ej > j && old[ei - 1] == new[ej - 1] {
+        ei -= 1;
+        ej -= 1;
+    }
+
+    // 中段 LCS(滚动全量表)。规模封顶:超过上限时退化为整段删+整段插,
+    // 避免 O(n·m) 内存爆炸(封顶值 ≈ 128 MB usize)。
+    let mid_old = &old[i..ei];
+    let mid_new = &new[j..ej];
+    if mid_old.len() * mid_new.len() <= 16_000_000 {
+        let mid_n = mid_old.len();
+        let mid_m = mid_new.len();
+        let mut dp = vec![vec![0usize; mid_m + 1]; mid_n + 1];
+        for x in (0..mid_n).rev() {
+            for y in (0..mid_m).rev() {
+                dp[x][y] = if mid_old[x] == mid_new[y] {
+                    dp[x + 1][y + 1] + 1
+                } else {
+                    dp[x + 1][y].max(dp[x][y + 1])
+                };
+            }
         }
+        let (mut x, mut y) = (0, 0);
+        while x < mid_n && y < mid_m {
+            if mid_old[x] == mid_new[y] {
+                script.push((Op::Eq, mid_old[x]));
+                x += 1;
+                y += 1;
+            } else if dp[x + 1][y] >= dp[x][y + 1] {
+                script.push((Op::Del, mid_old[x]));
+                x += 1;
+            } else {
+                script.push((Op::Ins, mid_new[y]));
+                y += 1;
+            }
+        }
+        while x < mid_n {
+            script.push((Op::Del, mid_old[x]));
+            x += 1;
+        }
+        while y < mid_m {
+            script.push((Op::Ins, mid_new[y]));
+            y += 1;
+        }
+    } else {
+        for l in mid_old {
+            script.push((Op::Del, l));
+        }
+        for l in mid_new {
+            script.push((Op::Ins, l));
+        }
+    }
+
+    // 公共后缀与文件尾部剩余(某文件更长时)
+    i = ei;
+    j = ej;
+    while i < n && j < m && old[i] == new[j] {
+        script.push((Op::Eq, old[i]));
+        i += 1;
+        j += 1;
     }
     while i < n {
         script.push((Op::Del, old[i]));
@@ -137,5 +182,29 @@ mod tests {
     fn append_at_end() {
         let d = unified("plugins=(git)\n", "plugins=(git z)\n", "x", "y");
         assert!(d.iter().any(|l| l.contains("+ plugins=(git z)")));
+    }
+
+    #[test]
+    fn large_files_with_single_change_stay_cheap() {
+        // 公共前后缀裁剪:2 万行只改一行,不应触发全量 DP(改动前约 3 GB 内存)
+        let mut a = String::new();
+        let mut b = String::new();
+        for k in 0..20_000 {
+            a.push_str(&format!("line {k}\n"));
+            b.push_str(&format!("line {}\n", if k == 10_000 { k + 1 } else { k }));
+        }
+        let d = unified(&a, &b, "x", "y");
+        assert!(d.iter().any(|l| l.contains("- line 10000")));
+        assert!(d.iter().any(|l| l.contains("+ line 10001")));
+    }
+
+    #[test]
+    fn pure_insertion_and_deletion() {
+        let d = unified("a\nb\n", "a\nb\nc\nd\n", "x", "y");
+        assert!(d.iter().any(|l| l.contains("+ c")));
+        assert!(d.iter().any(|l| l.contains("+ d")));
+        let d = unified("a\nb\nc\nd\n", "a\nb\n", "x", "y");
+        assert!(d.iter().any(|l| l.contains("- c")));
+        assert!(d.iter().any(|l| l.contains("- d")));
     }
 }
