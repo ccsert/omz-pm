@@ -62,42 +62,98 @@ fn is_plugin_dir(dir: &Path) -> bool {
     })
 }
 
-/// 扫描全部插件并按名称排序;同名时自定义覆盖内置(与 OMZ 加载行为一致)。
-pub fn scan(enabled: &HashSet<String>) -> Vec<Plugin> {
-    let mut plugins: Vec<Plugin> = Vec::new();
-
-    let roots = [
-        (zsh_root().join("plugins"), Source::Bundled),
-        (custom_root().join("plugins"), Source::Custom),
-    ];
-    for (root, source) in roots {
-        let Ok(entries) = fs::read_dir(&root) else {
+/// 扫描单个目录下的插件(不排序)。
+fn scan_in_dir(root: &Path, source: Source, enabled: &HashSet<String>) -> Vec<Plugin> {
+    let mut out: Vec<Plugin> = Vec::new();
+    let Ok(entries) = fs::read_dir(root) else {
+        return out;
+    };
+    for entry in entries.filter_map(|e| e.ok()) {
+        let path = entry.path();
+        if !path.is_dir() || !is_plugin_dir(&path) {
+            continue;
+        }
+        let Some(name) = path.file_name().and_then(|n| n.to_str()) else {
             continue;
         };
-        for entry in entries.filter_map(|e| e.ok()) {
-            let path = entry.path();
-            if !path.is_dir() || !is_plugin_dir(&path) {
-                continue;
-            }
-            let Some(name) = path.file_name().and_then(|n| n.to_str()) else {
-                continue;
-            };
-            let name = name.to_string();
-            let plugin = Plugin {
-                enabled: enabled.contains(&name),
-                name,
-                source,
-                dir: path,
-            };
-            // 自定义插件在 roots 迭代中后出现,覆盖同名内置插件
-            if let Some(slot) = plugins.iter_mut().find(|p| p.name == plugin.name) {
-                *slot = plugin;
-            } else {
-                plugins.push(plugin);
-            }
+        let name = name.to_string();
+        out.push(Plugin {
+            enabled: enabled.contains(&name),
+            name,
+            source,
+            dir: path,
+        });
+    }
+    out
+}
+
+/// 扫描全部插件并按名称排序;同名时自定义覆盖内置(与 OMZ 加载行为一致)。
+pub fn scan(enabled: &HashSet<String>) -> Vec<Plugin> {
+    let mut plugins = scan_in_dir(&zsh_root().join("plugins"), Source::Bundled, enabled);
+    // 自定义插件后扫描,覆盖同名内置插件
+    for c in scan_in_dir(&custom_root().join("plugins"), Source::Custom, enabled) {
+        match plugins.iter_mut().find(|p| p.name == c.name) {
+            Some(slot) => *slot = c,
+            None => plugins.push(c),
+        }
+    }
+    plugins.sort_by(|a, b| a.name.cmp(&b.name));
+    plugins
+}
+
+/// 启用集中存在、但磁盘上没有对应插件目录的名字(改名/删除/拼错的残留)。
+/// 这些条目只会拖慢 zsh 启动并可能报错,可整体从 zshrc 移除。
+pub fn ghost_names(enabled: &HashSet<String>, plugins: &[Plugin]) -> Vec<String> {
+    let mut ghosts: Vec<String> = enabled
+        .iter()
+        .filter(|n| !plugins.iter().any(|p| &p.name == *n))
+        .cloned()
+        .collect();
+    ghosts.sort();
+    ghosts
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn plugin(name: &str) -> Plugin {
+        Plugin {
+            name: name.to_string(),
+            source: Source::Bundled,
+            dir: PathBuf::from("/tmp/does-not-matter"),
+            enabled: true,
         }
     }
 
-    plugins.sort_by(|a, b| a.name.cmp(&b.name));
-    plugins
+    #[test]
+    fn scan_requires_plugin_marker_files() {
+        // is_plugin_dir 只认 *.plugin.zsh 与 _ 补全文件,普通目录不算
+        let dir = std::env::temp_dir().join(format!("omz-pm-scan-{}", std::process::id()));
+        fs::create_dir_all(dir.join("real-plugin")).unwrap();
+        fs::write(dir.join("real-plugin/real.plugin.zsh"), "# t\n").unwrap();
+        fs::create_dir_all(dir.join("empty-dir")).unwrap();
+        let enabled: HashSet<String> = Default::default();
+        let found = scan_in_dir(&dir, Source::Bundled, &enabled);
+        let names: Vec<&str> = found.iter().map(|p| p.name.as_str()).collect();
+        assert_eq!(names, vec!["real-plugin"]);
+        let _ = fs::remove_dir_all(dir);
+    }
+
+    #[test]
+    fn ghost_names_finds_missing() {
+        let enabled: HashSet<String> = ["git", "phantom", "gone"]
+            .iter()
+            .map(|s| s.to_string())
+            .collect();
+        let plugins = vec![plugin("git")];
+        assert_eq!(ghost_names(&enabled, &plugins), vec!["gone", "phantom"]);
+    }
+
+    #[test]
+    fn ghost_names_empty_when_all_present() {
+        let enabled: HashSet<String> = ["git"].iter().map(|s| s.to_string()).collect();
+        let plugins = vec![plugin("git")];
+        assert!(ghost_names(&enabled, &plugins).is_empty());
+    }
 }

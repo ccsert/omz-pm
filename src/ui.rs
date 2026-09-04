@@ -17,7 +17,7 @@ use ratatui::{
 use unicode_width::UnicodeWidthStr;
 
 use crate::{
-    aliases,
+    aliases, bench,
     catalog::{readme_excerpt, Catalog},
     diff, markdown,
     plugin::Plugin,
@@ -84,6 +84,15 @@ enum Modal {
     RestoreConfirm {
         backup: std::path::PathBuf,
     },
+    /// 幽灵插件(zshrc 启用但磁盘上不存在)
+    Ghosts {
+        names: Vec<String>,
+    },
+    /// TUI 内 bench 结果(已渲染好的行 + 滚动)
+    Bench {
+        lines: Vec<Line<'static>>,
+        scroll: u16,
+    },
 }
 
 /// diff 确认后要执行的动作。
@@ -122,12 +131,15 @@ struct App {
     current_theme: Option<String>,
     /// 主题预览缓存:preview_ansi 每次起 zsh 子进程,渲染路径不能每帧调用
     preview_cache: RefCell<HashMap<String, Option<String>>>,
+    /// 幽灵插件:zshrc 里启用但磁盘上已不存在的名字(升序)
+    ghosts: Vec<String>,
 }
 
 impl App {
     fn new(zshrc_path: PathBuf) -> App {
         let (enabled, _n) = read_enabled_of(&zshrc_path);
         let plugins = crate::plugin::scan(&enabled);
+        let ghosts = crate::plugin::ghost_names(&enabled, &plugins);
         let catalog = Catalog::load();
         let categories = catalog.categories();
         let mut excerpts = HashMap::new();
@@ -169,6 +181,7 @@ impl App {
             theme_selected: 0,
             current_theme,
             preview_cache: RefCell::new(HashMap::new()),
+            ghosts,
         }
     }
 
@@ -227,7 +240,12 @@ impl App {
                             || e.category().to_lowercase().contains(&q)
                     })
                     .unwrap_or(false);
-                in_name || in_dict
+                // 别名也能搜到:输 gst 能找到 git 插件(与 CLI `which` 对齐)
+                let in_alias = self
+                    .aliases_of(&p.name)
+                    .iter()
+                    .any(|d| d.name.to_lowercase().contains(&q));
+                in_name || in_dict || in_alias
             })
             .map(|(i, _)| i)
             .collect();
@@ -340,12 +358,8 @@ impl App {
         let (new_content, warnings) = zshrc::apply_changes(&content, &enable, &disable)?;
         let bak = zshrc::save_with_backup(&self.zshrc_path, &new_content)
             .map_err(|e| format!("写入失败: {}(zshrc 未被改动)", e))?;
-        for (name, target) in &self.pending {
-            if let Some(p) = self.plugins.iter_mut().find(|p| &p.name == name) {
-                p.enabled = *target;
-            }
-        }
-        self.pending.clear();
+        // 从文件重读启用集并刷新插件/幽灵插件状态,保持与磁盘一致
+        self.reload_state();
         self.message = Some(format!("已保存 ✓ 备份: {}", bak.display()));
         Ok(warnings)
     }
@@ -455,10 +469,11 @@ impl App {
         }
     }
 
-    /// zshrc 被外部改动(恢复备份)后,重读启用集并刷新插件/主题状态。
+    /// zshrc 被改动(保存/恢复备份)后,重读启用集并刷新插件/主题/幽灵插件状态。
     fn reload_state(&mut self) {
         let (enabled, _) = read_enabled_of(&self.zshrc_path);
         self.plugins = crate::plugin::scan(&enabled);
+        self.ghosts = crate::plugin::ghost_names(&enabled, &self.plugins);
         self.current_theme = fs::read_to_string(&self.zshrc_path)
             .ok()
             .and_then(|c| zshrc::read_theme(&c));
@@ -566,6 +581,40 @@ fn event_loop(terminal: &mut Term, zshrc_path: PathBuf) -> io::Result<()> {
                 }
                 _ => {}
             },
+            Modal::Ghosts { names } => match key.code {
+                KeyCode::Enter | KeyCode::Char('y') => {
+                    let n = names.len();
+                    for name in names.clone() {
+                        // 标记为「待禁用」:复用保存管线,diff 确认后从 zshrc 移除
+                        app.pending.insert(name, false);
+                    }
+                    app.refresh_filtered();
+                    app.modal = Modal::None;
+                    app.message =
+                        Some(format!("已标记 {n} 个幽灵插件待移除,按 s 预览 diff 并保存"));
+                }
+                KeyCode::Esc | KeyCode::Char('n') | KeyCode::Char('q') | KeyCode::Char('x') => {
+                    app.modal = Modal::None;
+                }
+                _ => {}
+            },
+            Modal::Bench { lines, scroll } => {
+                let max = lines.len().saturating_sub(1) as u16;
+                match key.code {
+                    KeyCode::Esc | KeyCode::Char('q') | KeyCode::Char('b') => {
+                        app.modal = Modal::None;
+                    }
+                    KeyCode::Down | KeyCode::Char('j') => {
+                        *scroll = (*scroll + 1).min(max);
+                    }
+                    KeyCode::Up | KeyCode::Char('k') => {
+                        *scroll = scroll.saturating_sub(1);
+                    }
+                    KeyCode::PageDown => *scroll = (*scroll + 15).min(max),
+                    KeyCode::PageUp => *scroll = scroll.saturating_sub(15),
+                    _ => {}
+                }
+            }
             Modal::QuitConfirm => match key.code {
                 KeyCode::Char('q') => app.should_quit = true,
                 KeyCode::Esc | KeyCode::Char('n') => app.modal = Modal::None,
@@ -784,6 +833,16 @@ fn event_loop(terminal: &mut Term, zshrc_path: PathBuf) -> io::Result<()> {
                             app.modal = Modal::Backups { items, selected: 0 };
                         }
                     }
+                    KeyCode::Char('x') => {
+                        if app.ghosts.is_empty() {
+                            app.message = Some("没有发现幽灵插件".to_string());
+                        } else {
+                            app.modal = Modal::Ghosts {
+                                names: app.ghosts.clone(),
+                            };
+                        }
+                    }
+                    KeyCode::Char('B') => run_tui_bench(terminal, &mut app)?,
                     KeyCode::PageDown => app.detail_scroll += 10,
                     KeyCode::PageUp => app.detail_scroll = app.detail_scroll.saturating_sub(10),
                     KeyCode::Char('?') => app.modal = Modal::Help,
@@ -836,6 +895,8 @@ fn draw(f: &mut Frame, app: &App) {
             draw_backups_modal(f, items, *selected, &app.zshrc_path)
         }
         Modal::RestoreConfirm { backup } => draw_restore_confirm(f, backup),
+        Modal::Ghosts { names } => draw_ghosts_modal(f, names),
+        Modal::Bench { lines, scroll } => draw_bench_modal(f, lines, *scroll),
         Modal::None => {}
     }
 }
@@ -873,6 +934,13 @@ fn draw_header(f: &mut Frame, app: &App, area: Rect) {
                     Style::default()
                         .fg(Color::Magenta)
                         .add_modifier(Modifier::BOLD),
+                ));
+            }
+            if !app.ghosts.is_empty() {
+                spans.push(Span::raw("   "));
+                spans.push(Span::styled(
+                    format!("⚠ 幽灵插件 {}(x 清理)", app.ghosts.len()),
+                    Style::default().fg(Color::Red).add_modifier(Modifier::BOLD),
                 ));
             }
         }
@@ -1405,6 +1473,8 @@ fn draw_footer(f: &mut Frame, app: &App, area: Rect) {
                 Span::raw("  "),
                 Span::styled("b 备份", Style::default().fg(Color::DarkGray)),
                 Span::raw("  "),
+                Span::styled("B 测速", Style::default().fg(Color::DarkGray)),
+                Span::raw("  "),
                 Span::styled("T 主题", Style::default().fg(Color::DarkGray)),
                 Span::raw("  "),
                 Span::styled("? 帮助", Style::default().fg(Color::DarkGray)),
@@ -1443,9 +1513,11 @@ fn draw_help_modal(f: &mut Frame) {
         key_line("空格 / Enter", "切换 启用 ↔ 禁用"),
         key_line("Tab / Shift+Tab", "筛选:全部 / 已启用 / 未启用"),
         key_line("c", "按分类循环筛选(目录跳转/版本控制…)"),
-        key_line("/", "搜索(名称、中文说明、分类)"),
+        key_line("/", "搜索(名称、中文说明、分类、别名)"),
         key_line("PgUp / PgDn", "滚动右侧详情"),
         key_line("s", "保存前先显示 diff 预览"),
+        key_line("B", "对已启用插件做加载耗时分析(TUI 内)"),
+        key_line("x", "清理幽灵插件(zshrc 启用但已不存在)"),
         key_line("q", "退出(有未保存更改时会确认)"),
         Line::from(""),
         Line::from(Span::styled(
@@ -1755,6 +1827,242 @@ fn readme_title(name: &str) -> String {
     format!(" README · {name} ")
 }
 
+/// TUI 内 bench:对当前启用集逐个计时,期间画进度遮罩,完成后弹出结果。
+fn run_tui_bench(terminal: &mut Term, app: &mut App) -> io::Result<()> {
+    let targets: Vec<Plugin> = app
+        .plugins
+        .iter()
+        .filter(|p| app.is_effective(&p.name))
+        .cloned()
+        .collect();
+    if targets.is_empty() {
+        app.message = Some("没有已启用的插件,无可分析对象".to_string());
+        return Ok(());
+    }
+    let n = targets.len();
+    let mut rows: Vec<(String, f64, String)> = Vec::new();
+    for (i, p) in targets.iter().enumerate() {
+        let msg = format!("正在分析 {}/{}:{}", i + 1, n, p.name);
+        terminal.draw(|f| draw_bench_progress(f, &msg, i, n))?;
+        let r = bench::bench_plugin(&p.dir, &p.name, 3);
+        let note = if r.completion_only {
+            "纯补全型,无脚本".to_string()
+        } else if r.errored {
+            "source 报错(仍计入耗时)".to_string()
+        } else {
+            String::new()
+        };
+        rows.push((p.name.clone(), r.ms, note));
+    }
+    rows.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
+    let total: f64 = rows.iter().map(|r| r.1).sum();
+    let max_ms = rows.iter().map(|r| r.1).fold(0.0f64, f64::max);
+
+    const BAR_W: usize = 20;
+    let mut lines: Vec<Line<'static>> = Vec::new();
+    lines.push(Line::from(vec![
+        Span::styled(
+            textwrap::pad_to("插件", 25),
+            Style::default()
+                .fg(Color::Cyan)
+                .add_modifier(Modifier::BOLD),
+        ),
+        Span::styled(
+            textwrap::pad_to("耗时分布", BAR_W + 1),
+            Style::default()
+                .fg(Color::Cyan)
+                .add_modifier(Modifier::BOLD),
+        ),
+        Span::styled(
+            format!("{:>8}", "中位"),
+            Style::default()
+                .fg(Color::Cyan)
+                .add_modifier(Modifier::BOLD),
+        ),
+        Span::styled("  说明", Style::default().fg(Color::DarkGray)),
+    ]));
+    lines.push(Line::from(Span::styled(
+        "─".repeat(70),
+        Style::default().fg(Color::DarkGray),
+    )));
+    for (name, ms, note) in &rows {
+        let mut filled = if max_ms > 0.0 {
+            ((ms / max_ms) * BAR_W as f64).round() as usize
+        } else {
+            0
+        };
+        filled = filled.clamp(if *ms > 0.0 { 1 } else { 0 }, BAR_W);
+        lines.push(Line::from(vec![
+            Span::raw(textwrap::pad_to(name, 25)),
+            Span::styled(
+                format!("{}{}", "█".repeat(filled), "░".repeat(BAR_W - filled)),
+                Style::default().fg(Color::Cyan),
+            ),
+            Span::styled(
+                format!("{:>8}", bench::fmt_ms(*ms)),
+                Style::default().fg(Color::Yellow),
+            ),
+            Span::styled(format!("  {note}"), Style::default().fg(Color::DarkGray)),
+        ]));
+    }
+    lines.push(Line::from(""));
+    lines.push(Line::from(vec![
+        Span::styled(
+            textwrap::pad_to("合计(近似)", 25),
+            Style::default().add_modifier(Modifier::BOLD),
+        ),
+        Span::styled(
+            format!("{:>28}", bench::fmt_ms(total)),
+            Style::default()
+                .fg(Color::Yellow)
+                .add_modifier(Modifier::BOLD),
+        ),
+    ]));
+    lines.push(Line::from(Span::styled(
+        "单插件隔离计时,未含插件间依赖,仅供横向比较",
+        Style::default().fg(Color::DarkGray),
+    )));
+
+    app.modal = Modal::Bench { lines, scroll: 0 };
+    Ok(())
+}
+
+fn draw_bench_progress(f: &mut Frame, msg: &str, done: usize, total: usize) {
+    let area = centered_rect(f, 64, 16, 72, 7);
+    f.render_widget(Clear, area);
+    let block = Block::default()
+        .borders(Borders::ALL)
+        .border_type(BorderType::Double)
+        .title(" 加载耗时分析 ");
+    f.render_widget(block, area);
+    let inner = Rect {
+        x: area.x + 2,
+        y: area.y + 1,
+        width: area.width.saturating_sub(4),
+        height: area.height.saturating_sub(2),
+    };
+    let pct = (done * 100).checked_div(total).unwrap_or(100);
+    let bar_w = inner.width.saturating_sub(8) as usize;
+    let filled = bar_w * pct / 100;
+    let text = vec![
+        Line::from(Span::raw(msg.to_string())),
+        Line::from(""),
+        Line::from(vec![
+            Span::styled(
+                format!("{}{}", "█".repeat(filled), "░".repeat(bar_w - filled)),
+                Style::default().fg(Color::Cyan),
+            ),
+            Span::styled(format!(" {pct}%"), Style::default().fg(Color::Yellow)),
+        ]),
+    ];
+    f.render_widget(Paragraph::new(text), inner);
+}
+
+fn draw_bench_modal(f: &mut Frame, lines: &[Line<'static>], scroll: u16) {
+    let area = centered_rect(f, 88, 86, 110, 38);
+    f.render_widget(Clear, area);
+    let block = Block::default()
+        .borders(Borders::ALL)
+        .border_type(BorderType::Double)
+        .title(Span::styled(
+            " 加载耗时分析(已启用插件) ",
+            Style::default()
+                .fg(Color::Yellow)
+                .add_modifier(Modifier::BOLD),
+        ));
+    f.render_widget(block, area);
+    let inner = Rect {
+        x: area.x + 1,
+        y: area.y + 1,
+        width: area.width.saturating_sub(2),
+        height: area.height.saturating_sub(2),
+    };
+    let hint_h = 1u16;
+    let list_area = Rect {
+        height: inner.height.saturating_sub(hint_h),
+        ..inner
+    };
+    let hint_area = Rect {
+        y: inner.y + list_area.height,
+        height: hint_h,
+        ..inner
+    };
+    f.render_widget(
+        Paragraph::new(lines.to_vec()).scroll((scroll, 0)),
+        list_area,
+    );
+    f.render_widget(
+        Line::from(vec![
+            Span::styled("↑↓/PgUp/PgDn 滚动", Style::default().fg(Color::DarkGray)),
+            Span::raw("   "),
+            Span::styled("[Esc/q] 关闭", Style::default().fg(Color::Green)),
+        ])
+        .alignment(Alignment::Right),
+        hint_area,
+    );
+}
+
+fn draw_ghosts_modal(f: &mut Frame, names: &[String]) {
+    let area = centered_rect(f, 70, 64, 84, 22);
+    f.render_widget(Clear, area);
+    let block = Block::default()
+        .borders(Borders::ALL)
+        .border_type(BorderType::Double)
+        .title(Span::styled(
+            format!(" 幽灵插件(共 {} 个) ", names.len()),
+            Style::default().fg(Color::Red).add_modifier(Modifier::BOLD),
+        ));
+    f.render_widget(block, area);
+    let inner = Rect {
+        x: area.x + 1,
+        y: area.y + 1,
+        width: area.width.saturating_sub(2),
+        height: area.height.saturating_sub(2),
+    };
+    let hint_h = 1u16;
+    let list_h = inner.height.saturating_sub(hint_h);
+    let list_area = Rect {
+        height: list_h,
+        ..inner
+    };
+    let hint_area = Rect {
+        y: inner.y + list_h,
+        height: hint_h,
+        ..inner
+    };
+    let mut lines: Vec<Line> = Vec::new();
+    for n in names {
+        lines.push(Line::from(vec![
+            Span::styled("  ✗ ", Style::default().fg(Color::Red)),
+            Span::styled(n.clone(), Style::default().add_modifier(Modifier::BOLD)),
+        ]));
+    }
+    lines.push(Line::from(""));
+    lines.push(Line::from(Span::styled(
+        "这些名字还写在 plugins=(…) 里,但已没有对应的插件目录,",
+        Style::default().fg(Color::DarkGray),
+    )));
+    lines.push(Line::from(Span::styled(
+        "只会拖慢 zsh 启动并可能报错。",
+        Style::default().fg(Color::DarkGray),
+    )));
+    f.render_widget(Paragraph::new(lines), list_area);
+    f.render_widget(
+        Line::from(vec![
+            Span::styled(
+                "[Enter/y] 标记全部移除(保存前仍会 diff 确认)",
+                Style::default()
+                    .fg(Color::Green)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            Span::raw("   "),
+            Span::styled("[Esc] 关闭", Style::default().fg(Color::Red)),
+        ])
+        .alignment(Alignment::Center),
+        hint_area,
+    );
+}
+
 /// README 弹窗内容区宽度(与 centered_rect(f, 90, 90, 130, 45) 的宽度公式保持一致,
 /// 保证渲染宽度不超过弹窗,窄终端下不裁字)。
 fn readme_modal_inner_width(term_w: usize) -> usize {
@@ -1789,6 +2097,37 @@ mod tests {
         assert!(
             readme_modal_inner_width(60) < readme_modal_inner_width(160),
             "窄终端应得到更窄的渲染宽度"
+        );
+    }
+
+    #[test]
+    fn ghosts_are_populated_from_zshrc() {
+        // 不依赖本机是否装了 OMZ:启用的名字只要磁盘上没有目录就是幽灵
+        let path = std::env::temp_dir().join(format!("omz-pm-ghost-{}.zshrc", std::process::id()));
+        std::fs::write(&path, "plugins=(definitely-not-a-real-plugin)\n").unwrap();
+        let app = App::new(path.clone());
+        let _ = std::fs::remove_file(path);
+        assert_eq!(
+            app.ghosts,
+            vec!["definitely-not-a-real-plugin".to_string()],
+            "zshrc 里启用但磁盘上不存在的插件应被识别为幽灵"
+        );
+    }
+
+    #[test]
+    fn search_matches_alias_names() {
+        if !crate::plugin::zsh_root().join("plugins").exists() {
+            return; // CI 上没有安装 OMZ,跳过
+        }
+        let path = std::env::temp_dir().join(format!("omz-pm-srch-{}.zshrc", std::process::id()));
+        std::fs::write(&path, "plugins=(git)\n").unwrap();
+        let mut app = App::new(path.clone());
+        let _ = std::fs::remove_file(path);
+        app.search = "gst".into();
+        app.refresh_filtered();
+        assert!(
+            app.filtered.iter().any(|i| app.plugins[*i].name == "git"),
+            "输别名 gst 应能搜到 git 插件"
         );
     }
 }
