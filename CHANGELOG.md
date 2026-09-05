@@ -7,6 +7,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **One-liner installer with China mirror mode**: `install.sh` now works when piped
+  from curl (`curl -fsSL …/install.sh | bash`) — it detects the platform, downloads
+  the matching prebuilt binary from Releases, verifies its SHA-256, and installs to
+  `~/.local/bin`. `--cn` routes GitHub downloads through a mirror prefix
+  (`OMZ_PM_MIRROR` to swap in your own) and source builds through the rsproxy crates
+  mirror via `cargo --config` (no global config changes). Also adds `--version <tag>`
+  pinning, `--build`/`--prebuilt` mode overrides, and `--uninstall`; running it
+  inside a clone still defaults to a local source build with a symlink. Fallback to
+  source build happens automatically when no prebuilt binary matches.
+- **aarch64 Linux prebuilt binaries**: the release workflow now also builds
+  `aarch64-unknown-linux-gnu` (cross-compiled), so Linux ARM users get the same
+  one-liner install.
 - **Ghost plugin detection & cleanup** (`x`): plugins still listed in `plugins=(…)`
   but missing on disk (renamed, deleted, or mistyped) are flagged in the TUI header,
   listed in a dedicated modal, and staged for removal through the usual
