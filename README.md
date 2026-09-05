@@ -80,15 +80,31 @@ analysis without leaving it (live progress plus a per-plugin time distribution).
 
 ## Install
 
+**One-liner** (recommended — detects your platform, downloads the prebuilt binary, verifies its SHA-256, installs to `~/.local/bin`):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ccsert/omz-pm/main/install.sh | bash
+```
+
+**In China** — same script with `--cn`: GitHub downloads go through a mirror prefix, and source builds pull crates from rsproxy:
+
+```bash
+curl -fsSL https://ghfast.top/https://raw.githubusercontent.com/ccsert/omz-pm/main/install.sh | bash -s -- --cn
+```
+
+Public proxies occasionally go down — swap in your own via `OMZ_PM_MIRROR=<prefix>`. The installer is the only thing that touches the network; the tool itself phones home to no one.
+
 **From source** (needs Rust 1.81+):
 
 ```bash
 cargo install --git https://github.com/ccsert/omz-pm
-# or clone + ./install.sh to also symlink into ~/.local/bin
+# or clone + ./install.sh to also symlink into ~/.local/bin (--cn routes cargo through rsproxy)
 ```
 
-**Prebuilt binaries**: grab one from [Releases](https://github.com/ccsert/omz-pm/releases)
+**Manual**: grab a tarball from [Releases](https://github.com/ccsert/omz-pm/releases)
 (`aarch64/x86_64` × `macOS/Linux`), untar, put `omz-pm` on your `PATH`.
+
+The installer supports more: `--version <tag>` to pin, `--build` to force a source build, `--uninstall` — see `./install.sh --help`.
 
 Requirements: `zsh` + Oh My Zsh. That's it — the dictionary is compiled in, nothing is fetched at runtime.
 

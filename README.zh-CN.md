@@ -74,15 +74,31 @@ TUI 里按 `B` 不用退出就能跑同样的分析(带实时进度与耗时分�
 
 ## 安装
 
+**一键安装**(推荐 —— 自动识别平台下载预编译二进制,SHA-256 校验后装到 `~/.local/bin`):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ccsert/omz-pm/main/install.sh | bash
+```
+
+**国内安装**(`--cn`:GitHub 下载走加速前缀,源码编译时 cargo 走 rsproxy):
+
+```bash
+curl -fsSL https://ghfast.top/https://raw.githubusercontent.com/ccsert/omz-pm/main/install.sh | bash -s -- --cn
+```
+
+公共加速前缀时有失效,可用 `OMZ_PM_MIRROR=<前缀>` 换成自建前缀;脚本仅安装时联网,工具本身运行时不联网。
+
 **从源码安装**(需要 Rust 1.81+):
 
 ```bash
 cargo install --git https://github.com/ccsert/omz-pm
-# 或克隆后执行 ./install.sh,会额外软链到 ~/.local/bin
+# 或克隆后执行 ./install.sh,会额外软链到 ~/.local/bin(加 --cn 时 cargo 走 rsproxy)
 ```
 
-**预编译二进制**:到 [Releases](https://github.com/ccsert/omz-pm/releases) 下载对应平台
+**手动下载**:到 [Releases](https://github.com/ccsert/omz-pm/releases) 下载对应平台
 (aarch64/x86_64 × macOS/Linux),解压后把 `omz-pm` 放进 `PATH`。
+
+安装脚本还有 `--version <tag>` 固定版本、`--build` 强制源码编译、`--uninstall` 卸载等选项,见 `./install.sh --help`。
 
 依赖:zsh + Oh My Zsh。词典编译在二进制里,运行时不联网。
 
